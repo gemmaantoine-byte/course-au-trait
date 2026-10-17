@@ -75,6 +75,8 @@ footer a{color:#b6c4ff}
   nav a:not(.keep){display:none}
 }
 @media (max-width:520px){ .fam{grid-template-columns:1fr} .btn{width:100%} }
+nav{display:flex;align-items:center}
+@media (max-width:520px){ nav a.keep.btn{width:auto} nav a{margin-left:12px} .brand{font-size:26px} header.top{gap:8px} }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
 </style>
 <style>
@@ -94,7 +96,7 @@ footer a{color:#b6c4ff}
 <div class="wrap">
   <header class="top">
     <a class="brand" href="#haut"><i aria-hidden="true"><b></b><b></b><b></b><b></b></i>Course au trait</a>
-    <nav><a href="#portes">Les trois portes</a><a href="#ia">Qu'est-ce qu'une IA ?</a><a href="#tarif">Tarif</a><a class="keep btn pri" style="min-height:40px;padding:0 16px;font-size:15px;margin-left:18px;color:#fff" href="jeu/">Jouer</a></nav>
+    <nav><a href="#portes">Les trois portes</a><a href="#ia">Qu'est-ce qu'une IA ?</a><a class="keep" href="#tarif">Tarif</a><a class="keep btn pri" style="min-height:40px;padding:0 16px;font-size:15px;margin-left:18px;color:#fff" href="jeu/">Jouer</a></nav>
   </header>
 
   <div class="hero" id="haut">
