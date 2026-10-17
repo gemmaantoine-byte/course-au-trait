@@ -77,14 +77,24 @@ footer a{color:#b6c4ff}
 @media (max-width:520px){ .fam{grid-template-columns:1fr} .btn{width:100%} }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
 </style>
-</head><body>
+<style>
+#tarif .pc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:center;background:var(--card);border:2px solid var(--night);border-radius:20px;padding:28px 32px;box-shadow:0 5px 0 rgba(43,50,61,.22)}
+#tarif .pr{font:700 clamp(72px,12vw,110px)/.9 var(--display);color:var(--ink);margin:0}
+#tarif .pr small{font:700 20px var(--body);color:var(--muted);margin-left:6px}
+#tarif .st{display:flex;align-items:center;gap:10px;font:500 13px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--rival);margin:0 0 8px}
+#tarif ul{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:8px}
+#tarif li{display:flex;gap:10px;align-items:flex-start}
+#tarif li::before{content:"✓";color:#12804f;font-weight:700}
+#tarif .fine{font-size:14px;color:var(--muted);margin:12px 0 0}
+@media (max-width:880px){#tarif .pc{grid-template-columns:1fr;padding:22px 20px}}
+</style></head><body>
 
 
 <div class="kerb" aria-hidden="true"></div>
 <div class="wrap">
   <header class="top">
     <a class="brand" href="#haut"><i aria-hidden="true"><b></b><b></b><b></b><b></b></i>Course au trait</a>
-    <nav><a href="#portes">Les trois portes</a><a href="#ia">Qu'est-ce qu'une IA ?</a><a class="keep btn pri" style="min-height:40px;padding:0 16px;font-size:15px;margin-left:18px;color:#fff" href="jeu/">Jouer</a></nav>
+    <nav><a href="#portes">Les trois portes</a><a href="#ia">Qu'est-ce qu'une IA ?</a><a href="#tarif">Tarif</a><a class="keep btn pri" style="min-height:40px;padding:0 16px;font-size:15px;margin-left:18px;color:#fff" href="jeu/">Jouer</a></nav>
   </header>
 
   <div class="hero" id="haut">
@@ -147,13 +157,38 @@ footer a{color:#b6c4ff}
 
 <div class="kerb" aria-hidden="true"></div>
 <div class="wrap">
+  <section id="tarif">
+    <h2>Un mois pour essayer, puis un seul achat</h2>
+    <p class="sub">Joue gratuitement pendant 30 jours, sans rien donner. Si le jeu te plaît, tu le gardes pour de bon.</p>
+    <div class="pc">
+      <div>
+        <p class="st">Après l'essai de 30 jours</p>
+        <p class="pr">4,99 €<small>une seule fois</small></p>
+        <p class="fine">TTC. Pas d'abonnement, pas de publicité.</p>
+      </div>
+      <div>
+        <ul>
+          <li><span><b>3 appareils</b> avec la même clé : toute la famille peut jouer.</span></li>
+          <li><span>Tes records et ton parcours sont gardés.</span></li>
+          <li><span><b>Remboursé pendant 14 jours</b> si ça ne te plaît pas.</span></li>
+          <li><span>Paiement sécurisé par Paddle.</span></li>
+        </ul>
+        <div class="cta"><a class="btn pri" href="jeu/">Essayer gratuitement</a></div>
+        <p class="fine">La clé t'est envoyée par e-mail juste après l'achat, depuis le jeu.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="kerb" aria-hidden="true"></div>
+<div class="wrap">
 
 </div>
 
 <footer>
   <div class="wrap">
     <div><b>Course au trait</b><br>© 2026 · Tous droits réservés</div>
-    
+    <div style="display:flex;flex-direction:column;gap:2px;font-size:14px"><a href="mentions-legales.html">Mentions légales</a><a href="cgv.html">Conditions de vente</a><a href="confidentialite.html">Confidentialité</a><a href="mailto:contact@courseautrait.fr">contact@courseautrait.fr</a></div>
   </div>
 </footer>
 
