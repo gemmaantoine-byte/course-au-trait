@@ -1,20 +1,16 @@
-COURSE AU TRAIT - dossier à héberger
+COURSE AU TRAIT - site courseautrait.fr
 
-Contenu : index.html (le jeu, un seul fichier), manifest.webmanifest, dossier icons/.
+Structure
+- index.html : la page d'accueil du site (courseautrait.fr)
+- jeu/       : le jeu (courseautrait.fr/jeu/), avec son manifeste et ses icônes
 
-Publier gratuitement avec GitHub Pages
-1. Crée un compte sur github.com, puis un dépôt public (par exemple « course-au-trait »).
-2. Dépose ces fichiers à la racine du dépôt (Add file > Upload files), puis valide.
-3. Dépôt > Settings > Pages > Source : « Deploy from a branch », branche main, dossier / (root).
-4. Au bout d'une minute, le jeu est à l'adresse https://TON-COMPTE.github.io/course-au-trait/
+Mise à jour sur GitHub
+1. Ouvre le dépôt, onglet Code, puis Add file > Upload files.
+2. Décompresse ce dossier, puis glisse index.html et le dossier jeu dans la zone de dépôt.
+   (GitHub garde l'arborescence : jeu/index.html, jeu/icons/...)
+3. Commit changes. La mise à jour est en ligne au bout d'une minute.
 
-Plus tard : dans Settings > Pages > Custom domain, tu y rattaches ton nom de domaine.
-
-Sur téléphone
-- iPhone (Safari) : Partager > « Sur l'écran d'accueil ». Le jeu s'ouvre ensuite sans barre du navigateur.
-- Android (Chrome) : menu ⋮ > « Installer l'application ».
-
-Limites de cette version hébergée
-- Le jeu est chargé depuis Internet (les polices viennent de Google Fonts). Pas de mode hors ligne pour l'instant.
-- Le duel en ligne entre deux joueurs ne fonctionne pas hors claude.ai : il reste désactivé.
-- Pas de paiement ni de période d'essai : à ajouter à l'étape suivante.
+Ensuite
+- courseautrait.fr affiche la page d'accueil.
+- Le bouton « Jouer maintenant » ouvre courseautrait.fr/jeu/.
+- Sur téléphone, « Sur l'écran d'accueil » depuis la page du jeu installe l'icône qui ouvre directement le jeu.
