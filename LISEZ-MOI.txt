@@ -1,0 +1,20 @@
+COURSE AU TRAIT - dossier à héberger
+
+Contenu : index.html (le jeu, un seul fichier), manifest.webmanifest, dossier icons/.
+
+Publier gratuitement avec GitHub Pages
+1. Crée un compte sur github.com, puis un dépôt public (par exemple « course-au-trait »).
+2. Dépose ces fichiers à la racine du dépôt (Add file > Upload files), puis valide.
+3. Dépôt > Settings > Pages > Source : « Deploy from a branch », branche main, dossier / (root).
+4. Au bout d'une minute, le jeu est à l'adresse https://TON-COMPTE.github.io/course-au-trait/
+
+Plus tard : dans Settings > Pages > Custom domain, tu y rattaches ton nom de domaine.
+
+Sur téléphone
+- iPhone (Safari) : Partager > « Sur l'écran d'accueil ». Le jeu s'ouvre ensuite sans barre du navigateur.
+- Android (Chrome) : menu ⋮ > « Installer l'application ».
+
+Limites de cette version hébergée
+- Le jeu est chargé depuis Internet (les polices viennent de Google Fonts). Pas de mode hors ligne pour l'instant.
+- Le duel en ligne entre deux joueurs ne fonctionne pas hors claude.ai : il reste désactivé.
+- Pas de paiement ni de période d'essai : à ajouter à l'étape suivante.
