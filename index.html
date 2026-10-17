@@ -4363,8 +4363,9 @@ function effortOf(T) {
   on('adv-go', () => { advClose(); startVs(); });
   on('hm-set', () => modal('v-set'));
   const fsEl = document.documentElement, fsOn = () => document.fullscreenElement || document.webkitFullscreenElement;
+  try { if (navigator.standalone || matchMedia('(display-mode: standalone)').matches || matchMedia('(display-mode: fullscreen)').matches) $('hm-fs').hidden = true; } catch (e) {}
   on('hm-fs', () => {
-    if (!(document.fullscreenEnabled || document.webkitFullscreenEnabled)) { soon('Plein écran impossible ici : ouvre le lien dans le navigateur'); return; }
+    if (!(document.fullscreenEnabled || document.webkitFullscreenEnabled)) { soon(/iPhone|iPad|iPod/.test(navigator.userAgent) ? 'Sur iPhone : touche Partager, puis « Sur l\'écran d\'accueil »' : 'Plein écran impossible ici : ouvre le lien dans le navigateur'); return; }
     try {
       if (fsOn()) { (document.exitFullscreen || document.webkitExitFullscreen).call(document); return; }
       const r = (fsEl.requestFullscreen || fsEl.webkitRequestFullscreen).call(fsEl, { navigationUI: 'hide' });
