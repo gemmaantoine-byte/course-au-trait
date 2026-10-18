@@ -1161,7 +1161,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   const expired = () => TRIAL_ON && !trial.bought && daysLeft() === 0;
   const trialText = () => daysLeft() === 0 ? 'Essai terminé' : 'Essai : ' + plural(daysLeft(), 'jour') + ' restant' + (daysLeft() > 1 ? 's' : '');
   // ----- Clé de déblocage (3 appareils par clé) -----
-  const LIC_ON = false, LIC_BUY_URL = '', LIC_API = '';
+  const LIC_ON = false, LIC_BUY_URL = 'https://buy.stripe.com/test_dRmbJ2eiQ3t88up2XIaR200', LIC_API = 'https://course-au-trait-cles.gemma-antoine-a3b.workers.dev/api';
   let licTest = false;   // vrai seulement dans les essais automatiques
   const devId = (() => { let d = store.get(KEY.trial + 'dev'); if (!d) { d = Math.random().toString(36).slice(2) + Date.now().toString(36); store.set(KEY.trial + 'dev', d); } return d; })();
   const licNorm = k => String(k || '').toUpperCase().replace(/[^A-Z0-9]/g, '').replace(/(.{4})(?=.)/g, '$1-');
@@ -4487,6 +4487,7 @@ function effortOf(T) {
   on('b-buy', () => { keyOpen(); buyOpen(); }); on('b-restore', keyOpen);
   on('hm-trial', keyOpen); on('k-go', keyGo); on('k-buy', buyOpen); on('k-x', keyClose); on('k-play', () => { keyClose(); go('home'); }); on('s-free', keyFree);
   $('k-in').addEventListener('keydown', e => { if (e.key === 'Enter') keyGo(); });
+  if (/[?&]cle\b/.test(location.search)) setTimeout(keyOpen, 400);   // lien de test : jeu/?cle ouvre la saisie de la clé
   const saveTrial = () => { store.set(KEY.trial, trial); setUI(); refresh(); };
   on('t-reset', () => { trial.first = Date.now(); trial.bought = false; saveTrial(); });
   on('t-late', () => { trial.first = Date.now() - 29 * DAY - 1000; trial.bought = false; saveTrial(); });
