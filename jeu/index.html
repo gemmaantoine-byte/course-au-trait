@@ -1,14 +1,6 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Course au trait</title>
-<link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#1c3db5">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Course au trait">
-<meta name="description" content="Un jeu de course sur papier quadrillé pour voir comment une IA cherche et apprend.">
-<link rel="icon" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 </head><body>
+<title>Course au trait</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=Karla:wght@400;500;700&display=swap">
@@ -321,7 +313,7 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
     </div>
     <div class="hm-doors">
       <button class="hm-door" id="hm-play" style="--c:#1c3db5;--cd:#14298a;--t:#e6ebfa">
-        <span class="hm-ill"><svg width="226" height="84" viewBox="0 0 226 84" aria-hidden="true"><path d="M30 60 L76 30 L120 60 L166 30 L200 60" fill="none" stroke="#9fb0e6" stroke-width="3" stroke-dasharray="3 6" stroke-linecap="round"/><g fill="#1c3db5" stroke="#c7d2f3" stroke-width="5"><circle cx="30" cy="60" r="15"/><circle cx="76" cy="30" r="15"/><circle cx="120" cy="60" r="15"/><circle cx="166" cy="30" r="15"/><circle cx="200" cy="60" r="15"/></g><g fill="#fff" font-family="Karla,sans-serif" font-size="16" font-weight="700" text-anchor="middle"><text x="30" y="66">1</text><text x="76" y="36">2</text><text x="120" y="66">3</text><text x="166" y="36">4</text><text x="200" y="66">5</text></g></svg></span>
+        <span class="hm-ill"><svg width="226" height="84" viewBox="0 0 224 88" aria-hidden="true"><defs><pattern id="jg" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M8 0H0V8" fill="none" stroke="#c7d2f3" stroke-width=".9"/></pattern><pattern id="jg2" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M8 0H0V8" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width=".9"/></pattern></defs><rect width="224" height="88" fill="url(#jg)"/><path d="M0 68H52V20H116V68H180V20H224" fill="none" stroke="#c8362e" stroke-width="31" stroke-linejoin="round"/><path d="M0 68H52V20H116V68H180V20H224" fill="none" stroke="#fff" stroke-width="31" stroke-linejoin="round" stroke-dasharray="5 5"/><path d="M0 68H52V20H116V68H180V20H224" fill="none" stroke="#c9d1de" stroke-width="24" stroke-linejoin="round"/><path d="M0 68H52V20H116V68H180V20H224" fill="none" stroke="url(#jg2)" stroke-width="24" stroke-linejoin="round"/><path d="M29 56V80" stroke="#fff" stroke-width="2" stroke-dasharray="3 3"/><g><rect x="216" y="8" width="4" height="4" fill="#1b2331"/><rect x="216" y="12" width="4" height="4" fill="#fff"/><rect x="216" y="16" width="4" height="4" fill="#1b2331"/><rect x="216" y="20" width="4" height="4" fill="#fff"/><rect x="216" y="24" width="4" height="4" fill="#1b2331"/><rect x="216" y="28" width="4" height="4" fill="#fff"/><rect x="220" y="8" width="4" height="4" fill="#fff"/><rect x="220" y="12" width="4" height="4" fill="#1b2331"/><rect x="220" y="16" width="4" height="4" fill="#fff"/><rect x="220" y="20" width="4" height="4" fill="#1b2331"/><rect x="220" y="24" width="4" height="4" fill="#fff"/><rect x="220" y="28" width="4" height="4" fill="#1b2331"/></g><path d="M40 64 L48 56 L48 40 L48 24 L64 24 L80 24 L96 24 L112 32 L112 56 L128 64 L152 64 L176 56 L176 32 L184 24 L200 24 L216 24" fill="none" stroke="#1c3db5" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="48" cy="56" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="48" cy="40" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="48" cy="24" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="64" cy="24" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="80" cy="24" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="96" cy="24" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="112" cy="32" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="112" cy="56" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="128" cy="64" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="152" cy="64" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="176" cy="56" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="176" cy="32" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="184" cy="24" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="200" cy="24" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="216" cy="24" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><path d="M40 72 L56 64 L56 40 L56 24 L80 16 L112 16 L120 32 L120 56 L120 72 L144 72 L168 72 L184 56 L184 32 L184 16 L216 16" fill="none" stroke="#c25a0a" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="56" cy="64" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="56" cy="40" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="56" cy="24" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="80" cy="16" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="112" cy="16" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="120" cy="32" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="120" cy="56" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="120" cy="72" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="144" cy="72" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="168" cy="72" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="184" cy="56" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="184" cy="32" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="184" cy="16" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="216" cy="16" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><g transform="translate(40 64)"><rect x="-8" y="-3.8" width="16" height="7.6" rx="3.8" fill="#1c3db5" stroke="#fff" stroke-width="1.6"/><rect x="1" y="-2.2" width="4" height="4.4" rx="1.4" fill="#fff" opacity=".85"/></g><g transform="translate(40 72)"><rect x="-8" y="-3.8" width="16" height="7.6" rx="3.8" fill="#c25a0a" stroke="#fff" stroke-width="1.6"/><rect x="1" y="-2.2" width="4" height="4.4" rx="1.4" fill="#fff" opacity=".85"/></g><g><rect x="1" y="58" width="25" height="10" rx="5" fill="#1c3db5"/><text x="13.5" y="65.6" text-anchor="middle" font-family="Karla,system-ui,sans-serif" font-size="8.6" font-weight="700" fill="#fff">Toi</text></g><g><rect x="1" y="70" width="20" height="10" rx="5" fill="#c25a0a"/><text x="11.0" y="77.6" text-anchor="middle" font-family="Karla,system-ui,sans-serif" font-size="8.6" font-weight="700" fill="#fff">IA</text></g></svg></span>
         <span class="hm-txt"><b>Jouer</b><span>Quatre niveaux, du facile à l'expert. Compose ton parcours.</span><i>4 niveaux · 24 pistes</i></span>
         <span class="hm-cta">Choisir une piste<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5v15l12-7.5z" fill="currentColor"/></svg></span>
       </button>
@@ -4128,7 +4120,7 @@ function effortOf(T) {
 
   // ---------- Loupe (tactile) ----------
   const LSZ = 116, ZOOM_CARREAUX = 4.4, BW = NX * CELL, BH = NY * CELL;
-  let loupeOn = false, finger = null;   // finger : unités de dessin (0..832, 0..390) dans la piste
+  let loupeOn = false, finger = null, stageK = 1;   // stageK : échelle de la scène (petit téléphone → loupe agrandie)   // finger : unités de dessin (0..832, 0..390) dans la piste
   function loupeTarget() {
     const fx = finger.x / BW * NX, fy = finger.y / BH * NY;
     if (V === 'edit') return { x: Math.floor(fx) + 0.5, y: Math.floor(fy) + 0.5 };
@@ -4138,17 +4130,18 @@ function effortOf(T) {
   function updateLoupe() {
     if (!loupeOn || !finger) { loupe.hidden = true; return; }
     const tg = loupeTarget(); if (!tg) { loupe.hidden = true; return; }
-    const dpr = view.dpr;
+    const dpr = view.dpr, LS = Math.round(Math.min(190, Math.max(LSZ, 140 / stageK)));
     const side = ZOOM_CARREAUX * view.k, S = Math.max(64, Math.round(Math.min(side, 240)));
     if (lcv.width !== S) { lcv.width = S; lcv.height = S; }
     lctx.setTransform(1, 0, 0, 1, 0, 0); lctx.fillStyle = TOK.paper; lctx.fillRect(0, 0, S, S);
     try { lctx.drawImage(cv, (tg.x - ZOOM_CARREAUX / 2) * view.k, (tg.y - ZOOM_CARREAUX / 2) * view.k, side, side, 0, 0, S, S); } catch (e) {}
     lctx.strokeStyle = TOK.graphite; lctx.globalAlpha = 0.55; lctx.lineWidth = Math.max(1, dpr);
     lctx.beginPath(); lctx.moveTo(S / 2, 0); lctx.lineTo(S / 2, S); lctx.moveTo(0, S / 2); lctx.lineTo(S, S / 2); lctx.stroke(); lctx.globalAlpha = 1;
-    const cx = Math.min(Math.max(finger.x, LSZ / 2 + 6), BW - LSZ / 2 - 6);
-    let cy = finger.y - 92; if (cy < LSZ / 2 + 6) cy = finger.y + 92;
-    cy = Math.min(Math.max(cy, LSZ / 2 + 6), BH - LSZ / 2 - 6);
-    loupe.style.left = (cx - LSZ / 2) + 'px'; loupe.style.top = (cy - LSZ / 2) + 'px';
+    const off = Math.max(92, Math.round(LS * 0.8));
+    const cx = Math.min(Math.max(finger.x, LS / 2 + 6), BW - LS / 2 - 6);
+    let cy = finger.y - off; if (cy < LS / 2 + 6) cy = finger.y + off;
+    cy = Math.min(Math.max(cy, LS / 2 + 6), BH - LS / 2 - 6);
+    loupe.style.width = loupe.style.height = LS + 'px'; loupe.style.left = (cx - LS / 2) + 'px'; loupe.style.top = (cy - LS / 2) + 'px';
     loupe.hidden = false;
   }
 
@@ -4548,7 +4541,7 @@ function effortOf(T) {
       if (!(phone && land)) mt = Math.max(0, Math.floor((ah - 390 * S) / 2));
     } catch (e) { S = 1; }
     fit.style.width = Math.floor(844 * S) + 'px'; fit.style.height = Math.floor(390 * S) + 'px'; fit.style.marginTop = mt + 'px';
-    stage.style.transform = 'scale(' + S + ')';
+    stage.style.transform = 'scale(' + S + ')'; stageK = S;
     draw();
   }
   window.addEventListener('resize', fitStage); window.addEventListener('orientationchange', () => setTimeout(fitStage, 150));
