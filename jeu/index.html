@@ -1,6 +1,32 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
-</head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
+/* mes résultats */
+#rs-grid{position:absolute;left:24px;right:24px;top:64px;bottom:54px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(2,minmax(0,1fr));gap:10px 12px}
+.rs-card{--c:#5b6b86;border:2px solid var(--c);border-radius:14px;background:color-mix(in srgb,var(--c) 9%,#fff);padding:10px 14px;display:flex;flex-direction:column;justify-content:space-between;min-width:0}
+.rs-card.full{background:color-mix(in srgb,var(--c) 18%,#fff);box-shadow:0 0 0 2px var(--c)}
+.rs-h{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:30px}
+.rs-h b{font:700 22px/1 var(--font-body);color:var(--c)}
+.rs-b{font:700 14px/1 var(--font-mono);color:var(--c)}
+.rs-card.full .rs-b{background:var(--c);color:#fff;border-radius:999px;padding:6px 11px;font-family:var(--font-body);font-size:13px}
+.rs-bar{height:10px;border-radius:5px;background:#fff;border:1.5px solid color-mix(in srgb,var(--c) 45%,#fff);overflow:hidden}
+.rs-bar i{display:block;height:100%;background:var(--c)}
+.rs-n{font-size:13px;color:var(--graphite)}
+.rs-dots{display:flex;gap:6px}
+.rs-dots em{flex:1;height:26px;border-radius:8px;font:700 13px/23px var(--font-mono);text-align:center;border:1.5px solid var(--gridm);color:var(--muted);background:#fff;font-style:normal}
+.rs-dots em.s1{background:#fbeccb;border-color:#e7c37a;color:#8a5a06}.rs-dots em.s2{background:#f6d58e;border-color:#d9a93c;color:#7a4e04}.rs-dots em.s3{background:#e9a923;border-color:#c98a0c;color:#fff}
+#rs-bar{position:absolute;left:24px;right:24px;top:342px;height:44px;display:flex;align-items:center;gap:10px}
+#rs-bar .sum{flex:1;min-width:0;font-size:14px;color:var(--graphite);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center}
+#rs-bar .btn{height:38px;padding:0 14px;font-size:14px;flex:none}
+#rs-bar .btn.pri{height:42px;padding:0 26px;font-size:17px;border-radius:14px}
+</style></head><body>
 <title>Course au trait</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1c3db5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Course au trait">
+<meta name="description" content="Un jeu de course sur papier quadrillé pour voir comment une IA cherche et apprend.">
+<link rel="icon" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=Karla:wght@400;500;700&display=swap">
@@ -164,14 +190,17 @@ svg{display:block}
 .tog[aria-pressed="true"]{background:var(--ink)}.tog[aria-pressed="true"] i{left:21px}
 
 /* parcours : choix des pistes par niveau */
-#mp-tabs{position:absolute;left:24px;top:64px;width:160px;display:flex;flex-direction:column;gap:6px}
-.lvtab{height:46px;border-radius:12px;border:2px solid var(--gridm);background:#fff;display:flex;align-items:center;gap:8px;padding:0 12px;font:700 17px/1 var(--font-body);color:var(--graphite);cursor:pointer;text-align:left}
-.lvtab span{flex:1}.lvtab small{font:700 13px/1 var(--font-mono);color:var(--muted)}
-.lvtab i{width:11px;height:11px;border-radius:50%;flex:none}
-.lvtab.on{border-color:var(--ink);box-shadow:0 0 0 2px var(--ink)}
-#mp-grid{position:absolute;left:198px;right:24px;top:64px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px 10px;align-content:start}
-.tile{position:relative;display:flex;flex-direction:column;gap:1px;padding:5px;border-radius:10px;border:2px solid var(--gridm);background:#fff;cursor:pointer;text-align:left;font-family:var(--font-body);color:var(--graphite);min-width:0}
-.tile canvas{width:100%;height:auto;display:block;border-radius:5px}
+#mp-tabs{position:absolute;left:24px;top:64px;bottom:54px;width:160px;display:flex;flex-direction:column;gap:6px}
+#v-map.nobar #mp-tabs,#v-map.nobar #mp-grid{bottom:14px}
+.lvtab{--c:#5b6b86;flex:1;min-height:0;border-radius:12px;border:2px solid var(--c);background:color-mix(in srgb,var(--c) 11%,#fff);display:flex;align-items:center;gap:8px;padding:0 12px;font:700 17px/1 var(--font-body);color:var(--c);cursor:pointer;text-align:left}
+#mp-tabs .lvtab:nth-child(1){--c:#2f8f5b}#mp-tabs .lvtab:nth-child(2){--c:#b88a12}#mp-tabs .lvtab:nth-child(3){--c:#d2641c}#mp-tabs .lvtab:nth-child(4){--c:#a1241b}
+.lvtab span{flex:1}.lvtab small{font:700 13px/1 var(--font-mono);color:var(--c);opacity:.85}
+.lvtab i{display:none}
+.lvtab.on{background:var(--c);color:#fff;box-shadow:0 3px 0 color-mix(in srgb,var(--c) 70%,#000)}
+.lvtab.on small{color:#fff;opacity:1}
+#mp-grid{position:absolute;left:198px;right:24px;top:64px;bottom:54px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,minmax(0,1fr));gap:8px 10px;align-content:start}
+.tile{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:2px;padding:6px;border-radius:10px;border:2px solid var(--gridm);background:#fff;cursor:pointer;text-align:left;font-family:var(--font-body);color:var(--graphite);min-width:0}
+.tile canvas{width:100%;flex:1 1 0;min-height:0;object-fit:cover;display:block;border-radius:6px}
 .tile b{font-size:14px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tile .sc{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:5px;height:14px;white-space:nowrap}
 .tile input{position:absolute;opacity:0;pointer-events:none}
@@ -180,9 +209,10 @@ svg{display:block}
 .tile input:checked~.bx::after{content:'';position:absolute;left:6px;top:1px;width:6px;height:12px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg)}
 .tile:has(input:checked){border-color:var(--ink);box-shadow:0 0 0 2px var(--ink)}
 .tile:has(input:focus-visible){outline:3px solid #d2641c;outline-offset:2px}
-#mp-bar{position:absolute;left:24px;right:24px;top:346px;height:40px;display:flex;align-items:center;gap:10px}
+#mp-bar{position:absolute;left:24px;right:24px;top:342px;height:44px;display:flex;align-items:center;gap:10px}
 #mp-bar .sum{flex:1;min-width:0;font-size:14px;color:var(--graphite);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #mp-bar .btn{height:38px;padding:0 14px;font-size:14px;flex:none}
+#mp-bar .btn.pri{height:42px;padding:0 26px;font-size:17px;border-radius:14px}
 
 /* jeu */
 #h-run{left:596px;top:214px;width:244px;display:flex;flex-direction:column;gap:7px}
@@ -217,7 +247,7 @@ svg{display:block}
 
 /* fin */
 #v-end .box::before{content:'';position:absolute;left:18px;right:18px;top:-7px;height:7px;border-radius:4px 4px 0 0;background:repeating-linear-gradient(90deg,#d83a48 0 14px,#fff 14px 28px);border:1.5px solid var(--graphite);border-bottom:0}
-#v-end .box,#v-pause .box,#v-set .box,#v-rules .box,#v-adv .box,#v-key .box{position:absolute;background:#fff;border:2px solid var(--graphite);border-radius:20px;box-shadow:0 6px 0 rgba(43,50,61,.25),0 18px 40px rgba(10,20,40,.25)}
+#v-end .box,#v-pause .box,#v-set .box,#v-rules .box,#v-adv .box,#v-key .box,#rs-conf .box{position:absolute;background:#fff;border:2px solid var(--graphite);border-radius:20px;box-shadow:0 6px 0 rgba(43,50,61,.25),0 18px 40px rgba(10,20,40,.25)}
 .setrow{display:flex;align-items:center;justify-content:space-between;gap:12px;font-weight:700;font-size:15px}
 .tiny{font-size:11px;font-weight:700;border-radius:10px;height:32px;padding:0 3px;overflow:hidden;background:#fff;border:1.5px solid var(--gridm);box-sizing:border-box}
 
@@ -340,16 +370,31 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
 
   <!-- ===== Mon parcours : choix des pistes ===== -->
   <div class="scr paper" id="v-map" hidden>
-    <button class="round w abs" id="mp-back" aria-label="Accueil" style="right:12px;top:3px;width:36px;height:36px"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></button>
-    <div class="disp abs" id="mp-title" style="left:24px;top:10px;font-size:40px;line-height:1.1">Constitue ton parcours</div>
-    <div class="abs" style="right:100px;top:16px;display:flex;align-items:center;gap:8px">
-      <div class="chipx"><svg width="16" height="16" viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1l1.8 3.7 4 .6-2.9 2.8.7 4L7 10.2 3.4 12.1l.7-4L1.2 5.3l4-.6z" fill="#d9961a"/></svg><span id="mp-stars">0</span></div>
+    <button class="round w abs" id="mp-back" aria-label="Accueil" style="right:24px;top:3px;width:36px;height:36px"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></button>
+    <div class="disp abs" id="mp-title" style="left:24px;top:2px;font-size:40px;line-height:1.1">Constitue ton parcours</div>
+    <div class="abs" style="right:112px;top:3px;display:flex;align-items:center;gap:8px">
+      <button class="chipx" id="mp-sc" aria-label="Mes résultats" style="cursor:pointer;font-family:inherit;color:inherit"><svg width="16" height="16" viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1l1.8 3.7 4 .6-2.9 2.8.7 4L7 10.2 3.4 12.1l.7-4L1.2 5.3l4-.6z" fill="#d9961a"/></svg><span id="mp-stars">0</span><svg width="8" height="12" viewBox="0 0 8 12" aria-hidden="true" fill="none" stroke="#6b7a94" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5L6.5 6l-5 4.5"/></svg></button>
       <div class="chipx" id="mp-vs" hidden style="border:1.5px dashed #a94c06;color:#7a3d05"><span id="mp-vs-t"></span></div>
       <div class="chipx trial" id="mp-trial"><span id="mp-trial-t"></span></div>
     </div>
     <div id="mp-tabs"></div>
     <div id="mp-grid"></div>
     <div id="mp-bar"><button class="btn sec" id="mp-all">Tout cocher</button><button class="btn sec" id="mp-none">Tout décocher</button><div class="sum" id="mp-sum"></div><button class="btn pri" id="mp-play">Jouer le parcours</button></div>
+  </div>
+
+  <div class="scr paper" id="v-res" hidden>
+    <button class="round w abs" id="rs-back" aria-label="Retour aux pistes" style="right:24px;top:3px;width:36px;height:36px"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="disp abs" style="left:24px;top:2px;font-size:40px;line-height:1.1">Mes résultats</div>
+    <div class="abs" style="right:72px;top:3px"><div class="chipx"><svg width="16" height="16" viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1l1.8 3.7 4 .6-2.9 2.8.7 4L7 10.2 3.4 12.1l.7-4L1.2 5.3l4-.6z" fill="#d9961a"/></svg><span id="rs-tot">0 / 72</span></div></div>
+    <div id="rs-grid"></div>
+    <div id="rs-bar"><button class="btn sec" id="rs-reset">Tout recommencer</button><div class="sum" id="rs-sum"></div><button class="btn pri" id="rs-ok">Retour aux pistes</button></div>
+    <div class="scr dimd" id="rs-conf" hidden style="pointer-events:auto;z-index:20">
+      <div class="box" style="left:182px;top:96px;width:480px;padding:20px 28px 22px;display:flex;flex-direction:column;gap:12px">
+        <div class="disp" style="font-size:36px;line-height:1;text-align:center">Tout effacer ?</div>
+        <div style="font-size:16px;line-height:1.35;text-align:center;color:var(--graphite)">Tes étoiles et tes records repartent à zéro. Tes pistes dessinées et ton déblocage du jeu ne bougent pas.</div>
+        <div style="display:flex;gap:12px;margin-top:4px"><button class="btn sec" id="rs-no" style="flex:1;height:48px;font-size:17px">Annuler</button><button class="btn pri" id="rs-yes" style="flex:1;height:48px;font-size:17px;background:var(--danger);box-shadow:0 4px 0 #8f1f17">Oui, tout effacer</button></div>
+      </div>
+    </div>
   </div>
 
   <!-- ===== Interface de jeu ===== -->
@@ -718,7 +763,7 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
         <div class="setrow"><span>Vibration</span><button class="tog" id="s-vib" aria-pressed="true" aria-label="Vibration"><i></i></button></div>
       </div>
       <div id="s-lic" style="display:none;align-items:center;justify-content:space-between;gap:10px;font-size:14px"><span>Jeu débloqué sur cet appareil</span><button class="tiny" id="s-free" style="width:auto;padding:0 12px">Libérer cet appareil</button></div>
-      <div style="border-top:1.5px dashed var(--gridm);padding-top:8px">
+      <div id="t-box" style="border-top:1.5px dashed var(--gridm);padding-top:8px">
         <div class="lbl" style="margin-bottom:6px">Pour tester (retiré dans la version publiée)</div>
         <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px">
           <button class="tiny" id="t-reset">Essai : 30 jours</button>
@@ -1148,7 +1193,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   const vs = { adv: null, res: null, tok: 0 };
   let trial = store.get(KEY.trial);
   if (!trial || typeof trial.first !== 'number') { trial = { first: Date.now(), bought: false }; store.set(KEY.trial, trial); }
-  const DAY = 864e5, TRIAL_DAYS = 30, TRIAL_ON = false;
+  const DAY = 864e5, TRIAL_DAYS = 30, TRIAL_ON = false, TEST_TOOLS = false;
   const daysLeft = () => Math.max(0, TRIAL_DAYS - Math.floor((Date.now() - trial.first) / DAY));
   const expired = () => TRIAL_ON && !trial.bought && daysLeft() === 0;
   const trialText = () => daysLeft() === 0 ? 'Essai terminé' : 'Essai : ' + plural(daysLeft(), 'jour') + ' restant' + (daysLeft() > 1 ? 's' : '');
@@ -1228,8 +1273,8 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   const flatPts = pts => pts.flatMap(p => [+p.x.toFixed(2), +p.y.toFixed(2)]);
 
   // ---------- Vues ----------
-  const VIEWS = { home: ['v-home'], map: ['v-map'], play: ['v-hud'], end: ['v-hud', 'v-end'], pause: ['v-hud', 'v-pause'], ai: ['v-ai'], cmp: ['v-cmp'], lab: ['v-lab'], edit: ['v-edit'], duo: ['v-duo'], buy: ['v-buy'], vs: ['v-vs'], duel: ['v-duel'], vall: ['v-vall'] };
-  const ALLV = ['v-home', 'v-map', 'v-hud', 'v-end', 'v-pause', 'v-ai', 'v-cmp', 'v-lab', 'v-edit', 'v-duo', 'v-buy', 'v-vs', 'v-duel', 'v-vall'];
+  const VIEWS = { home: ['v-home'], map: ['v-map'], res: ['v-res'], play: ['v-hud'], end: ['v-hud', 'v-end'], pause: ['v-hud', 'v-pause'], ai: ['v-ai'], cmp: ['v-cmp'], lab: ['v-lab'], edit: ['v-edit'], duo: ['v-duo'], buy: ['v-buy'], vs: ['v-vs'], duel: ['v-duel'], vall: ['v-vall'] };
+  const ALLV = ['v-home', 'v-map', 'v-res', 'v-hud', 'v-end', 'v-pause', 'v-ai', 'v-cmp', 'v-lab', 'v-edit', 'v-duo', 'v-buy', 'v-vs', 'v-duel', 'v-vall'];
   const BOARDV = new Set(['play', 'end', 'pause', 'ai', 'edit']);
   let V = 'home', mode = 'solo', cur = null;
   let G = { P: [], cur: 0, sel: { dx: 0, dy: 0 }, log: [], over: false };
@@ -1240,6 +1285,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     if (V === 'cmp' && v !== 'cmp') cmpStop();
     if (V === 'lab' && v !== 'lab') lbStop();
     if (v === 'home') { vs.adv = null; vs.all = false; }
+    if (v === 'res') $('rs-conf').hidden = true;
     V = v; modal(null);
     ALLV.forEach(id => { $(id).hidden = !VIEWS[v].includes(id); });
     hpPlace(v);
@@ -1268,6 +1314,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   function refresh() {
     if (V === 'home') homeUI();
     else if (V === 'map') buildMap();
+    else if (V === 'res') buildRes();
     else if (V === 'play' || V === 'end' || V === 'pause') hudUI();
     else if (V === 'ai') aiUI();
     else if (V === 'lab') labUI();
@@ -1295,23 +1342,25 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   function drawThumb(T, cv, route, col) {
     const K = 6, g = cv.getContext('2d'); cv.width = NX * K; cv.height = NY * K;
     const on = (x, y) => x >= 0 && y >= 0 && x < NX && y < NY && T.cells[y * NX + x];
-    g.fillStyle = '#d3dae5'; g.fillRect(0, 0, cv.width, cv.height);
-    g.fillStyle = '#fff'; for (let y = 0; y < NY; y++) for (let x = 0; x < NX; x++) if (on(x, y)) g.fillRect(x * K, y * K, K, K);
+    g.fillStyle = '#e4ebfa'; g.fillRect(0, 0, cv.width, cv.height);
+    g.strokeStyle = '#c3d0ee'; g.lineWidth = 0.7; g.beginPath(); for (let x = 0; x <= NX; x++) { g.moveTo(x * K, 0); g.lineTo(x * K, NY * K); } for (let y = 0; y <= NY; y++) { g.moveTo(0, y * K); g.lineTo(NX * K, y * K); } g.stroke();
+    g.fillStyle = '#c6cedb'; for (let y = 0; y < NY; y++) for (let x = 0; x < NX; x++) if (on(x, y)) g.fillRect(x * K, y * K, K, K);
+    g.strokeStyle = 'rgba(255,255,255,.75)'; g.lineWidth = 0.7; g.beginPath(); for (let y = 0; y < NY; y++) for (let x = 0; x < NX; x++) if (on(x, y)) { g.moveTo(x * K, y * K); g.lineTo(x * K + K, y * K); g.moveTo(x * K, y * K); g.lineTo(x * K, y * K + K); } g.stroke();
     for (const f of T.finish) for (let y = f[1]; y < f[3]; y++) for (let x = f[0]; x < f[2]; x++) if (on(x, y)) for (let a = 0; a < 2; a++) for (let b = 0; b < 2; b++) { g.fillStyle = (a + b) % 2 ? '#fff' : '#2b323d'; g.fillRect(x * K + a * K / 2, y * K + b * K / 2, K / 2, K / 2); }
-    g.strokeStyle = '#d83a48'; g.lineWidth = 1.6; g.beginPath();
-    for (let y = 0; y < NY; y++) for (let x = 0; x < NX; x++) if (on(x, y)) {
-      if (!on(x, y - 1)) { g.moveTo(x * K, y * K); g.lineTo(x * K + K, y * K); }
-      if (!on(x, y + 1)) { g.moveTo(x * K, y * K + K); g.lineTo(x * K + K, y * K + K); }
-      if (!on(x - 1, y)) { g.moveTo(x * K, y * K); g.lineTo(x * K, y * K + K); }
-      if (!on(x + 1, y)) { g.moveTo(x * K + K, y * K); g.lineTo(x * K + K, y * K + K); }
-    }
-    g.stroke();
+    const kerb = () => { g.beginPath();
+      for (let y = 0; y < NY; y++) for (let x = 0; x < NX; x++) if (on(x, y)) {
+        if (!on(x, y - 1)) { g.moveTo(x * K, y * K); g.lineTo(x * K + K, y * K); }
+        if (!on(x, y + 1)) { g.moveTo(x * K, y * K + K); g.lineTo(x * K + K, y * K + K); }
+        if (!on(x - 1, y)) { g.moveTo(x * K, y * K); g.lineTo(x * K, y * K + K); }
+        if (!on(x + 1, y)) { g.moveTo(x * K + K, y * K); g.lineTo(x * K + K, y * K + K); }
+      } g.stroke(); };
+    g.strokeStyle = '#d83a48'; g.lineWidth = 3; g.setLineDash([]); kerb(); g.strokeStyle = '#fff'; g.lineWidth = 3; g.setLineDash([3, 3]); kerb(); g.setLineDash([]);
     if (route) { g.strokeStyle = col; g.fillStyle = col; g.lineWidth = 2.4; g.lineJoin = 'round'; g.beginPath(); route.forEach((q, i) => i ? g.lineTo(q.x * K, q.y * K) : g.moveTo(q.x * K, q.y * K)); g.stroke(); route.forEach(q => { g.beginPath(); g.arc(q.x * K, q.y * K, 2.6, 0, 6.3); g.fill(); }); }
-    g.fillStyle = '#2b323d'; g.beginPath(); g.arc(T.start.x * K, T.start.y * K, 3.4, 0, 6.3); g.fill();
+    g.save(); g.translate(T.start.x * K, T.start.y * K); g.fillStyle = '#1c3db5'; g.strokeStyle = '#fff'; g.lineWidth = 1.4; g.beginPath(); g.roundRect(-7, -3.6, 14, 7.2, 3.6); g.fill(); g.stroke(); g.fillStyle = '#fff'; g.fillRect(1, -2, 3.6, 4); g.restore();
   }
   function tileHtml(T, vsm) {
     const st = starsOf(T), r = rec[T.id];
-    const sc = st ? starsSvg(st, 33, 11, st + ' étoiles sur 3') + '<span>' + plural(r.n, 'coup') + '</span>' : '<span>' + (T.par ? 'à battre : ' + T.par : 'à découvrir') + '</span>';
+    const sc = st ? starsSvg(st, 44, 14, st + ' étoiles sur 3') + '<span>' + plural(r.n, 'coup') + '</span>' : '<span>' + (T.par ? 'à battre : ' + T.par : 'à découvrir') + '</span>';
     const el = document.createElement(vsm ? 'button' : 'label'); el.className = 'tile';
     el.innerHTML = (vsm ? '' : '<input type="checkbox"><span class="bx" aria-hidden="true"></span>') + '<canvas></canvas><b></b><div class="sc">' + sc + '</div>';
     el.querySelector('b').textContent = T.name; drawThumb(T, el.querySelector('canvas'));
@@ -1350,7 +1399,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
       const eb = document.createElement('button'); eb.className = 'btn sec'; eb.style.cssText = 'height:40px;padding:0 14px;font-size:14px'; eb.textContent = 'Dessiner une piste'; eb.addEventListener('click', () => { if (guard()) go('edit'); });
       side.appendChild(eb); grid.appendChild(side);
     }
-    $('mp-bar').style.display = !vsm && L < 4 ? 'flex' : 'none';
+    $('mp-bar').style.display = !vsm && L < 4 ? 'flex' : 'none'; $('v-map').classList.toggle('nobar', !(!vsm && L < 4));
     $('mp-stars').textContent = String(totalStars());
     $('mp-vs').hidden = !(vs.adv || vs.all); if (vs.adv) $('mp-vs-t').textContent = VS_TXT.duelVs + ' ' + VS_ROSTER.find(r => r.id === vs.adv).name; else if (vs.all) $('mp-vs-t').textContent = VS_TXT.all.title; $('mp-trial').hidden = !TRIAL_ON; $('mp-trial-t').textContent = trialText();
     $('mp-trial').classList.toggle('warn', !trial.bought && daysLeft() <= 3);
@@ -4369,7 +4418,7 @@ function effortOf(T) {
 
   // ---------- Aide « ? » : ce que tu vois, ce que tu peux faire, à retenir ----------
   const HELP = {"map": {"t": "Choisis ta piste", "see": "Quatre niveaux de six pistes, toutes ouvertes. Les étoiles montrent ce que tu as déjà réussi.", "do": "Coche les pistes que tu veux, dans un ou plusieurs niveaux, puis lance ton parcours. Il se joue du plus facile au plus difficile et ton choix est gardé.", "keep": "Une piste réussie en peu de coups rapporte plus d'étoiles."}, "play": {"t": "Jouer : comment ça marche ?", "see": "Ta voiture (le point bleu), les <b>points où tu peux aller</b> (cercles bleus), ton nombre de coups et ta vitesse.", "do": "Touche un point, puis <b>Avancer</b>. La flèche ↶ annule le dernier coup. ‹ › changent de piste.", "keep": "Plus tu prends d'élan, plus il faut anticiper : un virage se prépare plusieurs coups avant."}, "end": {"t": "Fin de course", "see": "Ton nombre de coups, comparé au meilleur chemin possible.", "do": "Rejouer la piste, ou passer à la suivante.", "keep": "Le meilleur chemin est rarement tout droit : il faut savoir freiner au bon moment."}, "ai_explorer": {"t": "Le Stratège", "see": "Des vagues de points : chaque couleur correspond à un nombre de coups.", "do": "<b>Lancer</b>, ou avancer vague par vague. Une fois arrivé, <b>Pourquoi ce chemin ?</b> le refait point par point.", "keep": "Il essaie tout, avec la carte : il trouve toujours le chemin le plus court. Mais il n'apprend rien."}, "ai_hasard": {"t": "Le Hasardeux", "see": "Des trajets tirés au sort, l'un après l'autre.", "do": "<b>Un essai</b> pour en voir un seul, ou <b>Lancer</b> pour des milliers.", "keep": "Le hasard finit par arriver… mais rarement par le chemin le plus court."}, "ai_presse": {"t": "Le Fonceur", "see": "Il prend toujours le coup qui le rapproche le plus de l'arrivée.", "do": "<b>Lancer</b>, ou <b>Coup suivant</b> pour avancer pas à pas.", "keep": "Foncer sans regarder loin mène souvent au mur : il faut parfois s'éloigner pour arriver."}, "ai_tous": {"t": "Les trois algorithmes", "see": "Trois algorithmes sur la même piste.", "do": "<b>Lancer la course</b>, ou faire glisser le curseur pour revoir un coup.", "keep": "Même piste, trois recettes différentes : trois résultats différents."}, "ai_learn": {"t": "Le Carnet", "see": "Les cases vertes mènent à l'arrivée, les rouges au mur. Le bandeau montre ce qu'il voit, ce qu'il a noté et ses 9 coups.", "do": "<b>Lancer</b>, changer la vitesse, régler avec ⚙ (punition, prime, audace).", "keep": "Personne ne lui montre le chemin : il note chaque situation et retient ce qui rapporte."}, "ai_net": {"t": "L'Apprenti", "see": "Ses derniers essais en pâle, l'essai en cours en violet. Le bandeau montre son réseau de neurones et ses 9 coups.", "do": "<b>Lancer</b>, changer la vitesse, régler avec ⚙ (punition, prime, aide).", "keep": "C'est un réseau de neurones : il apprend par essais, mais ce qu'il retient ne se lit pas."}, "ai_gen": {"t": "La Lignée", "see": "Toute une génération de voitures en traits fins, la meilleure en trait épais.", "do": "<b>Lancer</b>, changer la vitesse, régler avec ⚙ (nombre de voitures, changements au hasard).", "keep": "Les meilleures voitures se transmettent leurs coups, génération après génération : c'est l'évolution."}, "vs": {"t": "Choisis ton adversaire", "see": "Les deux familles : les algorithmes programmés et les IA qui apprennent, avec leur niveau.", "do": "Choisis un adversaire, puis une piste. Ou <b>Tous contre tous</b> pour les voir courir ensemble.", "keep": "Les algorithmes ne progressent pas. Les IA apprennent… mais peuvent échouer."}, "duel": {"t": "Résultat du duel", "see": "Ton trajet et celui de ton adversaire, et qui a gagné.", "do": "<b>Revanche</b>, <b>Autre adversaire</b>, ou <b>Faire connaissance</b> pour voir comment il pense.", "keep": "Le « Pourquoi ? » explique sa façon de choisir ses coups."}, "vall": {"t": "Tous contre tous", "see": "Les six concurrents sur la même piste, puis leur classement.", "do": "<b>Lancer la course</b> : chacun son tour, dans l'ordre d'arrivée. <b>Pause</b> et <b>Rejouer</b> quand tu veux.", "keep": "Même piste, mêmes règles, mais des façons de penser très différentes."}, "lab": {"t": "Comparer", "see": "Quatre étapes : choisir les concurrents, voir leurs trajectoires, le bilan chiffré, puis toutes les pistes.", "do": "Coche les concurrents, règle-les, puis lance. Change de piste avec ‹ ›.", "keep": "Le Stratège a besoin de la carte. Les IA ont besoin de beaucoup d'essais."}, "cmp": {"t": "Le Stratège contre l'Apprenti", "see": "À gauche le Stratège, qui voit la carte. À droite l'Apprenti, qui apprend sans carte.", "do": "<b>Pas suivant</b> ou <b>Auto</b>, la vitesse, et <b>Primes</b> pour régler l'Apprenti.", "keep": "L'un calcule avec la carte, l'autre apprend par essais : ils n'arrivent pas toujours au même chemin."}, "duo": {"t": "À deux", "see": "Deux façons de jouer : sur le même téléphone, chacun son tour, ou chacun sur son téléphone avec un code.", "do": "Choisis la piste, puis <b>Jouer à deux</b>. Ou crée une partie et donne le code à l'autre joueur.", "keep": "Le moins de coups gagne. À égalité d'arrivée, le second joue autant de coups que le premier."}, "edit": {"t": "Dessiner une piste", "see": "Le quadrillage et ta piste.", "do": "Trace la piste, place le départ et l'arrivée, puis essaie-la.", "keep": "Une piste bien pensée peut piéger une IA… ou un algorithme."}}, HELP_TXT = {"see": "CE QUE TU VOIS", "do": "CE QUE TU PEUX FAIRE", "keep": "À RETENIR", "tuto": "Revoir « Comment on joue »"};
-  const HP_POS = { map: [56, 5], play: [99, 7, 30], end: [99, 7, 30], pause: [99, 7, 30], ai: [56, 6], vs: [56, 12], duel: [60, 12], vall: [56, 12], lab: [54, 5], cmp: [100, 5], duo: [56, 5], edit: [56, 5] };
+  const HP_POS = { map: [68, 5], play: [99, 7, 30], end: [99, 7, 30], pause: [99, 7, 30], ai: [56, 6], vs: [56, 12], duel: [60, 12], vall: [56, 12], lab: [54, 5], cmp: [100, 5], duo: [56, 5], edit: [56, 5] };
   function hpPlace(v) { const b = $('hp-btn'), P = HP_POS[v]; b.hidden = !P; if (P) { b.style.right = P[0] + 'px'; b.style.top = P[1] + 'px'; b.style.width = b.style.height = (P[2] || 32) + 'px'; } }
   function hpKey() { if (V === 'ai') return 'ai_' + ai.ch; if (V === 'pause') return 'play'; return V; }
   function hpOpen() {
@@ -4431,6 +4480,28 @@ function effortOf(T) {
   on('mp-back', () => go('home'));
   on('mp-all', () => { const ids = WORLDS[parc.lvl].tracks.map(d => d.id); parc.ids = parc.ids.concat(ids.filter(id => !parc.ids.includes(id))); saveParc(); buildMap(); });
   on('mp-none', () => { const ids = WORLDS[parc.lvl].tracks.map(d => d.id); parc.ids = parc.ids.filter(id => !ids.includes(id)); saveParc(); buildMap(); });
+  // ---------- Mes résultats ----------
+  function buildRes() {
+    const g = $('rs-grid'); g.innerHTML = ''; let tot = 0, max = 0, done = 0, all = 0;
+    WORLDS.forEach((w, i) => {
+      const st = w.tracks.map(d => starsOf(byId[d.id])), sum = st.reduce((a, b) => a + b, 0), mx = st.length * 3, dn = st.filter(x => x > 0).length;
+      tot += sum; max += mx; done += dn; all += st.length;
+      const el = document.createElement('div'); el.className = 'rs-card' + (sum === mx ? ' full' : ''); el.style.setProperty('--c', LVC[i]);
+      el.innerHTML = '<div class="rs-h"><b></b><span class="rs-b"></span></div><div class="rs-bar"><i></i></div><div class="rs-n"></div><div class="rs-dots"></div>';
+      el.querySelector('b').textContent = w.name;
+      el.querySelector('.rs-b').textContent = sum === mx ? '★ Maîtrisé' : sum + ' / ' + mx;
+      el.querySelector('.rs-bar i').style.width = (mx ? Math.round(sum / mx * 100) : 0) + '%';
+      el.querySelector('.rs-n').textContent = dn + ' piste' + (dn > 1 ? 's' : '') + ' terminée' + (dn > 1 ? 's' : '') + ' sur ' + st.length;
+      const dots = el.querySelector('.rs-dots'); w.tracks.forEach((d, k) => { const e = document.createElement('em'); e.className = 's' + st[k]; e.textContent = st[k] ? st[k] + '★' : '–'; e.title = byId[d.id].name; dots.appendChild(e); });
+      g.appendChild(el);
+    });
+    $('rs-tot').textContent = tot + ' / ' + max;
+    $('rs-sum').textContent = done ? done + ' piste' + (done > 1 ? 's' : '') + ' terminée' + (done > 1 ? 's' : '') + ' sur ' + all : 'Aucune piste terminée pour l\u2019instant';
+    $('rs-reset').disabled = !done; $('rs-reset').style.opacity = done ? 1 : .4;
+  }
+  on('mp-sc', () => go('res')); on('rs-back', () => go('map')); on('rs-ok', () => go('map'));
+  on('rs-reset', () => { $('rs-conf').hidden = false; }); on('rs-no', () => { $('rs-conf').hidden = true; });
+  on('rs-yes', () => { rec = {}; store.set(KEY.rec, rec); $('rs-conf').hidden = true; buildRes(); });
   on('mp-play', () => { const ids = parcList(); if (!ids.length) return; run = { ids }; startSolo(byId[ids[0]]); });
   on('h-pause', openPause); on('h-undo', undo); on('h-go', trace);
   on('p-resume', () => go('play'));
@@ -4549,6 +4620,7 @@ function effortOf(T) {
 
   // ---------- Démarrage ----------
   buildTracks();
+  if (!TEST_TOOLS) $('t-box').style.display = 'none';
   new ResizeObserver(draw).observe(cv);
   if (document.fonts && document.fonts.load) document.fonts.load('700 20px Caveat').then(() => draw(), () => {});
   fitStage();
