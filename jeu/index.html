@@ -1195,7 +1195,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   const vs = { adv: null, res: null, tok: 0, pick: false };   // pick : choix d'une piste depuis « Comprendre »
   let trial = store.get(KEY.trial);
   if (!trial || typeof trial.first !== 'number') { trial = { first: Date.now(), bought: false }; store.set(KEY.trial, trial); }
-  const DAY = 864e5, TRIAL_DAYS = 30, TRIAL_ON = false, TEST_TOOLS = false;
+  const DAY = 864e5, TRIAL_DAYS = 30, TRIAL_ON = false, TEST_TOOLS = false, DUO_ON = false;
   const daysLeft = () => Math.max(0, TRIAL_DAYS - Math.floor((Date.now() - trial.first) / DAY));
   const expired = () => TRIAL_ON && !trial.bought && daysLeft() === 0;
   const trialText = () => daysLeft() === 0 ? 'Essai terminé' : 'Essai : ' + plural(daysLeft(), 'jour') + ' restant' + (daysLeft() > 1 ? 's' : '');
@@ -4582,7 +4582,7 @@ function effortOf(T) {
     if (totalStars() < tracks.length * 3) tracks.forEach(T => { rec[T.id] = { n: T.par, p: [] }; }); else rec = {};
     store.set(KEY.rec, rec); setUI(); refresh();
   });
-  $('stage').querySelector('.keep').innerHTML = ['Tous les mondes et toutes les pistes', 'Dessiner et jouer tes propres pistes', 'Jouer à deux, sur un ou deux téléphones', "Quelques bases de l'IA, expliquées par le jeu", 'Aucune publicité, aucun abonnement']
+  $('stage').querySelector('.keep').innerHTML = ['Tous les mondes et toutes les pistes', 'Dessiner et jouer tes propres pistes', ...(DUO_ON ? ['Jouer à deux, sur un ou deux téléphones'] : []), "Quelques bases de l'IA, expliquées par le jeu", 'Aucune publicité, aucun abonnement']
     .map(t => '<div style="display:flex;align-items:center;gap:10px;font-size:15px;margin-bottom:10px"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#12804f" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M5 13l4 4L19 7"/></svg><span>' + t + '</span></div>').join('');
 
   window.addEventListener('keydown', e => {
@@ -4626,6 +4626,7 @@ function effortOf(T) {
   // ---------- Démarrage ----------
   buildTracks();
   if (!TEST_TOOLS) $('t-box').style.display = 'none';
+  if (!DUO_ON) $('hm-duo').remove();
   new ResizeObserver(draw).observe(cv);
   if (document.fonts && document.fonts.load) document.fonts.load('700 20px Caveat').then(() => draw(), () => {});
   fitStage();
