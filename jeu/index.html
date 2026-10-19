@@ -1195,12 +1195,12 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   const vs = { adv: null, res: null, tok: 0, pick: false };   // pick : choix d'une piste depuis « Comprendre »
   let trial = store.get(KEY.trial);
   if (!trial || typeof trial.first !== 'number') { trial = { first: Date.now(), bought: false }; store.set(KEY.trial, trial); }
-  const DAY = 864e5, TRIAL_DAYS = 30, TRIAL_ON = false, TEST_TOOLS = false, DUO_ON = false;
+  const DAY = 864e5, TRIAL_DAYS = 30, TRIAL_ON = true, TEST_TOOLS = false, DUO_ON = false;
   const daysLeft = () => Math.max(0, TRIAL_DAYS - Math.floor((Date.now() - trial.first) / DAY));
   const expired = () => TRIAL_ON && !trial.bought && daysLeft() === 0;
   const trialText = () => daysLeft() === 0 ? 'Essai terminé' : 'Essai : ' + plural(daysLeft(), 'jour') + ' restant' + (daysLeft() > 1 ? 's' : '');
   // ----- Clé de déblocage (3 appareils par clé) -----
-  const LIC_ON = false, LIC_BUY_URL = 'https://buy.stripe.com/test_dRmbJ2eiQ3t88up2XIaR200', LIC_API = 'https://course-au-trait-cles.gemma-antoine-a3b.workers.dev/api';
+  const LIC_ON = false, LIC_BUY_URL = 'https://buy.stripe.com/9B65kDbqA3xV3ide4h8so00', LIC_API = 'https://course-au-trait-cles.gemma-antoine-a3b.workers.dev/api';
   let licTest = false;   // vrai seulement dans les essais automatiques
   const devId = (() => { let d = store.get(KEY.trial + 'dev'); if (!d) { d = Math.random().toString(36).slice(2) + Date.now().toString(36); store.set(KEY.trial + 'dev', d); } return d; })();
   const licNorm = k => String(k || '').toUpperCase().replace(/[^A-Z0-9]/g, '').replace(/(.{4})(?=.)/g, '$1-');
