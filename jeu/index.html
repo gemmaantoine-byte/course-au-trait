@@ -249,7 +249,7 @@ svg{display:block}
 
 /* fin */
 #v-end .box::before{content:'';position:absolute;left:18px;right:18px;top:-7px;height:7px;border-radius:4px 4px 0 0;background:repeating-linear-gradient(90deg,#d83a48 0 14px,#fff 14px 28px);border:1.5px solid var(--graphite);border-bottom:0}
-#v-end .box,#v-pause .box,#v-set .box,#v-rules .box,#v-adv .box,#v-key .box,#rs-conf .box{position:absolute;background:#fff;border:2px solid var(--graphite);border-radius:20px;box-shadow:0 6px 0 rgba(43,50,61,.25),0 18px 40px rgba(10,20,40,.25)}
+#v-end .box,#v-pause .box,#v-set .box,#v-rules .box,#v-adv .box,#v-inst .box,#v-key .box,#rs-conf .box{position:absolute;background:#fff;border:2px solid var(--graphite);border-radius:20px;box-shadow:0 6px 0 rgba(43,50,61,.25),0 18px 40px rgba(10,20,40,.25)}
 .setrow{display:flex;align-items:center;justify-content:space-between;gap:12px;font-weight:700;font-size:15px}
 .tiny{font-size:11px;font-weight:700;border-radius:10px;height:32px;padding:0 3px;overflow:hidden;background:#fff;border:1.5px solid var(--gridm);box-sizing:border-box}
 
@@ -326,6 +326,7 @@ input[type=range]{width:100%;accent-color:var(--ink);margin:0;height:24px}
 .brush{height:34px;border-radius:8px;background:#fff;border:1.5px solid var(--gridm);font:13px var(--font-mono)}
 .brush[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
 
+#v-inst .inst{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px;font-size:15px;line-height:20px;color:#1b2331}
 /* à deux */
 select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--gridm);background:#fff;padding:0 10px;font-weight:700;-webkit-user-select:text;user-select:text}
 #d-code{text-transform:uppercase;letter-spacing:.2em;font-family:var(--font-mono);font-size:18px;text-align:center;width:110px}
@@ -764,6 +765,7 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
         <div class="setrow"><span>Son</span><button class="tog" id="s-snd" aria-pressed="true" aria-label="Son"><i></i></button></div>
         <div class="setrow"><span>Vibration</span><button class="tog" id="s-vib" aria-pressed="true" aria-label="Vibration"><i></i></button></div>
       </div>
+      <button class="btn sec" id="s-inst" style="height:40px;font-size:15px">📲 Installer le jeu sur l'écran d'accueil</button>
       <div id="s-lic" style="display:none;align-items:center;justify-content:space-between;gap:10px;font-size:14px"><span>Jeu débloqué sur cet appareil</span><button class="tiny" id="s-free" style="width:auto;padding:0 12px">Libérer cet appareil</button></div>
       <div id="t-box" style="border-top:1.5px dashed var(--gridm);padding-top:8px">
         <div class="lbl" style="margin-bottom:6px">Pour tester (retiré dans la version publiée)</div>
@@ -883,6 +885,18 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
   </div>
 
   <!-- ===== Conseil avant le défi ===== -->
+  <div class="scr dimd" id="v-inst" hidden style="pointer-events:auto;z-index:22">
+    <div class="box" style="left:152px;top:40px;width:540px;padding:16px 24px 16px;display:flex;flex-direction:column;gap:10px">
+      <div class="disp" style="font-size:34px;line-height:1.05">Installe le jeu sur ton téléphone</div>
+      <p style="margin:0;font-size:14px;line-height:19px;color:#33405a">Une icône sur ton écran d'accueil, le jeu en plein écran… et il marche même <b>sans Internet</b>.</p>
+      <ol id="in-ios" class="inst" hidden><li>Touche <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#1c3db5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-3px"><path d="M12 15V3M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg> <b>Partager</b>, en bas ou en haut de l'écran.</li><li>Choisis <b>« Sur l'écran d'accueil »</b>.</li><li>Touche <b>« Ajouter »</b>.</li></ol>
+      <ol id="in-and" class="inst" hidden><li>Touche <b>⋮</b> en haut à droite du navigateur.</li><li>Choisis <b>«&nbsp;Installer l'application&nbsp;»</b>.</li></ol>
+      <div style="display:flex;gap:10px;margin-top:2px">
+        <button class="btn pri" id="in-go" style="flex:1.3;height:46px;font-size:17px" hidden>Installer</button>
+        <button class="btn sec" id="in-x" style="flex:1;height:46px;font-size:16px">Plus tard</button>
+      </div>
+    </div>
+  </div>
   <div class="scr dimd" id="v-adv" hidden style="pointer-events:auto;z-index:22">
     <div class="box" style="left:162px;top:62px;width:520px;padding:16px 22px 14px;display:flex;flex-direction:column;gap:10px">
       <div class="disp" style="font-size:34px;line-height:1.1">Un coup d'œil avant le duel ?</div>
@@ -1295,7 +1309,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     if (v === 'cmp') cmpEnter(); else if (v === 'lab') lbEnter(); else if (v === 'ai') aiEnter(); else if (v === 'edit') editEnter(); else if (v === 'duo') duoEnter();
     refresh();
   }
-  function modal(id) { ['v-set', 'v-rules', 'v-adv'].forEach(m => { $(m).hidden = m !== id; }); if (id === 'v-set') setUI(); }
+  function modal(id) { ['v-set', 'v-rules', 'v-adv', 'v-inst'].forEach(m => { $(m).hidden = m !== id; }); if (id === 'v-set') setUI(); }
   function guard() { if (expired()) { go('buy'); return false; } return true; }
   const LIC_ERR = { unknown: ['Clé inconnue.', "Cette clé n'est pas reconnue. Vérifie qu'il n'y a ni espace ni lettre en trop."], full: ['Déjà 3 appareils.', 'Cette clé est utilisée sur 3 appareils. Libère-en un depuis ses réglages, ou achète une clé de plus.'], offline: ['Pas de connexion.', "Connecte-toi à Internet pour débloquer. Une fois débloqué, le jeu n'en a plus besoin."] };
   function keyOpen() { $('k-form').style.display = 'flex'; $('k-ok').style.display = 'none'; $('k-err').hidden = true; $('k-in').value = ''; $('v-key').hidden = false; setTimeout(() => { try { $('k-in').focus(); } catch (e) {} }, 50); }
@@ -4471,6 +4485,22 @@ function effortOf(T) {
   on('adv-look', () => { advClose(); seen.ai = true; saveSeen(); go('ai'); });
   on('adv-go', () => { advClose(); startVs(); });
   on('hm-set', () => modal('v-set'));
+  // ---------- Installation (écran d'accueil) et jeu sans Internet ----------
+  let instEvt = null;
+  const isStandalone = () => { try { return matchMedia('(display-mode: standalone)').matches || matchMedia('(display-mode: fullscreen)').matches && !document.fullscreenElement || navigator.standalone === true; } catch (e) { return false; } };
+  const isIOS = () => /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const isPhone = () => { try { return matchMedia('(pointer: coarse)').matches; } catch (e) { return false; } };
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); instEvt = e; });
+  function instOpen() {
+    const ios = isIOS();
+    $('in-ios').hidden = !ios; $('in-and').hidden = ios || !!instEvt; $('in-go').hidden = ios || !instEvt;
+    modal('v-inst');
+  }
+  function instClose() { seen.inst = true; saveSeen(); modal(null); }
+  on('in-x', instClose);
+  on('in-go', async () => { if (!instEvt) return; instEvt.prompt(); try { await instEvt.userChoice; } catch (e) {} instEvt = null; instClose(); });
+  on('s-inst', instOpen);
+  if ('serviceWorker' in navigator && location.protocol === 'https:') { try { navigator.serviceWorker.register('sw.js'); } catch (e) {} }
   const fsEl = document.documentElement, fsOn = () => document.fullscreenElement || document.webkitFullscreenElement;
   try { if (navigator.standalone || matchMedia('(display-mode: standalone)').matches || matchMedia('(display-mode: fullscreen)').matches) $('hm-fs').hidden = true; } catch (e) {}
   on('hm-fs', () => {
@@ -4626,6 +4656,8 @@ function effortOf(T) {
   // ---------- Démarrage ----------
   buildTracks();
   if (!TEST_TOOLS) $('t-box').style.display = 'none';
+  if (isStandalone()) $('s-inst').style.display = 'none';
+  setTimeout(() => { if (V === 'home' && !seen.inst && isPhone() && !isStandalone() && $('v-set').hidden && $('v-adv').hidden && $('v-rules').hidden) instOpen(); }, 1500);
   if (!DUO_ON) $('hm-duo').remove();
   new ResizeObserver(draw).observe(cv);
   if (document.fonts && document.fonts.load) document.fonts.load('700 20px Caveat').then(() => draw(), () => {});

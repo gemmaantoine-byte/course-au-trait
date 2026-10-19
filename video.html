@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Course au trait · la vidéo</title>
+<meta name="description" content="Un jeu de course sur papier quadrillé pour voir comment une IA cherche et apprend. Tu joues, tu comprends, tu défies.">
+<meta name="theme-color" content="#1c3db5">
+<link rel="icon" href="jeu/icons/icon-192.png"><link rel="apple-touch-icon" href="jeu/icons/apple-touch-icon.png">
+<meta property="og:title" content="Course au trait"><meta property="og:description" content="Trace ta route sans toucher les murs, puis regarde comment une IA cherche, apprend, et parfois se fait battre."><meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=Karla:wght@400;500;700&display=swap">
+<style>
+/* Mise en page : une feuille de papier quadrillé, des sections séparées par des vibreurs rouge et blanc comme sur la piste. */
+:root{
+  --paper:#f7f9fd; --paper2:#eef2fa; --grid:#dbe4f3; --ink:#1c3db5; --ink-d:#14298a; --rival:#c25a0a; --kerb:#d33a30;
+  --fg:#1b2331; --muted:#4f5f79; --card:#ffffff; --line:#c5d2ea; --night:#2b323d;
+  --display:'Caveat','Segoe Print',cursive; --body:'Karla',system-ui,-apple-system,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#121827; --paper2:#18203a; --grid:#222d4a; --ink:#8ea6ff; --ink-d:#b6c4ff; --rival:#f0a15a; --kerb:#ec6a5f; --fg:#eef2fb; --muted:#a6b3cf; --card:#1b2440; --line:#2f3c60; color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#121827; --paper2:#18203a; --grid:#222d4a; --ink:#8ea6ff; --ink-d:#b6c4ff; --rival:#f0a15a; --kerb:#ec6a5f; --fg:#eef2fb; --muted:#a6b3cf; --card:#1b2440; --line:#2f3c60; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--fg);font:17px/1.55 var(--body);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px;background-attachment:scroll}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:max(18px,env(safe-area-inset-left,0px)) max(18px,env(safe-area-inset-right,0px))}
+.kerb{height:12px;background:repeating-linear-gradient(90deg,var(--kerb) 0 22px,#fff 22px 44px);border-block:2px solid var(--night)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .kerb{background:repeating-linear-gradient(90deg,var(--kerb) 0 22px,#e8edf8 22px 44px)}}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:14px}
+.brand{font:700 30px/1 var(--display);color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand i{width:26px;height:26px;border:2px solid var(--night);display:grid;grid-template:repeat(2,1fr)/repeat(2,1fr);flex:none}
+.brand i b{background:var(--night)} .brand i b:nth-child(2),.brand i b:nth-child(3){background:#fff}
+nav a{color:var(--fg);text-decoration:none;font-weight:700;font-size:15px;margin-left:18px}
+nav a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 24px;border-radius:14px;font:700 17px var(--body);text-decoration:none;border:2px solid var(--night);cursor:pointer}
+.btn.pri{background:var(--ink);color:#fff;box-shadow:0 4px 0 var(--ink-d)} .btn.pri:hover{transform:translateY(1px);box-shadow:0 3px 0 var(--ink-d)}
+.btn.sec{background:var(--card);color:var(--fg)}
+.btn:focus-visible,a:focus-visible{outline:3px solid var(--rival);outline-offset:3px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:36px;align-items:center;padding-block:34px 56px}
+.eyebrow{font:500 13px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--rival);margin:0 0 10px}
+h1{font:700 clamp(54px,9vw,96px)/.92 var(--display);color:var(--ink);margin:0 0 16px;text-wrap:balance}
+.lede{font-size:clamp(18px,2.4vw,22px);line-height:1.45;margin:0 0 24px;max-width:34ch}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.facts{margin:22px 0 0;font:400 13.5px var(--mono);color:var(--muted);display:flex;gap:6px 18px;flex-wrap:wrap}
+.phone{background:var(--night);border-radius:28px;padding:10px;box-shadow:0 10px 0 rgba(20,41,138,.18);transform:rotate(1.2deg)}
+.phone img{display:block;width:100%;height:auto;border-radius:19px}
+section{padding-block:56px}
+h2{font:700 clamp(38px,6vw,56px)/1 var(--display);color:var(--ink);margin:0 0 10px;text-wrap:balance}
+.sub{max-width:60ch;color:var(--muted);margin:0 0 30px}
+.doors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.door{background:var(--card);border:2px solid var(--night);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.door .art{aspect-ratio:844/390;background:var(--paper2);display:flex;align-items:center;justify-content:center;border-bottom:2px solid var(--night)}
+.door .art img,.door .art svg{width:100%;height:100%;display:block;object-fit:cover}
+.door .art svg{padding:10px 14px;object-fit:contain}
+.door .tx{padding:16px 18px 20px}
+.door h3{font:700 32px/1 var(--display);margin:0 0 6px}
+.door:nth-child(1) h3{color:var(--ink)} .door:nth-child(2) h3{color:#12804f} .door:nth-child(3) h3{color:var(--rival)}
+.door p{margin:0;color:var(--muted);font-size:16px}
+.door .n{font:500 13px var(--mono);margin-top:12px;color:var(--fg)}
+.feature{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:36px;align-items:center}
+.feature .phone{transform:rotate(-1.2deg)}
+.count{display:inline-block;font:500 14px var(--mono);background:var(--card);border:2px solid var(--night);border-radius:10px;padding:4px 10px;margin-bottom:14px}
+.fam{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:6px}
+.fam div{background:var(--card);border:2px solid var(--c);border-radius:14px;padding:14px 16px;min-width:0}
+.fam b{display:block;color:var(--c);font:700 25px/1.05 var(--display);margin-bottom:6px}
+.fam span{display:block;font-size:15.5px;line-height:1.4}
+.fam i{display:block;font:400 12.5px/1.4 var(--mono);color:var(--muted);font-style:normal;margin-top:8px}
+.limit{margin:22px 0 0;padding:14px 18px;background:var(--card);border:2px dashed var(--line);border-radius:12px;max-width:68ch}
+.class{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:30px;align-items:start}
+.levels{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.levels li{background:var(--card);border:2px solid var(--night);border-radius:12px;padding:12px 16px;display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.levels b{font:700 26px/1 var(--display);color:var(--ink)} .levels span{font:400 13px var(--mono);color:var(--muted);text-align:right}
+footer{background:var(--night);color:#e8edf8;padding-block:28px 40px;margin-top:40px}
+footer .wrap{display:flex;gap:16px 40px;justify-content:space-between;flex-wrap:wrap;font-size:14.5px}
+footer a{color:#b6c4ff}
+@media (max-width:880px){
+  .hero,.feature,.class{grid-template-columns:1fr} .doors{grid-template-columns:1fr} .fam{grid-template-columns:repeat(2,minmax(0,1fr))}
+  nav a:not(.keep){display:none}
+}
+@media (max-width:520px){ .fam{grid-template-columns:1fr} .btn{width:100%} }
+nav{display:flex;align-items:center}
+@media (max-width:520px){ nav a.keep.btn{width:auto} nav a{margin-left:12px} .brand{font-size:26px} header.top{gap:8px} }
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+
+#regles .rules{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center;margin-top:18px}
+#regles .rfig{margin:0;background:var(--card);border:2px solid var(--night);border-radius:18px;overflow:hidden;box-shadow:0 5px 0 rgba(43,50,61,.18)}
+#regles .rfig svg{display:block;width:100%;height:auto}
+#regles .rl{margin:0;padding:0;list-style:none;counter-reset:r;display:flex;flex-direction:column;gap:14px}
+#regles .rl li{counter-increment:r;position:relative;padding-left:46px;color:var(--muted);font-size:17px;line-height:1.4}
+#regles .rl li b{color:var(--fg)}
+#regles .rl li::before{content:counter(r);position:absolute;left:0;top:-2px;width:32px;height:32px;border-radius:50%;background:var(--ink);color:#fff;font:700 18px/32px var(--body);text-align:center}
+@media (max-width:760px){#regles .rules{grid-template-columns:1fr}}
+</style>
+<style>
+#tarif .pc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:center;background:var(--card);border:2px solid var(--night);border-radius:20px;padding:28px 32px;box-shadow:0 5px 0 rgba(43,50,61,.22)}
+#tarif .pr{font:700 clamp(72px,12vw,110px)/.9 var(--display);color:var(--ink);margin:0}
+#tarif .pr small{font:700 20px var(--body);color:var(--muted);margin-left:6px}
+#tarif .st{display:flex;align-items:center;gap:10px;font:500 13px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--rival);margin:0 0 8px}
+#tarif ul{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:8px}
+#tarif li{display:flex;gap:10px;align-items:flex-start}
+#tarif li::before{content:"✓";color:#12804f;font-weight:700}
+#tarif .fine{font-size:14px;color:var(--muted);margin:12px 0 0}
+@media (max-width:880px){#tarif .pc{grid-template-columns:1fr;padding:22px 20px}}
+</style><style>
+.vwrap{max-width:440px;margin:0 auto;padding:22px 18px 34px;display:flex;flex-direction:column;gap:16px;align-items:stretch}
+.vwrap h1{font:700 44px/1 var(--display);color:var(--ink);margin:0;text-align:center}
+.vwrap video{width:100%;aspect-ratio:9/16;border:2px solid var(--night);border-radius:18px;background:#000;box-shadow:0 5px 0 rgba(43,50,61,.18)}
+.vwrap .cta{display:flex;flex-direction:column;gap:10px}
+</style></head><body><div class="kerb"></div>
+<main class="vwrap">
+  <h1>Course au trait</h1>
+  <video src="video.mp4" poster="video-affiche.jpg" controls playsinline preload="metadata"></video>
+  <div class="cta"><a class="btn pri" href="jeu/">Jouer maintenant · 30 jours gratuits</a><a class="btn sec" href="./">Découvrir le site</a></div>
+</main>
+<div class="kerb"></div>
+</body></html>
