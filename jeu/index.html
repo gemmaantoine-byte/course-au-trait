@@ -1393,7 +1393,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     run = null;
     const vsm = !!(vs.adv || vs.all || vs.pick), L = parc.lvl;
     parc.ids = (parc.ids || WORLDS[0].tracks.map(d => d.id)).filter(id => byId[id]);
-    $('mp-title').textContent = vsm ? 'Choisis ta piste' : 'Constitue ton parcours'; $('mp-title').style.fontSize = TRIAL_ON && !vsm ? '34px' : '';
+    $('mp-title').textContent = vsm ? 'Choisis ta piste' : 'Constitue ton parcours'; $('mp-title').style.fontSize = TRIAL_ON && !trial.bought && !vsm ? '34px' : '40px';
     const tb = $('mp-tabs'); tb.innerHTML = '';
     WORLDS.concat([{ name: 'Ma piste' }]).forEach((w, i) => {
       const b = document.createElement('button'); b.className = 'lvtab' + (i === L ? ' on' : '');
@@ -1417,7 +1417,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     }
     $('mp-bar').style.display = !vsm && L < 4 ? 'flex' : 'none'; $('v-map').classList.toggle('nobar', !(!vsm && L < 4));
     $('mp-stars').textContent = String(totalStars()); $('mp-max').textContent = String(tracks.length * 3);
-    $('mp-vs').hidden = !(vs.adv || vs.all || vs.pick); if (vs.pick) $('mp-vs-t').textContent = document.querySelector('#hm-ai b').textContent; else if (vs.adv) $('mp-vs-t').textContent = VS_TXT.duelVs + ' ' + VS_ROSTER.find(r => r.id === vs.adv).name; else if (vs.all) $('mp-vs-t').textContent = VS_TXT.all.title; $('mp-trial').hidden = !TRIAL_ON; $('mp-trial-t').textContent = trialText().replace(/ restants?$/, ''); $('mp-go').textContent = TRIAL_ON ? 'Mes résultats' : 'Voir mes résultats';
+    $('mp-vs').hidden = !(vs.adv || vs.all || vs.pick); if (vs.pick) $('mp-vs-t').textContent = document.querySelector('#hm-ai b').textContent; else if (vs.adv) $('mp-vs-t').textContent = VS_TXT.duelVs + ' ' + VS_ROSTER.find(r => r.id === vs.adv).name; else if (vs.all) $('mp-vs-t').textContent = VS_TXT.all.title; $('mp-trial').hidden = !TRIAL_ON || trial.bought; $('mp-trial-t').textContent = trialText().replace(/ restants?$/, ''); $('mp-go').textContent = TRIAL_ON && !trial.bought ? 'Mes résultats' : 'Voir mes résultats';
     $('mp-trial').classList.toggle('warn', !trial.bought && daysLeft() <= 3);
     updMap();
   }
@@ -1592,7 +1592,8 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
       if (!h.strat) { const pts = R.pick(0); h.strat = { pts, key: routeKey(pts) }; }
       h.showS = true;
       const left = huntD(h).length - huntCount(h);
-      h.msg = 'Le Stratège fait ' + plural(R.len, 'coup') + '. ' + (left > 0 ? 'Il y a ' + (left === 1 ? '1 autre parcours gagnant' : fmtInt(left) + ' autres parcours gagnants') + ' à trouver.' : 'Tu as trouvé tous les parcours gagnants !');
+      const mine = me() && me().won ? me().lens.length : (rec[cur.id] && rec[cur.id].n);
+      h.msg = (mine ? 'Toi : ' + plural(mine, 'coup') + ' · ' : '') + 'Le Stratège : ' + plural(R.len, 'coup') + '. ' + (left > 0 ? 'Il y a ' + (left === 1 ? '1 autre parcours gagnant' : fmtInt(left) + ' autres parcours gagnants') + ' à trouver.' : 'Tu as trouvé tous les parcours gagnants !');
     } else h.showS = !h.showS;
     refresh();
   }
@@ -4630,13 +4631,19 @@ function effortOf(T) {
   // ---------- Mise à l'échelle : la scène 844 × 390 remplit l'écran ----------
   // La page vit dans un cadre : on se fie à l'orientation de l'appareil plutôt qu'aux media queries de hauteur.
   let S = 1;
+  let safeEl = null;
+  function safeArea() {
+    if (!safeEl) { safeEl = document.createElement('div'); safeEl.style.cssText = 'position:fixed;left:0;top:0;width:0;height:0;visibility:hidden;pointer-events:none;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)'; document.body.appendChild(safeEl); }
+    const c = getComputedStyle(safeEl), n = v => parseFloat(v) || 0;
+    return { t: n(c.paddingTop), r: n(c.paddingRight), b: n(c.paddingBottom), l: n(c.paddingLeft) };
+  }
   function fitStage() {
-    let mt = 0;
+    let mt = 0, mx = 0, mxr = 0;
     try {
       const so = window.screen.orientation && window.screen.orientation.type;
       const land = so ? so.indexOf('landscape') === 0 : Math.abs(window.orientation || 0) === 90;
       const short = Math.min(window.screen.width, window.screen.height), phone = short <= 520;
-      const iw = window.innerWidth, ih = window.innerHeight;
+      const sa = safeArea(), iw = window.innerWidth - sa.l - sa.r, ih = window.innerHeight - sa.t - sa.b; mx = sa.l; mxr = sa.r;
       const upright = phone && !land;
       $('rot').classList.toggle('on', upright);
       let ah = ih;
@@ -4647,6 +4654,7 @@ function effortOf(T) {
       if (!(phone && land)) mt = Math.max(0, Math.floor((ah - 390 * S) / 2));
     } catch (e) { S = 1; }
     fit.style.width = Math.floor(844 * S) + 'px'; fit.style.height = Math.floor(390 * S) + 'px'; fit.style.marginTop = mt + 'px';
+    if (mx || mxr) { const free = Math.max(0, window.innerWidth - mx - mxr - Math.floor(844 * S)); fit.style.marginLeft = Math.floor(mx + free / 2) + 'px'; fit.style.marginRight = '0'; } else { fit.style.marginLeft = ''; fit.style.marginRight = ''; }
     stage.style.transform = 'scale(' + S + ')'; stageK = S;
     draw();
   }
