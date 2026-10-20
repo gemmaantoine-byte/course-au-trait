@@ -4651,7 +4651,7 @@ function effortOf(T) {
       else if (upright) ah = ih - 44;
       ah -= 4;
       S = Math.max(0.25, Math.min(iw / 844, ah / 390, 2.6));
-      if (!(phone && land)) mt = Math.max(0, Math.floor((ah - 390 * S) / 2));
+      mt = phone && land ? Math.max(0, Math.floor((window.innerHeight - 390 * S) / 2) - sa.t) : Math.max(0, Math.floor((ah - 390 * S) / 2));
     } catch (e) { S = 1; }
     fit.style.width = Math.floor(844 * S) + 'px'; fit.style.height = Math.floor(390 * S) + 'px'; fit.style.marginTop = mt + 'px';
     if (mx || mxr) { const free = Math.max(0, window.innerWidth - mx - mxr - Math.floor(844 * S)); fit.style.marginLeft = Math.floor(mx + free / 2) + 'px'; fit.style.marginRight = '0'; } else { fit.style.marginLeft = ''; fit.style.marginRight = ''; }
