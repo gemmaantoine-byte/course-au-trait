@@ -4148,8 +4148,8 @@ function effortOf(T) {
       if (revStep && revStep.T === cur) { ctx.globalAlpha = 0.85; revList.forEach((r, i) => drawTrail(r.slice(0, revStep.n + 1), REV_COL(i), 2.2, 3.4, k, kc)); ctx.globalAlpha = 0.9; }
       if (revTour && revTour.T === cur) { ctx.globalAlpha = 0.22; for (let j = 0; j < revTour.i; j++) drawTrail(revList[j], REV_COL(j), 2, 0, k, kc); ctx.globalAlpha = 0.9; }
       if (revTour && revTour.T === cur && revTour.up >= 1) drawTrail(revList[revTour.i].slice(0, revTour.up + 1), REV_COL(revTour.i), 3.6, 4, k, kc);
-      hunt.found.forEach((f, i) => drawTrail(f.pts, HUNT_COL[i % HUNT_COL.length], 2.6, 3, k, kc));
-      if (hunt.strat && hunt.showS) drawTrail(hunt.strat.pts, STRAT_COL, 2.6, 3, k, kc);
+      // pendant un défi, on n'affiche pas les parcours gagnants déjà trouvés : seule la course de l'adversaire compte
+      if (!vs.adv) { hunt.found.forEach((f, i) => drawTrail(f.pts, HUNT_COL[i % HUNT_COL.length], 2.6, 3, k, kc)); if (hunt.strat && hunt.showS) drawTrail(hunt.strat.pts, STRAT_COL, 2.6, 3, k, kc); }
       { const lv = vsLiveNow(); if (lv && lv.pts.length > 1) { ctx.globalAlpha = 0.95; drawTrail(lv.pts, lv.col, 3, 3.4, k, kc); } }
       ctx.globalAlpha = 1;
     }
