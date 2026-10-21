@@ -821,8 +821,9 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
   <!-- ===== Défier l'IA : choix de l'adversaire ===== -->
   <div class="scr paper" id="v-vs" hidden>
     <button class="round w abs" id="vs-back" aria-label="Retour" style="left:14px;top:6px"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5l-7 7 7 7"/></svg></button>
-    <div class="disp abs" id="vs-title" style="left:70px;top:6px;font-size:40px;line-height:44px"></div>
+    <div class="disp abs" id="vs-title" style="left:70px;top:8px;font-size:36px;line-height:42px"></div>
     <button class="round w abs" id="vs-home" aria-label="Accueil" style="right:14px;top:8px;width:40px;height:40px"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></button>
+    <div class="abs" id="vs-mode" role="group" aria-label="Façon de jouer le défi" style="right:256px;top:8px;height:40px;display:flex;border:2px solid var(--graphite);border-radius:12px;overflow:hidden;background:#fff"><button id="vs-m-tour" type="button" aria-pressed="true" style="border:0;padding:0 12px;font:700 13.5px var(--font-body);cursor:pointer;white-space:nowrap">Coup par coup</button><button id="vs-m-trait" type="button" aria-pressed="false" style="border:0;border-left:2px solid var(--graphite);padding:0 12px;font:700 13.5px var(--font-body);cursor:pointer;white-space:nowrap">D'un trait</button></div>
     <button class="btn sec abs" id="vs-all" style="right:100px;top:8px;height:40px;padding:0 16px;font-size:14px;white-space:nowrap"></button>
     <div class="abs" id="vs-grid" style="left:14px;right:14px;top:58px;bottom:10px;display:flex;flex-direction:column;gap:6px"></div>
   </div>
@@ -1202,7 +1203,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   const STAR = 'M7 1l1.8 3.7 4 .6-2.9 2.8.7 4L7 10.2 3.4 12.1l.7-4L1.2 5.3l4-.6z';
 
   // ---------- Réglages, essai gratuit ----------
-  const settings = Object.assign({ sound: true, vib: true, challenge: false, test: true, depth: 3 }, store.get(KEY.set) || {});
+  const settings = Object.assign({ sound: true, vib: true, challenge: false, test: true, depth: 3, vsTour: true }, store.get(KEY.set) || {});
   if (!settings.soloOnly) { settings.challenge = false; settings.soloOnly = true; store.set(KEY.set, settings); }   // « Jouer » se joue seul ; l'adversaire se choisit dans « Défier » ou dans la pause
   const seen = Object.assign({ ai: false, skip: false }, store.get(KEY.seen) || {});
   const saveSeen = () => store.set(KEY.seen, seen);
@@ -1301,7 +1302,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     if (V === 'ai' && v !== 'ai') aiLeave();
     if (V === 'cmp' && v !== 'cmp') cmpStop();
     if (V === 'lab' && v !== 'lab') lbStop();
-    if (v === 'home') { vs.adv = null; vs.all = false; vs.pick = false; }
+    if (v === 'home') { vs.adv = null; vs.all = false; vs.pick = false; vs.live = null; }
     if (v === 'res') $('rs-conf').hidden = true;
     V = v; modal(null);
     ALLV.forEach(id => { $(id).hidden = !VIEWS[v].includes(id); });
@@ -1418,7 +1419,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     }
     $('mp-bar').style.display = !vsm && L < 4 ? 'flex' : 'none'; $('v-map').classList.toggle('nobar', !(!vsm && L < 4));
     $('mp-stars').textContent = String(totalStars()); $('mp-max').textContent = String(tracks.length * 3);
-    $('mp-vs').hidden = !(vs.adv || vs.all || vs.pick); if (vs.pick) $('mp-vs-t').textContent = document.querySelector('#hm-ai b').textContent; else if (vs.adv) $('mp-vs-t').textContent = VS_TXT.duelVs + ' ' + VS_ROSTER.find(r => r.id === vs.adv).name; else if (vs.all) $('mp-vs-t').textContent = VS_TXT.all.title; $('mp-trial').hidden = !TRIAL_ON || trial.bought; $('mp-trial-t').textContent = trialText().replace(/ restants?$/, ''); $('mp-go').textContent = TRIAL_ON && !trial.bought ? 'Mes résultats' : 'Voir mes résultats';
+    $('mp-sc').hidden = vsm; $('mp-vs').hidden = !(vs.adv || vs.all || vs.pick); if (vs.pick) $('mp-vs-t').textContent = document.querySelector('#hm-ai b').textContent; else if (vs.adv) $('mp-vs-t').textContent = VS_TXT.duelVs + ' ' + VS_ROSTER.find(r => r.id === vs.adv).name; else if (vs.all) $('mp-vs-t').textContent = VS_TXT.all.title; $('mp-trial').hidden = !TRIAL_ON || trial.bought; $('mp-trial-t').textContent = trialText().replace(/ restants?$/, ''); $('mp-go').textContent = TRIAL_ON && !trial.bought ? 'Mes résultats' : 'Voir mes résultats';
     $('mp-trial').classList.toggle('warn', !trial.bought && daysLeft() <= 3);
     updMap();
   }
@@ -1459,7 +1460,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   const canPlay = () => V === 'play' && !G.over && (mode !== 'net' || duelPlaying()) && !me().won;
   function startSolo(T) {
     if (!guard()) return;
-    mode = 'solo'; hunt = null; huntOf(T); beginGame(T, 1); go('play');
+    mode = 'solo'; hunt = null; huntOf(T); beginGame(T, 1); vsLiveStart(T); go('play');
   }
   function trace() {
     if (!canPlay()) return;
@@ -1687,7 +1688,12 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     const gh = solo && ghost; $('h-ghost').hidden = !gh; if (gh) $('h-ghost-t').textContent = 'ton record : ' + plural(ghost.n, 'coup');
     const rv = net ? rivalState() : null, adv = solo && V === 'play' && vs.adv ? VS_ROSTER.find(r => r.id === vs.adv) : null; $('h-rival').hidden = !(net || adv);
     if (net) $('h-rival').textContent = rv ? 'Rival : ' + plural(rv.n, 'coup') + (rv.fin ? ' · arrivé' : '') : 'Rival : en attente…';
-    else if (adv) $('h-rival').textContent = 'Défi contre ' + adv.name + ' : tu joues d’abord, puis c’est son tour.';
+    else if (adv) { const L = vs.live && vs.live.T === cur ? vs.live : null, lv = vsLiveNow();
+      $('h-rival').textContent = !L ? 'Défi contre ' + adv.name + ' : tu joues d’abord, puis c’est son tour.'
+        : !L.it ? 'Coup par coup contre ' + adv.name + ' : préparation de sa course…'
+        : lv && lv.arrived ? adv.name + ' : arrivée en ' + plural(L.it.n, 'coup') + ' ! À toi de finir.'
+        : lv && lv.crash ? adv.name + ' : dans le mur au coup ' + lv.s + '. Termine ta course !'
+        : 'Coup par coup contre ' + adv.name + ' : coup ' + (lv ? lv.s : 0) + ' chacun.'; }
     // pastille du haut
     const pill = $('h-pill'), can = canPlay(), stuck = can && !gOptions().some(o => !o.crash);
     const sp = o => { const st = Object.assign({ background: 'rgba(249,251,255,.95)', borderColor: '#2b323d', color: '', borderWidth: '1.5px', height: '36px', fontSize: '22px' }, o || {}); st.top = (21 - parseInt(st.height) / 2) + 'px'; Object.assign(pill.style, st); };
@@ -4074,6 +4080,9 @@ function effortOf(T) {
     g.restore();
   }
   function drawCars(c, k) {
+    { const lv = vsLiveNow(); if (lv) { const n = lv.pts.length, e = lv.pts[n - 1], p0 = lv.pts[n - 2];
+      drawCar(e.x, e.y, p0 ? Math.atan2(e.y - p0.y, e.x - p0.x) : startHeading(), lv.col, c);
+      if (lv.crash && n > 1) { ctx.save(); ctx.strokeStyle = '#d0342c'; ctx.lineWidth = 0.14; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(e.x - 0.35, e.y - 0.35); ctx.lineTo(e.x + 0.35, e.y + 0.35); ctx.moveTo(e.x + 0.35, e.y - 0.35); ctx.lineTo(e.x - 0.35, e.y + 0.35); ctx.stroke(); ctx.restore(); } } }
     const order = G.P.map((_, i) => i).sort((a, b) => (a === G.cur) - (b === G.cur));
     for (const i of order) {
       const p = G.P[i], n = p.pts.length; if (!n) continue;
@@ -4122,6 +4131,7 @@ function effortOf(T) {
       if (revTour && revTour.T === cur && revTour.up >= 1) drawTrail(revList[revTour.i].slice(0, revTour.up + 1), REV_COL(revTour.i), 3.6, 4, k, kc);
       hunt.found.forEach((f, i) => drawTrail(f.pts, HUNT_COL[i % HUNT_COL.length], 2.6, 3, k, kc));
       if (hunt.strat && hunt.showS) drawTrail(hunt.strat.pts, STRAT_COL, 2.6, 3, k, kc);
+      { const lv = vsLiveNow(); if (lv && lv.pts.length > 1) { ctx.globalAlpha = 0.95; drawTrail(lv.pts, lv.col, 3, 3.4, k, kc); } }
       ctx.globalAlpha = 1;
     }
     if (mode === 'solo' && settings.challenge && cur.cells) {
@@ -4262,7 +4272,7 @@ function effortOf(T) {
   // ---------- Défier l'IA : adversaires et duel ----------
   const vsEl = id => document.getElementById(id);
   function vsBuild() {
-    vsEl('vs-title').textContent = VS_TXT.pick;
+    vsEl('vs-title').textContent = VS_TXT.pick; vsModeUI();
     const card = r => {
       let pips = ''; for (let i = 0; i < 5; i++) pips += '<i style="width:8px;height:8px;box-sizing:border-box;border-radius:50%;' + (i < r.pips ? 'background:' + r.col : 'border:1.5px solid #bccde8;background:#fff') + '"></i>';
       return '<button data-vs="' + r.id + '" style="min-width:0;padding:0;border:2px solid ' + r.col + ';border-radius:14px;background:#fff;overflow:hidden;display:flex;flex-direction:column;text-align:left;font-family:inherit;color:inherit;cursor:pointer">'
@@ -4280,7 +4290,30 @@ function effortOf(T) {
     vsEl('vs-grid').querySelectorAll('button').forEach(b => b.addEventListener('click', () => { vs.adv = b.dataset.vs; go('map'); }));
   }
   const startVs = () => { vs.adv = null; vs.all = false; vsBuild(); vsEl('vs-all').textContent = VS_TXT.all.btn; go('vs'); };
+  // ---------- Défi coup par coup : l'adversaire calcule sa course au départ, puis avance d'un coup après chacun des tiens ----------
+  function vsModeUI() { for (const [id, on] of [['vs-m-tour', settings.vsTour], ['vs-m-trait', !settings.vsTour]]) { const b = vsEl(id); b.setAttribute('aria-pressed', String(on)); b.style.background = on ? 'var(--ink)' : '#fff'; b.style.color = on ? '#fff' : 'var(--graphite)'; } }
+  function vsLiveStart(T) {
+    vs.live = null; if (!vs.adv || !settings.vsTour) return;
+    const a = VS_ROSTER.find(r => r.id === vs.adv), tok = ++vs.tok, L = vs.live = { T, a, it: null, tok };
+    setTimeout(() => {
+      if (vs.live !== L) return;
+      const P = LB_DEF().pr; if (a.depth) P.depth = a.depth;
+      const S = makeSolver(T, 60, 300000).run(1e9), it = lbMake(a.id, T, S, P), B = LB_BUD[2], t0 = performance.now();
+      const step = () => {
+        if (vs.live !== L) return;
+        if (it.status === 'run' && performance.now() - t0 < 2500) { lbAdvance(it, T, B, 25); setTimeout(step, 30); }
+        else { lbFinish(it); L.it = it; refresh(); }
+      };
+      step();
+    }, 60);
+  }
+  function vsLiveNow() {
+    const L = vs.live; if (!L || L.T !== cur || mode !== 'solo' || V !== 'play' || !L.it || !L.it.pts || !L.it.pts.length) return null;
+    const pts = L.it.pts, s = Math.min(me().lens.length, pts.length - 1), end = s >= pts.length - 1;
+    return { pts: pts.slice(0, s + 1), s, col: L.a.col, arrived: end && L.it.status === 'arrived', crash: end && L.it.status !== 'arrived' };
+  }
   function vsDuel(T, p, n) {
+    if (vs.live && vs.live.T === T && vs.live.it) { const a = vs.live.a; vs.tok++; vs.res = { T, a, n, pts: p.pts.map(q => ({ x: q.x, y: q.y })), it: vs.live.it }; vs.live = null; go('duel'); vsDuelUI(); return; }
     const a = VS_ROSTER.find(r => r.id === vs.adv), tok = ++vs.tok;
     vs.res = { T, a, n, pts: p.pts.map(q => ({ x: q.x, y: q.y })), it: null };
     // Pas d'écran d'attente qui clignote : on reste sur la piste tant que le résultat arrive vite (moins d'une seconde) ; si l'attente s'affiche, elle reste au moins 0,6 s.
@@ -4481,6 +4514,8 @@ function effortOf(T) {
   on('vs-back', () => go('home'));
   on('vd-home', () => { vs.tok++; go('home'); });
   on('vd-again', () => { vs.tok++; startSolo(vs.res.T); });
+  on('vs-m-tour', () => { settings.vsTour = true; store.set(KEY.set, settings); vsModeUI(); });
+  on('vs-m-trait', () => { settings.vsTour = false; store.set(KEY.set, settings); vsModeUI(); });
   on('vd-other', () => { vs.tok++; startVs(); });
   on('vd-know', () => {
     vs.tok++; seen.ai = true; saveSeen();
