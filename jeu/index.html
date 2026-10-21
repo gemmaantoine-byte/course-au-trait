@@ -2215,6 +2215,13 @@ function effortOf(T) {
     document.querySelectorAll('#a-chars .chbtn[data-ch]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.ch === ai.ch)));
     $('b-body').hidden = ai.folded; $('b-fold').textContent = ai.folded ? '▴' : '▾';
   }
+  // barre d'avancement dans un bouton : le fond se remplit, le pourcentage s'ajoute au texte
+  function progUI(el, f) {
+    if (f == null) { el.style.backgroundImage = ''; return; }
+    const pc = Math.max(1, Math.min(99, Math.round(f * 100)));
+    el.textContent += ' · ' + pc + ' %';
+    el.style.backgroundImage = 'linear-gradient(90deg, rgba(255,255,255,.30) ' + pc + '%, rgba(255,255,255,0) ' + pc + '%)';
+  }
   function aiUI() {
     if (V !== 'ai') return;
     bubbleHead();
@@ -2249,6 +2256,7 @@ function effortOf(T) {
     if (LO) {
       const st = ob.state, ep = ob.it ? (ob.kind === 'net' ? ob.it.ep : ob.it.gen) : 0, duel = VS_ROSTER.some(r => r.id === ob.kind);
       main.textContent = st === 'done' ? (duel ? 'Défier cette IA' : 'Recommencer') : st === 'fail' ? 'Recommencer' : ob.run ? 'Pause' : ep ? 'Reprendre' : '▶ Lancer';
+      progUI(main, st === 'run' || (st === 'idle' && ep) ? (ob.kind === 'net' ? ob.it.steps / NNCAP : ob.it.att / 50000) : null);
       $('l-reset').disabled = !ep && st === 'idle';
       $('l-set').hidden = st === 'done'; main.style.whiteSpace = 'nowrap'; main.style.fontSize = st === 'done' ? '16px' : '17px';
       return;
@@ -2256,6 +2264,7 @@ function effortOf(T) {
     if (LR) {
       const st = learn.state, ep = learn.L ? learn.L.ep : 0;
       main.textContent = st === 'done' ? "Défier cette IA" : st === 'fail' ? 'Recommencer' : learn.run ? 'Pause' : ep ? 'Reprendre' : '▶ Lancer';
+      progUI(main, (learn.run || ep) && st !== 'done' && st !== 'fail' ? ep / LCAP : null);
       $('l-reset').disabled = !ep && st === 'idle';
       $('l-set').hidden = st === 'done'; main.style.whiteSpace = 'nowrap'; main.style.fontSize = st === 'done' ? '16px' : '17px';
       return;
@@ -2921,7 +2930,7 @@ function effortOf(T) {
   }
 
   // ---------- Comparer : l'Explorateur (il cherche, avec la carte) et le réseau de neurones (il apprend, sans la carte) ----------
-  const NNCAP = 250000, NNH = 32, NNSTAGES = [0, 1000, 5000, 20000];
+  const NNCAP = 100000, NNH = 32, NNSTAGES = [0, 1000, 5000, 20000];
   function makeNet(T, pr) {
     pr = pr || { crash: 30, fin: 20, aide: 0 };
     const P = { crash: pr.crash / 10, fin: pr.fin / 10, shp: pr.aide / 10, aide: pr.aide, pr: { crash: pr.crash, fin: pr.fin, aide: pr.aide } };
@@ -3538,7 +3547,7 @@ function effortOf(T) {
       ico: '<path d="M7 3c0 6 10 6 10 12s-10 3-10 6M17 3c0 6-10 6-10 12"/><path d="M8.5 7h7M8.5 17h7" stroke-width="1.6"/>' }
   ];
   const LB_BUD = [1000, 5000, 20000, 50000];
-  const LB_DEF = () => ({ bud: 3, sel: 'net', on: { rech: true, haz: false, pre: false, tab: true, net: true, gen: true }, pr: { depth: 1, tcrash: 30, tfin: 20, taud: 40, ncrash: 30, nfin: 20, naide: 0, gpop: 100, gmut: 10 } });
+  const LB_DEF = () => ({ bud: 2, sel: 'net', on: { rech: true, haz: false, pre: false, tab: true, net: true, gen: true }, pr: { depth: 1, tcrash: 30, tfin: 20, taud: 40, ncrash: 30, nfin: 20, naide: 0, gpop: 100, gmut: 10 } });
   const lab = Object.assign({ mode: 'choose', T: null, res: null, bench: null, braf: 0, raf: 0, show: {}, anim: -1, animTimer: 0, lastDraw: 0 }, LB_DEF());
   const lbOf = id => LB.find(c => c.id === id);
   const lbOn = () => LB.filter(c => !c.soon && lab.on[c.id]);
@@ -3779,7 +3788,9 @@ function effortOf(T) {
   function lbRaceBar() {
     const R = lab.res; if (!R) return;
     const its = Object.values(R.items), arr = its.filter(it => it.status === 'arrived').length;
-    $('lb-rh').textContent = R.done && lab.anim >= 0 ? 'La course · coup ' + lab.anim : R.done ? arr + ' sur ' + its.length + ' arrivent' : 'calcul en cours…';
+    const pg = its.reduce((a, it) => a + (it.status === 'run' ? Math.min(1, it.prog || 0) : 1), 0) / Math.max(1, its.length);
+    $('lb-rh').textContent = R.done && lab.anim >= 0 ? 'La course · coup ' + lab.anim : R.done ? arr + ' sur ' + its.length + ' arrivent' : 'calcul en cours… ' + Math.max(1, Math.min(99, Math.round(pg * 100))) + ' %';
+    { const h = $('lb-rh').parentElement; h.style.background = R.done ? '#22303c' : 'linear-gradient(90deg, #1f7a4c ' + Math.round(pg * 100) + '%, #22303c ' + Math.round(pg * 100) + '%)'; }
     $('lb-stop').hidden = R.done; $('lb-replay').disabled = !R.done || lab.anim >= 0 || !its.some(it => it.pts && it.pts.length > 1); $('lb-tobil').disabled = !R.done;
     $('lb-sum2').textContent = R.done ? (R.opt != null ? 'Le meilleur chemin fait ' + plural(R.opt, 'coup') + '.' : '') + ' Là où les traits se confondent, ils ont pris le même chemin.' : "Les IA qui apprennent s'entraînent : jusqu'à " + fmtInt(R.B) + ' essais chacune.';
   }
@@ -4740,7 +4751,7 @@ function effortOf(T) {
   } catch (e) { Rstate = 'none'; }
   cmpBind(); labBind();
   // exposé pour les tests uniquement
-  window.__cat = { set licTest(v) { licTest = v; }, direct, get hunt() { return hunt; }, eng: { shortSight, randomRun, distFinish, makeGenetic, makeLearner }, lab, lbLaunch, get cmp() { return cmp; }, cmpStep, cmpAuto, cmpReset, get s() { return { V, mode, G, cur, duel, tracks, rec, trial, ai, alt, all, tour, S, learn, learnedAI }; }, learnMain, go, startSolo, trace, undo, setChar, tourOpen, tourShow, refresh, fitStage, openPause, aiMain, aiS1, aiS2, aiS3, aiTrack };
+  window.__cat = { set licTest(v) { licTest = v; }, direct, get hunt() { return hunt; }, eng: { shortSight, randomRun, distFinish, makeGenetic, makeLearner, makeNet }, lab, lbLaunch, get cmp() { return cmp; }, cmpStep, cmpAuto, cmpReset, get s() { return { V, mode, G, cur, duel, tracks, rec, trial, ai, alt, all, tour, S, learn, learnedAI }; }, learnMain, go, startSolo, trace, undo, setChar, tourOpen, tourShow, refresh, fitStage, openPause, aiMain, aiS1, aiS2, aiS3, aiTrack };
 })();
 </script>
 
