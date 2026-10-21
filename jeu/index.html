@@ -416,6 +416,7 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
       <div class="rrow r2"><button class="rbtn" id="h-again">↻ Rejouer</button><button class="rbtn pri" id="h-next2">Suite du parcours →</button></div>
     </div>
     <div class="abs" id="h-stack" style="left:14px;top:72px;width:420px;display:flex;flex-direction:column;gap:5px">
+    <div id="h-rival" style="align-self:flex-start;max-width:420px;box-sizing:border-box;padding:5px 12px;background:#fff4e8;border:1.5px solid var(--rival);border-radius:10px;font-size:13px;font-weight:700;color:#7a3504" hidden></div>
     <div id="h-hint" style="box-sizing:border-box;padding:4px 12px;background:rgba(255,255,255,.95);border:1.5px solid var(--ink);border-radius:10px;font-size:12.5px;line-height:1.25;color:var(--fg)" hidden>Touche un point près du tien, puis « Avancer ».</div>
     <div id="h-ai" style="box-sizing:border-box;padding:4px 12px;background:rgba(249,251,255,.92);border:1.5px solid #5b6b86;border-radius:10px;font-size:12px;line-height:1.25;font-weight:700;color:#33405a" hidden></div>
     <div id="h-msg" hidden></div>
@@ -423,7 +424,6 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
       <svg width="26" height="6" viewBox="0 0 26 6" aria-hidden="true"><line x1="1" y1="3" x2="25" y2="3" stroke="#c25a0a" stroke-width="2.4" stroke-dasharray="2 5" stroke-linecap="round"/></svg><span id="h-ghost-t"></span>
     </div>
     </div>
-    <div class="abs" id="h-rival" style="left:14px;top:72px;width:220px;box-sizing:border-box;padding:5px 12px;background:#fff4e8;border:1.5px solid var(--rival);border-radius:10px;font-size:13px;font-weight:700;color:#7a3504" hidden></div>
     <div class="abs" id="h-pill" style="left:440px;top:8px;height:38px;display:flex;align-items:center;gap:8px;padding:0 12px;background:rgba(249,251,255,.95);border:1.5px solid var(--graphite);border-radius:12px;font:700 22px/1 var(--font-display);white-space:nowrap"></div>
     <button class="round w hudbtn" id="h-prev" aria-label="Piste précédente" style="left:0;top:5px;width:32px;height:32px;background:var(--paper);border-color:var(--graphite)" hidden><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2b323d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
     <button class="round w hudbtn" id="h-next" aria-label="Piste suivante" style="left:0;top:5px;width:32px;height:32px;background:var(--paper);border-color:var(--graphite)" hidden><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2b323d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
@@ -1667,7 +1667,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
         el.lastChild.textContent = ss.status !== 'arrived' ? (n >= ss.n ? (ss.learned ? "Le Carnet est bloqué : il ne connaît pas assez la piste" : "Le Fonceur est bloqué : il ne voit pas assez loin") : (ss.learned ? 'Le Carnet' : 'Le Fonceur') + ' : coup ' + n + ' sur ' + ss.n + '…') : n >= ss.n ? (ss.learned ? 'Le Carnet arrive en ' : 'Le Fonceur arrive en ') + plural(ss.n, 'coup') : (ss.learned ? 'Le Carnet' : 'Le Fonceur') + ' : coup ' + n + ' sur ' + ss.n; } }
     if (V !== 'play') $('rev-box').hidden = true;
     if (V !== 'ai') $('def-box').hidden = true;
-    { const hr = $('h-run'), h = hunt && hunt.T === cur ? hunt : null; hr.hidden = !(solo && V === 'play');
+    { const hr = $('h-run'), h = hunt && hunt.T === cur ? hunt : null; hr.hidden = !(solo && V === 'play') || !!vs.adv;
       if (!hr.hidden) {
         const total = h && h.strat ? huntD(h).length : 0, cnt = h ? h.found.length + (h.strat ? 1 : 0) : 0;
         $('h-st').disabled = !(h && h.done); $('h-st').classList.toggle('on', !!(h && h.strat && h.showS)); $('h-st').setAttribute('aria-pressed', String(!!(h && h.strat && h.showS)));
@@ -1685,8 +1685,9 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
           if (revStep) { $('rev-n').textContent = 'Coup ' + revStep.n + ' / ' + (revList[0].length - 1); $('rev-pv').disabled = revStep.n <= 1; $('rev-nx').disabled = revStep.n >= revList[0].length - 1; } } }
       const fin = solo && (G.over || !!revTour || !!revStep); $('h-go').style.visibility = fin ? 'hidden' : ''; $('h-undo').style.visibility = fin ? 'hidden' : ''; }
     const gh = solo && ghost; $('h-ghost').hidden = !gh; if (gh) $('h-ghost-t').textContent = 'ton record : ' + plural(ghost.n, 'coup');
-    const rv = net ? rivalState() : null; $('h-rival').hidden = !net;
+    const rv = net ? rivalState() : null, adv = solo && V === 'play' && vs.adv ? VS_ROSTER.find(r => r.id === vs.adv) : null; $('h-rival').hidden = !(net || adv);
     if (net) $('h-rival').textContent = rv ? 'Rival : ' + plural(rv.n, 'coup') + (rv.fin ? ' · arrivé' : '') : 'Rival : en attente…';
+    else if (adv) $('h-rival').textContent = 'Défi contre ' + adv.name + ' : tu joues d’abord, puis c’est son tour.';
     // pastille du haut
     const pill = $('h-pill'), can = canPlay(), stuck = can && !gOptions().some(o => !o.crash);
     const sp = o => { const st = Object.assign({ background: 'rgba(249,251,255,.95)', borderColor: '#2b323d', color: '', borderWidth: '1.5px', height: '36px', fontSize: '22px' }, o || {}); st.top = (21 - parseInt(st.height) / 2) + 'px'; Object.assign(pill.style, st); };
