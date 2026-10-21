@@ -375,6 +375,7 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
   <!-- ===== Mon parcours : choix des pistes ===== -->
   <div class="scr paper" id="v-map" hidden>
     <button class="round w abs" id="mp-back" aria-label="Accueil" style="right:24px;top:3px;width:36px;height:36px"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></button>
+    <button class="round w abs" id="mp-prev" aria-label="Retour" style="left:14px;top:3px;width:36px;height:36px" hidden><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
     <div class="disp abs" id="mp-title" style="left:24px;top:2px;font-size:40px;line-height:1.1">Constitue ton parcours</div>
     <div class="abs" style="right:112px;top:3px;display:flex;align-items:center;gap:8px">
       <button class="chipx" id="mp-sc" aria-label="Mes résultats" style="cursor:pointer;font-family:inherit;color:inherit"><svg width="16" height="16" viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1l1.8 3.7 4 .6-2.9 2.8.7 4L7 10.2 3.4 12.1l.7-4L1.2 5.3l4-.6z" fill="#d9961a"/></svg><span><span id="mp-stars">0</span> / <span id="mp-max">72</span></span><span class="mp-go" id="mp-go">Voir mes résultats</span></button>
@@ -425,6 +426,7 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
     </div>
     </div>
     <div class="abs" id="h-pill" style="left:440px;top:8px;height:38px;display:flex;align-items:center;gap:8px;padding:0 12px;background:rgba(249,251,255,.95);border:1.5px solid var(--graphite);border-radius:12px;font:700 22px/1 var(--font-display);white-space:nowrap"></div>
+    <button class="round w hudbtn" id="h-back" aria-label="Retour" style="left:0;top:5px;width:36px;height:36px;background:var(--paper);border-color:var(--graphite)" hidden><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
     <button class="round w hudbtn" id="h-prev" aria-label="Piste précédente" style="left:0;top:5px;width:32px;height:32px;background:var(--paper);border-color:var(--graphite)" hidden><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2b323d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
     <button class="round w hudbtn" id="h-next" aria-label="Piste suivante" style="left:0;top:5px;width:32px;height:32px;background:var(--paper);border-color:var(--graphite)" hidden><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2b323d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
     <button class="round w hudbtn" id="h-home" aria-label="Accueil" style="right:12px;top:3px;width:36px;height:36px"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></button>
@@ -480,7 +482,7 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
       <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
         <button class="btn sec" id="p-again" style="height:46px;font-size:15px;border-radius:12px">Recommencer</button>
         <button class="btn sec" id="p-rules" style="height:46px;font-size:15px;border-radius:12px">Règles du jeu</button>
-        <button class="btn sec" id="p-map" style="height:46px;font-size:15px;border-radius:12px">Mon parcours</button>
+        <button class="btn sec" id="p-map" style="height:46px;font-size:15px;border-radius:12px">Retour</button>
         <button class="btn sec" id="p-home" style="height:46px;font-size:15px;border-radius:12px">Accueil</button>
       </div>
       <div style="display:flex;align-items:center;justify-content:space-around;height:40px">
@@ -582,10 +584,8 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
   <!-- ===== Dessiner sa piste ===== -->
   <!-- ===== Comparer : choisir les concurrents, la course, le bilan ===== -->
   <div class="scr paper" id="v-lab" hidden>
-    <div class="abs" style="left:14px;top:3px;height:36px;display:flex;align-items:center;gap:8px"><span class="disp" style="font-size:28px;line-height:1">Comparer</span>
-      <button class="round w" id="lb-prev" aria-label="Piste précédente" style="position:static;width:30px;height:30px;font-size:18px;line-height:1">‹</button>
-      <span id="lb-track" style="font-weight:700;font-size:14px;min-width:150px;text-align:center"></span>
-      <button class="round w" id="lb-next" aria-label="Piste suivante" style="position:static;width:30px;height:30px;font-size:18px;line-height:1">›</button>
+    <div class="abs" style="left:14px;top:3px;height:36px;display:flex;align-items:center;gap:8px"><button class="round w" id="lb-ret" aria-label="Retour" style="position:static;width:36px;height:36px;flex:none"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><span class="disp" style="font-size:28px;line-height:1">Comparer</span>
+      <button id="lb-track" type="button" aria-label="Choisir une autre piste" style="display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 12px;background:#fff;border:1.5px solid var(--graphite);border-radius:11px;font:700 14px var(--font-body);color:inherit;cursor:pointer;white-space:nowrap;box-sizing:border-box"></button>
       <div style="display:flex;gap:5px;margin-left:10px"><button class="lb-st" id="lb-s1">1 Choisir</button><button class="lb-st" id="lb-s2">2 Trajectoires</button><button class="lb-st" id="lb-s3">3 Bilan</button><button class="lb-st" id="lb-s4">4 Toutes les pistes</button></div></div>
     <button class="round w hudbtn" id="lb-home" aria-label="Accueil" style="right:12px;top:3px;width:36px;height:36px"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></button>
 
@@ -642,12 +642,10 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
   </div>
 
   <div class="scr paper" id="v-cmp" hidden>
-    <div class="abs" style="left:14px;top:3px;height:36px;display:flex;align-items:center;gap:8px"><span class="disp" style="font-size:28px;line-height:1">Comparer</span><span style="font-size:11px;color:var(--muted);line-height:12px;width:120px">mêmes règles : 9 choix à chaque coup</span>
-      <button class="round w" id="cm-prev" aria-label="Piste précédente" style="position:static;width:30px;height:30px;font-size:18px;line-height:1">‹</button>
-      <span id="cm-track" style="font-weight:700;font-size:15px;min-width:160px;text-align:center"></span>
-      <button class="round w" id="cm-next" aria-label="Piste suivante" style="position:static;width:30px;height:30px;font-size:18px;line-height:1">›</button></div>
+    <div class="abs" style="left:58px;top:3px;height:36px;display:flex;align-items:center;gap:8px"><span class="disp" style="font-size:28px;line-height:1">Comparer</span><span style="font-size:11px;color:var(--muted);line-height:12px;width:120px">mêmes règles : 9 choix à chaque coup</span>
+      <button id="cm-track" type="button" aria-label="Choisir une autre piste" style="display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 12px;background:#fff;border:1.5px solid var(--graphite);border-radius:11px;font:700 14px var(--font-body);color:inherit;cursor:pointer;white-space:nowrap;box-sizing:border-box"></button></div>
     <button class="round w hudbtn" id="cm-home" aria-label="Accueil" style="right:12px;top:3px;width:36px;height:36px"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></button>
-    <button class="round w hudbtn" id="cm-back" aria-label="Retour au choix des concurrents" style="right:56px;top:3px;width:36px;height:36px"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="round w hudbtn" id="cm-back" aria-label="Retour au choix des concurrents" style="left:14px;top:3px;width:36px;height:36px"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
     <div class="cm-p" style="left:6px;top:44px"><div class="cm-h" style="background:#1f9e5a"><span>Le Stratège</span><span style="font-weight:600;font-size:11px">programmé · il voit la carte</span></div>
       <canvas id="cm-lc" style="display:block;width:366px;height:172px;margin:0 auto"></canvas><canvas id="cm-lb" style="display:block;width:396px;height:58px;margin:0 6px"></canvas><div class="cm-t" id="cm-lt"></div></div>
     <div class="cm-p" style="left:426px;top:44px"><div class="cm-h" style="background:#7a4fd0"><span>L'Apprenti</span><span style="display:flex;align-items:center;gap:6px"><span id="cm-badge" style="padding:3px 8px;border-radius:8px;font:800 11px/1 var(--font-body)"></span><button id="cm-pbtn" title="Régler les primes de l'Apprenti" style="height:18px;padding:0 9px;border:1.5px solid #fff;border-radius:9px;background:transparent;color:#fff;font:700 11px/1 var(--font-body)">Primes</button></span></div>
@@ -835,7 +833,7 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
       <div id="vd-wait" class="abs" style="left:0;top:0;width:484px;height:368px;background:rgba(249,251,255,.86);display:flex;align-items:center;justify-content:center"><span class="disp" id="vd-wait-t" style="font-size:34px;color:#2b323d"></span></div>
     </div>
     <div class="abs" style="left:514px;right:14px;top:8px;bottom:10px;display:flex;flex-direction:column;gap:10px">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between"><div class="disp" id="vd-title" style="font-size:54px;line-height:50px"></div>
+      <div style="display:flex;align-items:flex-start;gap:10px"><button class="round w" id="vd-back" aria-label="Retour au choix de la piste" style="width:38px;height:38px;flex:none;margin-top:6px"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><div class="disp" id="vd-title" style="font-size:54px;line-height:50px;flex:1;min-width:0"></div>
         <button class="round w" id="vd-home" aria-label="Accueil" style="width:38px;height:38px;flex:none"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></button></div>
       <div id="vd-rows" style="display:flex;flex-direction:column;gap:6px"></div>
       <div id="vd-why" style="box-sizing:border-box;padding:10px 12px;border:1.5px solid #e0a23a;border-radius:12px;background:#fff6e6;display:flex;flex-direction:column;gap:6px">
@@ -856,7 +854,7 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
     <button class="round w abs" id="al-back" aria-label="Retour" style="left:14px;top:8px"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5l-7 7 7 7"/></svg></button>
     <div class="disp abs" id="al-title" style="left:70px;top:6px;font-size:40px;line-height:44px;white-space:nowrap"></div>
     <button class="round w abs" id="al-home" aria-label="Accueil" style="right:14px;top:8px;width:40px;height:40px"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></button>
-    <div class="abs" id="al-track" style="right:100px;top:10px;height:36px;box-sizing:border-box;padding:0 16px;border:1.5px solid #bccde8;border-radius:18px;background:#fff;display:flex;align-items:center;font-weight:800;font-size:15px;white-space:nowrap"></div>
+    <button class="abs" id="al-track" type="button" aria-label="Choisir une autre piste" style="right:100px;top:10px;height:36px;box-sizing:border-box;padding:0 14px;border:1.5px solid var(--graphite);border-radius:12px;background:#fff;display:flex;align-items:center;gap:8px;font:700 15px var(--font-body);color:inherit;cursor:pointer;white-space:nowrap"></button>
     <div class="abs" style="left:14px;top:58px;width:458px;height:216px;box-sizing:border-box;border:2px solid #2b323d;border-radius:16px;overflow:hidden;background:#e7ecf4"><canvas id="al-cv" style="display:block;width:454px;height:212px"></canvas><button class="btn sec" id="al-replay" hidden style="position:absolute;right:8px;bottom:8px;height:34px;padding:0 12px;font-size:13px;white-space:nowrap"></button></div>
     <div class="abs" id="al-keep" style="left:14px;top:282px;width:458px;height:98px;box-sizing:border-box;padding:8px 14px;border:1.5px solid #e0a23a;border-radius:14px;background:#fff6e6;display:flex;flex-direction:column;gap:2px;overflow:hidden"></div>
     <div class="abs" id="al-rows" style="left:486px;right:14px;top:58px;display:flex;flex-direction:column;gap:6px"></div>
@@ -1405,13 +1403,13 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     const grid = $('mp-grid'); grid.innerHTML = '';
     if (L < 4) WORLDS[L].tracks.forEach(d => {
       const T = byId[d.id], el = tileHtml(T, vsm);
-      if (vsm) el.addEventListener('click', () => { if (vs.pick) aiPickTrack(T); else if (vs.all) vsAll(T); else startSolo(T); });
+      if (vsm) el.addEventListener('click', () => { if (vs.pick) pickTrack(T); else if (vs.all) vsAll(T); else { playFrom = 'map'; startSolo(T); } });
       else { const cb = el.querySelector('input'); cb.checked = parc.ids.includes(d.id); cb.setAttribute('aria-label', T.name);
         cb.addEventListener('change', () => { parc.ids = cb.checked ? parc.ids.concat([d.id]) : parc.ids.filter(x => x !== d.id); saveParc(); updMap(); }); }
       grid.appendChild(el);
     });
     else {
-      if (custom) { const el = tileHtml(custom, true); el.querySelector('b').textContent = 'Ma piste'; el.addEventListener('click', () => { if (vs.pick) aiPickTrack(custom); else startSolo(custom); }); grid.appendChild(el); }
+      if (custom) { const el = tileHtml(custom, true); el.querySelector('b').textContent = 'Ma piste'; el.addEventListener('click', () => { if (vs.pick) pickTrack(custom); else { playFrom = 'map'; startSolo(custom); } }); grid.appendChild(el); }
       const side = document.createElement('div'); side.style.cssText = 'display:flex;flex-direction:column;gap:10px;align-items:flex-start;padding:8px 4px;font-size:14px;color:var(--muted)';
       side.innerHTML = '<span>' + (custom ? 'Touche ta piste pour la jouer.' : 'Dessine ta propre piste, puis joue-la.') + '</span>';
       const eb = document.createElement('button'); eb.className = 'btn sec'; eb.style.cssText = 'height:40px;padding:0 14px;font-size:14px'; eb.textContent = 'Dessiner une piste'; eb.addEventListener('click', () => { if (guard()) go('edit'); });
@@ -1419,7 +1417,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     }
     $('mp-bar').style.display = !vsm && L < 4 ? 'flex' : 'none'; $('v-map').classList.toggle('nobar', !(!vsm && L < 4));
     $('mp-stars').textContent = String(totalStars()); $('mp-max').textContent = String(tracks.length * 3);
-    $('mp-sc').hidden = vsm; $('mp-vs').hidden = !(vs.adv || vs.all || vs.pick); if (vs.pick) $('mp-vs-t').textContent = document.querySelector('#hm-ai b').textContent; else if (vs.adv) $('mp-vs-t').textContent = VS_TXT.duelVs + ' ' + VS_ROSTER.find(r => r.id === vs.adv).name; else if (vs.all) $('mp-vs-t').textContent = VS_TXT.all.title; $('mp-trial').hidden = !TRIAL_ON || trial.bought; $('mp-trial-t').textContent = trialText().replace(/ restants?$/, ''); $('mp-go').textContent = TRIAL_ON && !trial.bought ? 'Mes résultats' : 'Voir mes résultats';
+    $('mp-sc').hidden = vsm; $('mp-prev').hidden = !vsm; $('mp-title').style.left = vsm ? '60px' : '24px'; $('mp-vs').hidden = !(vs.adv || vs.all || vs.pick); if (vs.pick) { $('mp-vs-t').textContent = vs.pick.label || 'Changer de piste'; if (!vs.pick.label) $('mp-vs').hidden = true; } else if (vs.adv) $('mp-vs-t').textContent = VS_TXT.duelVs + ' ' + VS_ROSTER.find(r => r.id === vs.adv).name; else if (vs.all) $('mp-vs-t').textContent = VS_TXT.all.title; $('mp-trial').hidden = !TRIAL_ON || trial.bought; $('mp-trial-t').textContent = trialText().replace(/ restants?$/, ''); $('mp-go').textContent = TRIAL_ON && !trial.bought ? 'Mes résultats' : 'Voir mes résultats';
     $('mp-trial').classList.toggle('warn', !trial.bought && daysLeft() <= 3);
     updMap();
   }
@@ -1513,6 +1511,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   }
   // ---------- Chasse aux parcours gagnants (solo) ----------
   // Le Stratège révèle qu'il existe plusieurs routes de la même longueur. Chaque route gagnante trouvée reste à l'écran.
+  let playFrom = 'map';   // écran d'où l'on a lancé la partie : 'map' (parcours ou défi) ou 'edit'
   let hunt = null;   // { T, R, strat, showS, found: [{ pts, key }], done, msg }
   const HUNT_COL = ['#1f9e5a', '#c25a0a', '#0e8aa8', '#b5367a', '#8a6d00', '#4a7a1e'], STRAT_COL = '#7a3fb5';
   // Les parcours gagnants trouvés sont mémorisés par piste : ils restent à l'écran à chaque retour sur la piste.
@@ -1702,16 +1701,16 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
       const two = G.cur === 1;
       pill.textContent = G.over ? 'Fin de la partie' : 'Joueur ' + (G.cur + 1) + ', à toi !';
       sp(two ? { background: '#fff4e8', borderColor: '#c25a0a', color: '#7a3504', borderWidth: '2px', height: '38px', fontSize: '26px' } : { background: '#eef2ff', borderColor: '#1c3db5', color: '#14298a', borderWidth: '2px', height: '38px', fontSize: '26px' });
-    } else {
+    } else if (solo && V === 'play') { pillFill(pill, cur); sp(); }
+    else {
       pill.textContent = net ? 'Duel · ' + cur.name : trackLabel(cur);
       sp();
     }
     { const ok = solo && V === 'play' && !!worldOf(cur), nav = d => { const ids = run && run.ids.includes(cur.id) ? run.ids : BUILTIN.map(x => x.id), id = ids[ids.indexOf(cur.id) + d]; return id ? byId[id] : null; };
-      const pv = $('h-prev'), nx = $('h-next'); pv.hidden = nx.hidden = !ok; if (!ok) { pill.style.minWidth = ''; pill.style.left = '440px'; }
+      const pv = $('h-prev'), nx = $('h-next'); pv.hidden = nx.hidden = true; pill._pick = solo && V === 'play' && !stuck; pill.style.cursor = pill._pick ? 'pointer' : ''; if (!ok) { pill.style.minWidth = ''; pill.style.left = '440px'; }
       // titre de largeur fixe (le plus long libellé possible) : les flèches ne bougent jamais
-      if (ok) { const W = hudPillW(pill); pill.style.left = Math.max(250, 660 - W) + 'px'; pill.style.boxSizing = 'border-box'; pill.style.minWidth = W + 'px'; pill.style.justifyContent = 'center';
-        pv.style.left = (pill.offsetLeft - 40) + 'px'; nx.style.left = (pill.offsetLeft + W + 8) + 'px';
-        const a = nav(-1), b = nav(1); pv.style.opacity = a ? 1 : .3; nx.style.opacity = b ? 1 : .3; pv._t = a; nx._t = b; } }
+      if (ok) { const W = hudPillW(pill) + 44; pill.style.left = Math.max(250, 700 - W) + 'px'; pill.style.boxSizing = 'border-box'; pill.style.minWidth = W + 'px'; pill.style.justifyContent = 'center'; }
+      const hb = $('h-back'); hb.hidden = !(V === 'play'); if (!hb.hidden) hb.style.left = (pill.offsetLeft - 44) + 'px'; }
     const hint = solo && !G.hint && p.lens.length === 0 && (store.get(KEY.hint) || 0) < 3 && can;
     $('h-hint').hidden = !hint;
     const o = gSel(), go_ = $('h-go'), gt = $('h-go-t');
@@ -1737,7 +1736,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   function openPause() {
     if (V !== 'play') return;
     const net = mode === 'net';
-    $('p-again').hidden = net; $('p-map').textContent = mode === 'solo' ? 'Mon parcours' : net ? 'Abandonner' : 'Menu À deux';
+    $('p-again').hidden = net; $('p-map').textContent = mode === 'solo' ? 'Retour' : net ? 'Abandonner' : 'Menu À deux';
     $('p-dv').textContent = settings.depth; $('p-chal').setAttribute('aria-pressed', String(settings.challenge)); $('p-snd').setAttribute('aria-pressed', String(settings.sound)); $('p-vib').setAttribute('aria-pressed', String(settings.vib));
     go('pause');
   }
@@ -1826,7 +1825,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   function editPlay() {
     if (!validated && !verify()) return;
     const C = saveCustom(validated); if (!C) return;
-    startSolo(C);
+    playFrom = 'edit'; startSolo(C);
   }
 // IA qui apprend (apprentissage par renforcement, version « table de notes »).
 // Elle ne connaît pas la carte : à chaque situation (position + vitesse) elle note les 9 coups possibles.
@@ -2152,8 +2151,14 @@ function effortOf(T) {
     setChar(ai.ch);
   }
   function aiLeave() { $('l-help').hidden = true; ai.running = false; cancelAnimationFrame(ai.raf); tourClose(); altStop(); allStop(); learnStop(); obStop(); $('o-help').hidden = true; }
-  function aiPickTrack(T) { const i = allTracks().indexOf(T); if (i >= 0) ai.ti = i; vs.pick = false; go('ai'); }
-  function aiPickOpen() { vs.pick = true; go('map'); }
+  // Choisir une piste depuis n'importe quel écran : l'écran « Choisis ta piste » (un seul choix), puis retour à l'écran d'origine.
+  function pickOpen(from, apply, label) { vs.pick = { from, apply, label: label || '' }; go('map'); }
+  function pickTrack(T) { const P = vs.pick; vs.pick = false; if (P) P.apply(T); }
+  function pickBack() { const P = vs.pick; vs.pick = false; go(P ? P.from : 'home'); }
+  function aiPickTrack(T) { const i = allTracks().indexOf(T); if (i >= 0) ai.ti = i; go('ai'); }
+  function aiPickOpen() { pickOpen('ai', aiPickTrack, document.querySelector('#hm-ai b').textContent); }
+  // pastille « ● Niveau · Piste ▾ »
+  function pillFill(el, T) { const wi = WORLDS.findIndex(w => w.tracks.some(d => d.id === T.id)); el.innerHTML = '<i style="width:10px;height:10px;border-radius:50%;flex:none;background:' + (wi >= 0 ? LVC[wi] : '#5b6b86') + '"></i><span></span>' + '<svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M1.5 1.5L6 6.5l4.5-5"/></svg>'; el.querySelector('span').textContent = trackLabel(T); }
   function aiTrack(d) {
     const all = allTracks(); ai.ti = (ai.ti + d + all.length) % all.length;
     cur = all[ai.ti]; beginGame(cur, 1); aiReset();
@@ -3166,7 +3171,7 @@ function effortOf(T) {
     cmEl('cm-pf').style.width = pct + '%'; cmEl('cm-pt').textContent = txt; cmEl('cm-prog').setAttribute('aria-valuenow', String(pct));
   }
   function cmpUI() {
-    { const e = cmEl('cm-track'); e.style.width = (trackLabelW(e, 15) + 6) + 'px'; e.style.display = 'block'; e.style.overflow = 'hidden'; e.style.textOverflow = 'ellipsis'; e.style.whiteSpace = 'nowrap'; e.textContent = trackLabel(cmp.T); }
+    pillFill(cmEl('cm-track'), cmp.T);
     const [l, r] = cmp.zoom ? zTexts() : cmpTexts(); cmEl('cm-lt').innerHTML = l; cmEl('cm-rt').innerHTML = r;
     cmEl('cm-zoom').setAttribute('aria-pressed', String(cmp.zoom)); cmEl('cm-zoom').textContent = cmp.zoom ? 'Vue globale' : 'Vue zoomée'; cmEl('cm-bilan').textContent = cmp.bil ? 'Vue globale' : '🏁 Bilan'; cmEl('cm-other').hidden = !cmp.zoom; cmEl('cm-other').disabled = cmp.pars.length < 2; cmEl('cm-other').textContent = cmp.zoom && cmp.pars.length < 2 ? 'Une seule voiture ici' : 'Autre voiture ↻'; cmEl('cm-wp').hidden = cmEl('cm-wn').hidden = !cmp.zoom; cmEl('cm-sum').hidden = cmp.zoom || cmp.bil; cmEl('cm-bilan').hidden = cmp.zoom; cmEl('cm-bilan').setAttribute('aria-pressed', String(!!cmp.bil)); cmEl('cm-bil').style.display = cmp.bil ? '' : 'none'; document.querySelectorAll('#v-cmp .cm-p').forEach(p => { if (p.id !== 'cm-bil') p.style.display = cmp.bil ? 'none' : ''; });
     cmEl('cm-step').textContent = cmp.zoom ? (cmp.mi < 4 ? 'Étape ' + (cmp.mi + 2) + ' ▶' : (cmp.ex.done && cmp.pars.length && zKid() < 0 ? 'Arrivée trouvée ✓' : 'Vague suivante ▶')) : 'Pas suivant ▶';
@@ -3444,8 +3449,7 @@ function effortOf(T) {
     on('cm-step', () => cmp.zoom ? cmZoomStep() : cmpStep()); on('cm-auto', () => { if (cmp.zoom) cmZoomToggle(false); cmpAuto(); }); on('cm-zoom', () => cmZoomToggle()); on('cm-other', cmZoomOther); on('cm-wp', () => cmZoomWave(-1)); on('cm-wn', () => cmZoomWave(1)); on('cm-reset', cmpReset); on('cm-stop', cmpStopNet); on('cm-pbtn', cmPriOpen); on('cm-pg', cmPriClose); on('cm-pgo', cmPriGo); on('cm-pdef', cmPriDef);
     [['pr-s1', 'crash'], ['pr-s2', 'fin'], ['pr-s3', 'aide']].forEach(([id, k]) => cmEl(id).addEventListener('input', e => { cmp.pr[k] = +e.target.value; cmPriUI(); })); cmEl('cm-chs').addEventListener('click', cmChipTap); on('cm-bilan', cmBilanToggle);
     [1, 10, 100].forEach(s => on('cm-x' + s, () => { cmp.speed = s; cmpUI(); }));
-    const nav = d => { const all = allTracks(), i = all.indexOf(cmp.T); cmp.T = all[(i + d + all.length) % all.length]; cur = cmp.T; cmpReset(); };
-    on('cm-prev', () => nav(-1)); on('cm-next', () => nav(1));
+    on('cm-track', () => pickOpen('cmp', T => { cur = T; go('cmp'); }, 'Comparer'));
   }
 
   // ---------- Algorithme génétique : une population de voitures qui évolue ----------
@@ -3843,13 +3847,13 @@ function effortOf(T) {
   function labUI() {
     if (V !== 'lab') return;
     const m = lab.mode, R = lab.res;
-    { const e = $('lb-track'); e.style.width = (trackLabelW(e, 14) + 6) + 'px'; e.style.display = 'block'; e.style.overflow = 'hidden'; e.style.textOverflow = 'ellipsis'; e.style.whiteSpace = 'nowrap'; e.textContent = trackLabel(lab.T); }
+    pillFill($('lb-track'), lab.T);
     $('lb-ch').style.display = m === 'choose' ? 'flex' : 'none'; $('lb-set').style.display = m === 'choose' ? 'flex' : 'none';
     $('lb-rc').style.display = m === 'race' ? 'block' : 'none'; $('lb-lg').style.display = m === 'race' ? 'flex' : 'none';
     $('lb-bi').style.display = m === 'bilan' ? 'flex' : 'none'; $('lb-bb').style.display = m === 'bench' ? 'flex' : 'none'; $('lb-b4').style.display = m === 'bench' ? 'flex' : 'none';
     $('lb-b1').style.display = m === 'choose' ? 'flex' : 'none'; $('lb-b2').style.display = m === 'race' ? 'flex' : 'none'; $('lb-b3').style.display = m === 'bilan' ? 'flex' : 'none';
     [['lb-s1', 'choose'], ['lb-s2', 'race'], ['lb-s3', 'bilan'], ['lb-s4', 'bench']].forEach(([id, mm]) => { const b = $(id); if (m === mm) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
-    $('lb-s2').disabled = !R; $('lb-s3').disabled = !(R && R.done); $('lb-s4').disabled = !lbOn().length; $('lb-prev').disabled = $('lb-next').disabled = m === 'bench';
+    $('lb-s2').disabled = !R; $('lb-s3').disabled = !(R && R.done); $('lb-s4').disabled = !lbOn().length; $('lb-track').disabled = m === 'bench';
     if (m === 'choose') lbSum(); else if (m === 'race') { lbRaceBar(); lbDraw(); } else if (m === 'bilan') lbBil();
     else if (lab.bench) lbBenchBuild();
     else { $('lb-bm').innerHTML = ''; $('lb-bbs').textContent = ''; $('lb-bgo').textContent = "Lancer le banc d'essai"; $('lb-bsum').textContent = plural(lbOn().length, 'concurrent') + ' × ' + lbBenchTracks().length + ' pistes, limite ' + fmtInt(LB_BUD[lab.bud]) + ' essais.' + (lab.on.net ? ' L\'Apprenti prend plusieurs minutes.' : '');
@@ -3865,8 +3869,8 @@ function effortOf(T) {
     on('lb-bgo', () => { if (lab.bench && lab.bench.run) { lbBenchHalt(); lbBenchUpd(); } else lbBenchStart(); }); on('lb-tocourse', () => lbMode('race')); on('lb-tochoose', () => lbMode('choose'));
     on('lb-def', () => { lbStale(); const d = LB_DEF(); lab.bud = d.bud; lab.on = d.on; lab.pr = d.pr; lbCards(); lbSet(); labUI(); });
     $('lb-bud').addEventListener('input', e => { lbStale(); lab.bud = +e.target.value; labUI(); });
-    const nav = d => { const all = allTracks(), i = all.indexOf(lab.T); lbStop(); lab.T = all[(i + d + all.length) % all.length]; cur = lab.T; lab.res = null; lab.mode = 'choose'; labUI(); };
-    on('lb-prev', () => nav(-1)); on('lb-next', () => nav(1));
+    on('lb-track', () => pickOpen('lab', T => { cur = T; lab.res = null; lab.mode = 'choose'; go('lab'); }, 'Comparer'));
+    on('lb-ret', () => go('ai'));
     $('lb-ch').addEventListener('change', e => { const b = e.target.closest('input[data-on]'); if (!b) return; lbStale(); lab.on[b.dataset.on] = b.checked; lbCards(); labUI(); });
     $('lb-ch').addEventListener('click', e => {
       if (e.target.closest('label')) return;
@@ -4417,7 +4421,7 @@ function effortOf(T) {
   const vaReached = it => { if (VA.anim === -2) return false; if (VA.anim < 0) return true; const i = vaIdx(it); return i < 0 || i < VA.cur || (i === VA.cur && VA.anim >= it.pts.length - 1); };
   function vsAllUI() {
     if (V !== 'vall') return; const A = VS_TXT.all, T = VA.T, R = VA.items;
-    vsEl('al-title').textContent = A.title; vsEl('al-track').textContent = trackLabel(T);
+    vsEl('al-title').textContent = A.title; pillFill(vsEl('al-track'), T);
     vsEl('al-next').textContent = A.next; vsEl('al-bench').textContent = A.bench;
     const rp = vsEl('al-replay'); rp.textContent = VA.anim === -2 ? A.go : VA.anim === -1 ? A.replay : VA.paused ? A.resume : A.pause; rp.hidden = !VA.done;
     rp.className = VA.anim === -2 ? 'btn pri' : 'btn sec'; rp.style.height = VA.anim === -2 ? '44px' : '34px'; rp.style.fontSize = VA.anim === -2 ? '16px' : '13px';
@@ -4470,6 +4474,7 @@ function effortOf(T) {
   on('vd-all', () => { vs.tok++; vsAll(vs.res.T); });
   on('al-back', () => { VA.tok++; startVs(); });
   on('al-replay', vsAllBtn); on('al-home', () => { VA.tok++; clearTimeout(VA.timer); go('home'); }); on('vs-home', () => go('home'));
+  on('al-track', () => pickOpen('vall', T => vsAll(T), VS_TXT.all.title));
   on('al-next', () => { const a = allTracks(), i = a.indexOf(VA.T); vsAll(a[(i + 1) % a.length]); });
   on('al-bench', () => { VA.tok++; go('lab'); const b = $('lb-s4'); if (!b.disabled) b.click(); });
 
@@ -4513,6 +4518,7 @@ function effortOf(T) {
   on('tu-next', () => { if (tu.i >= TUTO.length - 1) tutoClose(); else tutoShow(tu.i + 1); });
   on('vs-back', () => go('home'));
   on('vd-home', () => { vs.tok++; go('home'); });
+  on('vd-back', () => { vs.tok++; go('map'); });
   on('vd-again', () => { vs.tok++; startSolo(vs.res.T); });
   on('vs-m-tour', () => { settings.vsTour = true; store.set(KEY.set, settings); vsModeUI(); });
   on('vs-m-trait', () => { settings.vsTour = false; store.set(KEY.set, settings); vsModeUI(); });
@@ -4553,7 +4559,8 @@ function effortOf(T) {
       if (r && r.then) r.then(lock).catch(() => {}); else lock();
     } catch (e) {}
   });
-  on('mp-back', () => { if (vs.pick) { vs.pick = false; go('ai'); } else go('home'); });
+  on('mp-back', () => go('home'));
+  on('mp-prev', () => { if (vs.pick) pickBack(); else if (vs.adv || vs.all) go('vs'); else go('home'); });
   on('mp-all', () => { const ids = WORLDS[parc.lvl].tracks.map(d => d.id); parc.ids = parc.ids.concat(ids.filter(id => !parc.ids.includes(id))); saveParc(); buildMap(); });
   on('mp-none', () => { const ids = WORLDS[parc.lvl].tracks.map(d => d.id); parc.ids = parc.ids.filter(id => !ids.includes(id)); saveParc(); buildMap(); });
   // ---------- Mes résultats ----------
@@ -4583,7 +4590,10 @@ function effortOf(T) {
   on('p-resume', () => go('play'));
   on('p-again', () => { beginGame(cur, mode === 'duo' ? 2 : 1); go('play'); });
   on('p-rules', () => modal('v-rules'));
-  on('p-map', () => { if (mode === 'solo') go('map'); else if (mode === 'net') leaveDuel(); else go('duo'); });
+  on('p-map', playBack);
+  function playBack() { if (mode === 'net') { leaveDuel(); return; } if (mode !== 'solo') { go('duo'); return; } go(playFrom === 'edit' ? 'edit' : 'map'); }
+  on('h-back', playBack);
+  $('h-pill').addEventListener('click', () => { if ($('h-pill')._pick && V === 'play') pickOpen('play', T => { playFrom = 'map'; startSolo(T); }, vs.adv ? VS_TXT.duelVs + ' ' + VS_ROSTER.find(r => r.id === vs.adv).name : ''); });
   on('h-home', () => { if (mode === 'net') { leaveDuel(); } mode = 'solo'; go('home'); });
   on('p-home', () => { if (mode === 'net') { leaveDuel(); } mode = 'solo'; go('home'); });
   on('p-chal', () => toggleSetting('challenge'));
