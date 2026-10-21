@@ -4283,15 +4283,16 @@ function effortOf(T) {
   function vsDuel(T, p, n) {
     const a = VS_ROSTER.find(r => r.id === vs.adv), tok = ++vs.tok;
     vs.res = { T, a, n, pts: p.pts.map(q => ({ x: q.x, y: q.y })), it: null };
-    go('duel'); vsDuelUI();
+    // Pas d'écran d'attente qui clignote : on reste sur la piste tant que le résultat arrive vite (moins d'une seconde) ; si l'attente s'affiche, elle reste au moins 0,6 s.
+    let shownAt = 0; const show = () => { if (tok === vs.tok && V === 'play') { go('duel'); vsDuelUI(); shownAt = performance.now(); } }, tw = setTimeout(show, 1000);
     setTimeout(() => {
       if (tok !== vs.tok) return;
       const P = LB_DEF().pr; if (a.depth) P.depth = a.depth;
       const S = makeSolver(T, 60, 300000).run(1e9), it = lbMake(a.id, T, S, P), B = LB_BUD[2], t0 = performance.now();
       const step = () => {
-        if (tok !== vs.tok || V !== 'duel') return;
+        if (tok !== vs.tok || (V !== 'duel' && V !== 'play')) return;
         if (it.status === 'run' && performance.now() - t0 < 2500) { lbAdvance(it, T, B, 25); setTimeout(step, 30); }
-        else { lbFinish(it); vs.res.it = it; vsDuelUI(); }
+        else { lbFinish(it); clearTimeout(tw); const done = () => { if (tok !== vs.tok) return; vs.res.it = it; if (V !== 'duel') go('duel'); vsDuelUI(); }; const d = shownAt ? Math.max(0, 600 - (performance.now() - shownAt)) : 0; if (d) setTimeout(done, d); else done(); }
       };
       step();
     }, 60);
