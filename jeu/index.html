@@ -2472,6 +2472,7 @@ function effortOf(T) {
   }
   function preStep() {
     if (alt.status !== 'idle' && alt.status !== 'run') return;
+    if (!alt.pts.length) altReset();
     alt.status = 'run';
     const P = alt.pts[alt.pts.length - 1], st = { x: P.x, y: P.y, vx: alt.vx, vy: alt.vy }, opts = []; let best = null;
     for (const [dx, dy] of DIRS) {
@@ -2502,7 +2503,7 @@ function effortOf(T) {
   function altStepOnce() {
     altStop();
     if (ai.ch === 'hasard') hazOne(TOK);
-    else { if (alt.status !== 'idle' && alt.status !== 'run') altReset(); preStep(); }
+    else { if ((alt.status !== 'idle' && alt.status !== 'run') || !alt.pts.length) altReset(); preStep(); }
     altUI(); panelUI(); draw();
   }
   function altUI() {
@@ -4565,8 +4566,8 @@ function effortOf(T) {
   });
   on('mp-back', () => go('home'));
   on('mp-prev', () => { if (vs.pick) pickBack(); else if (vs.adv || vs.all) go('vs'); else go('home'); });
-  on('mp-all', () => { const ids = WORLDS[parc.lvl].tracks.map(d => d.id); parc.ids = parc.ids.concat(ids.filter(id => !parc.ids.includes(id))); saveParc(); buildMap(); });
-  on('mp-none', () => { const ids = WORLDS[parc.lvl].tracks.map(d => d.id); parc.ids = parc.ids.filter(id => !ids.includes(id)); saveParc(); buildMap(); });
+  on('mp-all', () => { if (!WORLDS[parc.lvl]) return; const ids = WORLDS[parc.lvl].tracks.map(d => d.id); parc.ids = parc.ids.concat(ids.filter(id => !parc.ids.includes(id))); saveParc(); buildMap(); });
+  on('mp-none', () => { if (!WORLDS[parc.lvl]) return; const ids = WORLDS[parc.lvl].tracks.map(d => d.id); parc.ids = parc.ids.filter(id => !ids.includes(id)); saveParc(); buildMap(); });
   // ---------- Mes résultats ----------
   function buildRes() {
     const g = $('rs-grid'); g.innerHTML = ''; let tot = 0, max = 0, done = 0, all = 0;
