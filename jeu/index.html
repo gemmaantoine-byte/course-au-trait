@@ -1191,7 +1191,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   const $ = id => document.getElementById(id);
   const cv = $('cv'), ctx = cv.getContext('2d'), lcv = $('lcv'), lctx = lcv.getContext('2d'), board = $('board'), loupe = $('loupe'), stage = $('stage'), fit = $('fit');
   const DISPLAY = "'Caveat','Segoe Print','Bradley Hand',cursive";
-  const KEY = { rec: 'pub/records', custom: 'pub/custom', draft: 'pub/draft', trial: 'pub/trial', set: 'pub/settings', hint: 'pub/hint', seen: 'pub/seen', parc: 'pub/parcours', found: 'pub/gagnants' };
+  const KEY = { rec: 'pub/records', custom: 'pub/custom', draft: 'pub/draft', trial: 'pub/trial', set: 'pub/settings', hint: 'pub/hint', seen: 'pub/seen', parc: 'pub/parcours', found: 'pub/gagnants', adv: 'pub/adversaires' };
   const store = {
     get(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } },
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
@@ -4311,19 +4311,31 @@ function effortOf(T) {
   const startVs = () => { vs.adv = null; vs.all = false; vsBuild(); vsEl('vs-all').textContent = VS_TXT.all.btn; go('vs'); };
   // ---------- Défi coup par coup : l'adversaire calcule sa course au départ, puis avance d'un coup après chacun des tiens ----------
   function vsModeUI() { for (const [id, on] of [['vs-m-tour', settings.vsTour], ['vs-m-trait', !settings.vsTour]]) { const b = vsEl(id); b.setAttribute('aria-pressed', String(on)); b.style.background = on ? 'var(--ink)' : '#fff'; b.style.color = on ? '#fff' : 'var(--graphite)'; } }
+  // La course d'un adversaire est calculée une seule fois par piste : en rejouant, il refait exactement le même trajet.
+  const advMem = store.get(KEY.adv) || {};
+  const advKey = (a, T) => { const e = encodeTrack(T), t = e.c + '|' + e.sx + ',' + e.sy; let h = 0; for (let i = 0; i < t.length; i++) h = (h * 31 + t.charCodeAt(i)) | 0; return a.id + '|' + (a.depth || 0) + '|' + T.id + '|' + (h >>> 0).toString(36); };
+  function vsRace(T, a, alive, done, cap) {
+    const k = advKey(a, T), m = advMem[k];
+    if (m) { done({ id: a.id, status: m.status, n: m.n, why: m.why, pts: m.pts ? m.pts.map(q => q.hit ? { x: q.x, y: q.y, hit: true } : { x: q.x, y: q.y }) : null }); return; }
+    const P = Object.assign({}, LB_DEF().pr); if (a.depth) P.depth = a.depth;
+    const S = makeSolver(T, 60, 300000).run(1e9), it = lbMake(a.id, T, S, P), B = LB_BUD[2], t0 = performance.now();
+    const step = () => {
+      if (!alive()) return;
+      if (it.status === 'run' && performance.now() - t0 < (cap || 2500)) { lbAdvance(it, T, B, 25); setTimeout(step, 30); }
+      else {
+        lbFinish(it);
+        advMem[k] = { status: it.status, n: it.n, why: it.why, pts: it.pts ? it.pts.map(q => q.hit ? { x: q.x, y: q.y, hit: true } : { x: q.x, y: q.y }) : null };
+        store.set(KEY.adv, advMem); done(it);
+      }
+    };
+    step();
+  }
   function vsLiveStart(T) {
     vs.live = null; if (!vs.adv || !settings.vsTour) return;
     const a = VS_ROSTER.find(r => r.id === vs.adv), tok = ++vs.tok, L = vs.live = { T, a, it: null, tok };
     setTimeout(() => {
       if (vs.live !== L) return;
-      const P = LB_DEF().pr; if (a.depth) P.depth = a.depth;
-      const S = makeSolver(T, 60, 300000).run(1e9), it = lbMake(a.id, T, S, P), B = LB_BUD[2], t0 = performance.now();
-      const step = () => {
-        if (vs.live !== L) return;
-        if (it.status === 'run' && performance.now() - t0 < 2500) { lbAdvance(it, T, B, 25); setTimeout(step, 30); }
-        else { lbFinish(it); L.it = it; refresh(); }
-      };
-      step();
+      vsRace(T, a, () => vs.live === L, it => { L.it = it; refresh(); });
     }, 60);
   }
   function vsLiveNow() {
@@ -4339,14 +4351,7 @@ function effortOf(T) {
     let shownAt = 0; const show = () => { if (tok === vs.tok && V === 'play') { go('duel'); vsDuelUI(); shownAt = performance.now(); } }, tw = setTimeout(show, 1000);
     setTimeout(() => {
       if (tok !== vs.tok) return;
-      const P = LB_DEF().pr; if (a.depth) P.depth = a.depth;
-      const S = makeSolver(T, 60, 300000).run(1e9), it = lbMake(a.id, T, S, P), B = LB_BUD[2], t0 = performance.now();
-      const step = () => {
-        if (tok !== vs.tok || (V !== 'duel' && V !== 'play')) return;
-        if (it.status === 'run' && performance.now() - t0 < 2500) { lbAdvance(it, T, B, 25); setTimeout(step, 30); }
-        else { lbFinish(it); clearTimeout(tw); const done = () => { if (tok !== vs.tok) return; vs.res.it = it; if (V !== 'duel') go('duel'); vsDuelUI(); }; const d = shownAt ? Math.max(0, 600 - (performance.now() - shownAt)) : 0; if (d) setTimeout(done, d); else done(); }
-      };
-      step();
+      vsRace(T, a, () => tok === vs.tok && (V === 'duel' || V === 'play'), it => { clearTimeout(tw); const done = () => { if (tok !== vs.tok) return; vs.res.it = it; if (V !== 'duel') go('duel'); vsDuelUI(); }; const d = shownAt ? Math.max(0, 600 - (performance.now() - shownAt)) : 0; if (d) setTimeout(done, d); else done(); });
     }, 60);
   }
   function vsDuelUI() {
@@ -4396,18 +4401,12 @@ function effortOf(T) {
     go('vall'); vsAllUI();
     setTimeout(() => {
       if (tok !== VA.tok) return;
-      const P0 = LB_DEF().pr, S = makeSolver(T, 60, 300000).run(1e9), B = LB_BUD[2], order = ['rech', 'pre', 'haz', 'tab', 'net', 'gen']; let i = 0;
+      const order = ['rech', 'pre', 'haz', 'tab', 'net', 'gen']; let i = 0;
       const next = () => {
         if (tok !== VA.tok || V !== 'vall') return;
         if (i >= order.length) { VA.done = true; VA.anim = -2; VA.played = false; vsAllUI(); return; }
-        const r = VS_ROSTER.find(x => x.id === order[i]), P = Object.assign({}, P0); if (r.depth) P.depth = r.depth;
-        const it = lbMake(r.id, T, S, P), t0 = performance.now();
-        const step = () => {
-          if (tok !== VA.tok || V !== 'vall') return;
-          if (it.status === 'run' && performance.now() - t0 < 2000) { lbAdvance(it, T, B, 25); setTimeout(step, 30); }
-          else { lbFinish(it); VA.items[r.id] = it; i++; vsAllUI(); setTimeout(next, 20); }
-        };
-        step();
+        const r = VS_ROSTER.find(x => x.id === order[i]);
+        vsRace(T, r, () => tok === VA.tok && V === 'vall', it => { VA.items[r.id] = it; i++; vsAllUI(); setTimeout(next, 20); });
       };
       next();
     }, 60);
@@ -4751,7 +4750,7 @@ function effortOf(T) {
   } catch (e) { Rstate = 'none'; }
   cmpBind(); labBind();
   // exposé pour les tests uniquement
-  window.__cat = { set licTest(v) { licTest = v; }, direct, get hunt() { return hunt; }, eng: { shortSight, randomRun, distFinish, makeGenetic, makeLearner, makeNet }, lab, lbLaunch, get cmp() { return cmp; }, cmpStep, cmpAuto, cmpReset, get s() { return { V, mode, G, cur, duel, tracks, rec, trial, ai, alt, all, tour, S, learn, learnedAI }; }, learnMain, go, startSolo, trace, undo, setChar, tourOpen, tourShow, refresh, fitStage, openPause, aiMain, aiS1, aiS2, aiS3, aiTrack };
+  window.__cat = { set licTest(v) { licTest = v; }, direct, get hunt() { return hunt; }, get vs() { return vs; }, eng: { shortSight, randomRun, distFinish, makeGenetic, makeLearner, makeNet }, lab, lbLaunch, get cmp() { return cmp; }, cmpStep, cmpAuto, cmpReset, get s() { return { V, mode, G, cur, duel, tracks, rec, trial, ai, alt, all, tour, S, learn, learnedAI }; }, learnMain, go, startSolo, trace, undo, setChar, tourOpen, tourShow, refresh, fitStage, openPause, aiMain, aiS1, aiS2, aiS3, aiTrack };
 })();
 </script>
 
