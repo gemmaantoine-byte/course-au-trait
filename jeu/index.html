@@ -900,7 +900,8 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
   </div>
   <div class="scr dimd" id="v-adv" hidden style="pointer-events:auto;z-index:22">
     <div class="box" style="left:162px;top:62px;width:520px;padding:16px 22px 14px;display:flex;flex-direction:column;gap:10px">
-      <div class="disp" style="font-size:34px;line-height:1.1">Un coup d'œil avant le duel ?</div>
+      <button class="round w" id="adv-x" aria-label="Fermer" style="position:absolute;right:12px;top:12px;width:36px;height:36px"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <div class="disp" style="font-size:34px;line-height:1.1;padding-right:44px">Un coup d'œil avant le duel ?</div>
       <p style="margin:0;font-size:14px;line-height:19px;color:#33405a">Tu n'as pas encore regardé comment les IA réfléchissent. Dans « Comprendre », tu les verras chercher, tâtonner et apprendre : tu choisiras mieux ton adversaire.</p>
       <div style="display:flex;gap:10px;margin-top:2px">
         <button class="btn" id="adv-look" style="flex:1.3;height:46px;border:0;background:#12804f;box-shadow:0 4px 0 #0d5a3a;color:#fff;font-size:16px">Regarder d'abord</button>
@@ -1413,7 +1414,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
       if (custom) { const el = tileHtml(custom, true); el.querySelector('b').textContent = 'Ma piste'; el.addEventListener('click', () => { if (vs.pick) pickTrack(custom); else { playFrom = 'map'; startSolo(custom); } }); grid.appendChild(el); }
       const side = document.createElement('div'); side.style.cssText = 'display:flex;flex-direction:column;gap:10px;align-items:flex-start;padding:8px 4px;font-size:14px;color:var(--muted)';
       side.innerHTML = '<span>' + (custom ? 'Touche ta piste pour la jouer.' : 'Dessine ta propre piste, puis joue-la.') + '</span>';
-      const eb = document.createElement('button'); eb.className = 'btn sec'; eb.style.cssText = 'height:40px;padding:0 14px;font-size:14px'; eb.textContent = 'Dessiner une piste'; eb.addEventListener('click', () => { if (guard()) go('edit'); });
+      const eb = document.createElement('button'); eb.className = 'btn sec'; eb.style.cssText = 'height:40px;padding:0 14px;font-size:14px'; eb.textContent = 'Dessiner une piste'; eb.addEventListener('click', () => { if (guard()) { editFrom = 'map'; go('edit'); } });
       side.appendChild(eb); grid.appendChild(side);
     }
     $('mp-bar').style.display = !vsm && L < 4 ? 'flex' : 'none'; $('v-map').classList.toggle('nobar', !(!vsm && L < 4));
@@ -1512,7 +1513,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   }
   // ---------- Chasse aux parcours gagnants (solo) ----------
   // Le Stratège révèle qu'il existe plusieurs routes de la même longueur. Chaque route gagnante trouvée reste à l'écran.
-  let playFrom = 'map';   // écran d'où l'on a lancé la partie : 'map' (parcours ou défi) ou 'edit'
+  let playFrom = 'map', editFrom = 'home';   // editFrom : écran d'où l'on a ouvert « Dessiner »   // écran d'où l'on a lancé la partie : 'map' (parcours ou défi) ou 'edit'
   let hunt = null;   // { T, R, strat, showS, found: [{ pts, key }], done, msg }
   const HUNT_COL = ['#1f9e5a', '#c25a0a', '#0e8aa8', '#b5367a', '#8a6d00', '#4a7a1e'], STRAT_COL = '#7a3fb5';
   // Les parcours gagnants trouvés sont mémorisés par piste : ils restent à l'écran à chaque retour sur la piste.
@@ -1623,8 +1624,8 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     if (!settings.challenge) { huntArrive(T, p, n, st, prev, record); return; }
     showEnd({ kick: trackLabel(T) + (run && run.ids.includes(T.id) ? ' · ' + (run.ids.indexOf(T.id) + 1) + ' sur ' + run.ids.length : ''), note, title: 'Arrivée en ' + n + (n > 1 ? ' coups !' : ' coup !'), color: 'var(--ok)', stars: st, line, pill,
       a: { label: 'Rejouer', icon: 'redo', fn: () => { beginGame(T, 1); go('play'); } },
-      b: nx ? { label: 'Piste suivante', icon: 'arrow', fn: () => startSolo(nx) } : { label: 'Mon parcours', fn: () => go('map') },
-      c: nx ? { label: 'Mon parcours', fn: () => go('map') } : null });
+      b: nx ? { label: 'Piste suivante', icon: 'arrow', fn: () => startSolo(nx) } : { label: playFrom === 'edit' ? 'Retour à l’éditeur' : 'Mon parcours', fn: playBack },
+      c: nx ? { label: playFrom === 'edit' ? 'Retour à l’éditeur' : 'Mon parcours', fn: playBack } : null });
   }
   const ICO = { redo: '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 3-6.2"/><path d="M4 4v5h5"/></svg>',
                 arrow: '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="M13 6l6 6-6 6"/></svg>' };
@@ -2751,7 +2752,7 @@ function effortOf(T) {
   }
   function obMain() {
     if (!ob.it || ob.kind !== ai.ch) obReset();
-    if (ob.state === 'done' && VS_ROSTER.some(r => r.id === ob.kind)) { vs.adv = ob.kind; startSolo(cur); return; }
+    if (ob.state === 'done' && VS_ROSTER.some(r => r.id === ob.kind)) { vs.adv = ob.kind; playFrom = 'ai'; startSolo(cur); return; }
     if (ob.state === 'done' || ob.state === 'fail') { obReset(); refresh(); return; }
     if (ob.run) { obStop(); aiUI(); return; }
     obStart();
@@ -4270,7 +4271,7 @@ function effortOf(T) {
   const on = (id, fn) => $(id).addEventListener('click', fn);
   on('hm-play', () => { if (guard()) go('map'); });
   on('hm-duo', () => { if (guard()) go('duo'); });
-  on('hm-edit', () => { if (guard()) go('edit'); });
+  on('hm-edit', () => { if (guard()) { editFrom = 'home'; go('edit'); } });
   on('hm-ai', () => { if (guard()) { seen.ai = true; saveSeen(); go('ai'); } });
   const soon = msg => { const d = document.createElement('div'); d.textContent = msg; d.style.cssText = 'position:absolute;left:50%;bottom:70px;transform:translateX(-50%);z-index:30;background:#1b2331;color:#fff;padding:10px 18px;border-radius:12px;font-weight:700;font-size:15px'; $('stage').appendChild(d); setTimeout(() => d.remove(), 2400); };
   on('hm-vs', () => { if (!guard()) return; if (seen.ai || seen.skip) startVs(); else { $('adv-skip').checked = false; modal('v-adv'); } });
@@ -4533,6 +4534,7 @@ function effortOf(T) {
   const advClose = () => { if ($('adv-skip').checked) { seen.skip = true; saveSeen(); } modal(null); };
   on('adv-look', () => { advClose(); seen.ai = true; saveSeen(); go('ai'); });
   on('adv-go', () => { advClose(); startVs(); });
+  on('adv-x', () => modal(null));
   on('hm-set', () => modal('v-set'));
   // ---------- Installation (écran d'accueil) et jeu sans Internet ----------
   let instEvt = null;
@@ -4587,13 +4589,13 @@ function effortOf(T) {
   on('mp-sc', () => go('res')); on('rs-back', () => go('map')); on('rs-ok', () => go('map'));
   on('rs-reset', () => { $('rs-conf').hidden = false; }); on('rs-no', () => { $('rs-conf').hidden = true; });
   on('rs-yes', () => { rec = {}; store.set(KEY.rec, rec); $('rs-conf').hidden = true; buildRes(); });
-  on('mp-play', () => { const ids = parcList(); if (!ids.length) return; run = { ids }; startSolo(byId[ids[0]]); });
+  on('mp-play', () => { const ids = parcList(); if (!ids.length) return; run = { ids }; playFrom = 'map'; startSolo(byId[ids[0]]); });
   on('h-pause', openPause); on('h-undo', undo); on('h-go', trace);
   on('p-resume', () => go('play'));
   on('p-again', () => { beginGame(cur, mode === 'duo' ? 2 : 1); go('play'); });
   on('p-rules', () => modal('v-rules'));
   on('p-map', playBack);
-  function playBack() { if (mode === 'net') { leaveDuel(); return; } if (mode !== 'solo') { go('duo'); return; } go(playFrom === 'edit' ? 'edit' : 'map'); }
+  function playBack() { if (mode === 'net') { leaveDuel(); return; } if (mode !== 'solo') { go('duo'); return; } if (playFrom === 'ai') { vs.adv = null; vs.live = null; } go(playFrom === 'edit' ? 'edit' : playFrom === 'ai' ? 'ai' : 'map'); }
   on('h-back', playBack);
   $('h-pill').addEventListener('click', () => { if ($('h-pill')._pick && V === 'play') pickOpen('play', T => { playFrom = 'map'; startSolo(T); }, vs.adv ? VS_TXT.duelVs + ' ' + VS_ROSTER.find(r => r.id === vs.adv).name : ''); });
   on('h-home', () => { if (mode === 'net') { leaveDuel(); } mode = 'solo'; go('home'); });
@@ -4625,7 +4627,7 @@ function effortOf(T) {
   $('l-aud').addEventListener('input', e => { learnSetting('audace', +e.target.value, false); learnTip('audace', +e.target.value); });
   document.querySelectorAll('#a-chars .chbtn[data-ch]').forEach(b => b.addEventListener('click', () => setChar(b.dataset.ch)));
   $('a-scrub').addEventListener('input', e => { allStop(); all.t = +e.target.value; allUI(); panelUI(); draw(); });
-  on('ed-back', () => go('home'));
+  on('ed-back', () => go(editFrom === 'map' ? 'map' : 'home'));
   on('ed-clear', () => { eCells = new Uint8Array(NX * NY); eStart = null; invalidate(); store.set(KEY.draft, null); eMsg = "Page blanche. Pose le départ, peins la route, puis l'arrivée."; editUI(); draw(); });
   on('ed-check', () => { verify(); draw(); });
   on('ed-play', editPlay);
