@@ -225,6 +225,7 @@ svg{display:block}
 .rbtn.on{background:#efeafa;border-color:#7a3fb5;color:#4a2480}
 .rchip{appearance:none;cursor:pointer;height:33px;display:flex;align-items:center;justify-content:center;border-radius:11px;background:rgba(249,251,255,.95);border:1.5px solid #5b6b86;font:700 12.5px var(--font-body);color:#33405a;white-space:nowrap;min-width:0;padding:0 4px;letter-spacing:-.01em}
 .rchip.all{border-color:#1f9e5a;color:#12804f}
+.rchip:disabled{opacity:.45;cursor:default}
 #rev-box{position:absolute;left:14px;top:48px;width:816px;height:330px;box-sizing:border-box;padding:10px 12px;background:rgba(249,251,255,.98);border:2px solid var(--graphite);border-radius:14px;z-index:6;display:flex;flex-direction:column;gap:8px}
 #rev-ctl{left:596px;top:296px;width:244px;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
 #rev-cv{width:120px;height:auto;border-radius:5px;border:1.5px solid var(--graphite);background:#fff}
@@ -1578,7 +1579,8 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     if (revTour) { revStop(''); return; }
     if (revStep) { revStepEnd(); return; }
     const box = $('rev-box'); if (!box.hidden) { box.hidden = true; return; }
-    const h0 = huntOf(cur), R = huntR(h0); if (!R.total) return;
+    const h0 = huntOf(cur); if (!h0.done) return;   // la galerie ne s'ouvre qu'une fois la piste terminée
+    const R = huntR(h0); if (!R.total) return;
     const D = huntD(h0), M = Math.min(D.length, 15), g = $('rev-g'); g.innerHTML = ''; revList = [];
     for (let i = 0; i < M; i++) { const pts = D[Math.floor(i * D.length / M)]; revList.push(pts); const cv = document.createElement('canvas'); drawThumb(cur, cv, pts, REV_COL(i)); g.appendChild(cv); }
     $('rev-t').textContent = (D.length > 1 ? fmtInt(D.length) + ' parcours gagnants différents' : 'Un seul parcours gagnant') + ' de ' + plural(R.len, 'coup') + (M < D.length ? ' · en voici ' + M + ', répartis sur l\'ensemble' : (D.length > 1 ? ' · les voici tous' : ''));
@@ -1671,7 +1673,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
       if (!hr.hidden) {
         const total = h && h.strat ? huntD(h).length : 0, cnt = h ? h.found.length + (h.strat ? 1 : 0) : 0;
         $('h-st').disabled = !(h && h.done); $('h-st').classList.toggle('on', !!(h && h.strat && h.showS)); $('h-st').setAttribute('aria-pressed', String(!!(h && h.strat && h.showS)));
-        const w = $('h-win'); w.classList.toggle('all', !!total && cnt >= total);
+        const w = $('h-win'); w.classList.toggle('all', !!total && cnt >= total); w.disabled = !(h && h.done);
         w.textContent = total ? (cnt >= total ? 'Tous trouvés !' : 'Gagnants ' + cnt + '/' + fmtInt(total)) : 'Gagnants ' + cnt + '/?';
         w.style.fontSize = ''; if (w.scrollWidth > w.clientWidth) w.style.fontSize = '11px'; if (w.scrollWidth > w.clientWidth) w.style.fontSize = '10px';
         $('h-next2').textContent = nextTrack(cur) ? 'Suite du parcours →' : 'Mon parcours';
