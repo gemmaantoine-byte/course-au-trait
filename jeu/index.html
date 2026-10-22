@@ -215,6 +215,13 @@ svg{display:block}
 .tile:has(input:focus-visible){outline:3px solid #d2641c;outline-offset:2px}
 #mp-bar{position:absolute;left:24px;right:24px;top:342px;height:44px;display:flex;align-items:center;gap:10px}
 #mp-bar .sum{flex:1;min-width:0;font-size:14px;color:var(--graphite);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#mp-bar .sum .tipl{display:block;color:#7a5a00;font-weight:700;line-height:1.25}
+.tile .hb{position:absolute;bottom:4px;right:40px;width:28px;height:28px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1.5px solid #bccde8;background:#fff;color:#8a94a6;padding:0;cursor:pointer}
+.tile .hb.on{border-color:#b88a00;background:#ffd84d;color:#5a4200}
+#h-tip{box-sizing:border-box;padding:6px 12px 7px;background:#fffbea;border:1.5px solid #b88a00;border-radius:12px;font-size:13px;line-height:1.3;color:#4a3a00;box-shadow:0 2px 0 rgba(0,0,0,.08)}
+#h-tip .tb{display:flex;gap:8px;margin-top:6px}
+#h-tip button{height:30px;padding:0 14px;border-radius:10px;font:700 13px var(--font-body);border:1.5px solid #8a8f99;background:#fff;color:#2b323d;cursor:pointer}
+#h-tip button.pri{border-color:#1c3db5;background:#1c3db5;color:#fff}
 #mp-bar .btn{height:38px;padding:0 14px;font-size:14px;flex:none}
 #mp-bar .btn.pri{height:42px;padding:0 26px;font-size:17px;border-radius:14px}
 
@@ -422,6 +429,7 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
     </div>
     <div class="abs" id="h-stack" style="left:14px;top:72px;width:420px;display:flex;flex-direction:column;gap:5px">
     <div id="h-rival" style="align-self:flex-start;max-width:420px;box-sizing:border-box;padding:5px 12px;background:#fff4e8;border:1.5px solid var(--rival);border-radius:10px;font-size:13px;font-weight:700;color:#7a3504" hidden></div>
+    <div id="h-tip" hidden><div id="h-tip-t"></div><div class="tb"><button type="button" class="pri" id="h-tip-a"></button><button type="button" id="h-tip-b"></button></div></div>
     <div id="h-hint" style="box-sizing:border-box;padding:4px 12px;background:rgba(255,255,255,.95);border:1.5px solid var(--ink);border-radius:10px;font-size:12.5px;line-height:1.25;color:var(--fg)" hidden>Touche un point près du tien, puis « Avancer ».</div>
     <div id="h-ai" style="box-sizing:border-box;padding:4px 12px;background:rgba(249,251,255,.92);border:1.5px solid #5b6b86;border-radius:10px;font-size:12px;line-height:1.25;font-weight:700;color:#33405a" hidden></div>
     <div id="h-msg" hidden></div>
@@ -551,7 +559,7 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
         <label class="lsl"><span>Audace</span><input type="range" id="l-aud" min="0" max="100" step="5" value="15"><b id="l-aud-v"></b></label>
       </div>
       <input type="range" id="a-scrub" min="0" max="10" value="0" aria-label="Coup" hidden>
-      <div id="l-mainrow"><button class="tiny" id="l-set" hidden aria-label="Régler le Carnet" title="Régler" style="width:46px;height:38px;font-size:20px">⚙</button><button class="tiny" id="l-reset" hidden style="width:92px;height:38px">Recommencer</button><button class="btn pri" id="a-main" style="height:38px;font-size:16px;border-radius:12px;flex:1"></button></div>
+      <div id="l-mainrow"><button class="tiny" id="l-set" hidden aria-label="Régler le Carnet" title="Régler" style="width:46px;height:38px;font-size:20px">⚙</button><button class="tiny" id="l-reset" hidden style="width:92px;height:38px;flex:none;padding:0 4px">Recommencer</button><button class="btn pri" id="a-main" style="height:38px;font-size:16px;border-radius:12px;flex:1"></button></div>
     </div>
     <div id="l-sheet" hidden role="dialog" aria-label="Régler le Carnet"><div class="sh">
       <div class="shh"><span class="disp" id="sh-title"></span><div class="shs">Vitesse <button data-sp="1">×1</button><button data-sp="10">×10</button><button data-sp="100">×100</button><button data-sp="1000">×1000</button></div></div>
@@ -1207,6 +1215,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
 
   // ---------- Réglages, essai gratuit ----------
   const settings = Object.assign({ sound: true, vib: true, challenge: false, test: true, depth: 3, vsTour: true }, store.get(KEY.set) || {});
+  if (!settings.tips || typeof settings.tips !== 'object') settings.tips = {};   // pistes où l'on a allumé l'ampoule des indices
   if (!settings.soloOnly) { settings.challenge = false; settings.soloOnly = true; store.set(KEY.set, settings); }   // « Jouer » se joue seul ; l'adversaire se choisit dans « Défier » ou dans la pause
   const seen = Object.assign({ ai: false, skip: false }, store.get(KEY.seen) || {});
   const saveSeen = () => store.set(KEY.seen, seen);
@@ -1392,6 +1401,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     WORLDS.forEach((w, i) => { const c = $('mp-tabs').children[i].querySelector('small'); c.textContent = vsm ? '' : w.tracks.filter(d => parc.ids.includes(d.id)).length + '/' + w.tracks.length; });
     const by = WORLDS.map(w => w.tracks.filter(d => parc.ids.includes(d.id)).length), parts = WORLDS.map((w, i) => by[i] ? by[i] + ' ' + w.name.toLowerCase() : '').filter(Boolean);
     $('mp-sum').textContent = n ? plural(n, 'piste') + ' dans ton parcours · ' + parts.join(' · ') : 'Coche au moins une piste.';
+    if (!vsm && (parc.lvl === 2 || parc.lvl === 3)) { const t = document.createElement('span'); t.className = 'tipl'; t.textContent = '💡 allumé : un indice si tu bloques'; $('mp-sum').appendChild(t); }
     $('mp-play').disabled = !n; $('mp-play').style.opacity = n ? 1 : .4;
   }
   function buildMap() {
@@ -1410,6 +1420,10 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
       const T = byId[d.id], el = tileHtml(T, vsm);
       if (vsm) el.addEventListener('click', () => { if (vs.pick) pickTrack(T); else if (vs.all) vsAll(T); else { playFrom = 'map'; startSolo(T); } });
       else { const cb = el.querySelector('input'); cb.checked = parc.ids.includes(d.id); cb.setAttribute('aria-label', T.name);
+        if (TIPS[d.id]) { const hb = document.createElement('button'); hb.type = 'button'; hb.className = 'hb' + (settings.tips[d.id] ? ' on' : ''); hb.innerHTML = BULB_SVG;
+          const lab = () => { hb.setAttribute('aria-pressed', String(!!settings.tips[d.id])); hb.setAttribute('aria-label', 'Indices sur ' + T.name + (settings.tips[d.id] ? ' : oui' : ' : non')); hb.title = settings.tips[d.id] ? 'Indices allumés' : 'Pas d\'indice'; }; lab();
+          hb.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); if (settings.tips[d.id]) delete settings.tips[d.id]; else settings.tips[d.id] = true; store.set(KEY.set, settings); hb.classList.toggle('on', !!settings.tips[d.id]); lab(); });
+          el.appendChild(hb); }
         cb.addEventListener('change', () => { parc.ids = cb.checked ? parc.ids.concat([d.id]) : parc.ids.filter(x => x !== d.id); saveParc(); updMap(); }); }
       grid.appendChild(el);
     });
@@ -1464,6 +1478,34 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   function startSolo(T) {
     if (!guard()) return;
     mode = 'solo'; hunt = null; huntOf(T); beginGame(T, 1); vsLiveStart(T); go('play');
+  }
+  // ---------- Indices (pistes Difficile et Expert) ----------
+  // L'ampoule allumée dans « Constitue ton parcours » : après 3 « Coincé ! », on propose un indice. 1 = conseil écrit, 2 = zone surlignée, 3 = début du trajet du Stratège.
+  const TIPS = { a5: { z: [8.4, 9.4, 16.6, 12.6], c: 8, t: "Entre les bosses, roule doucement : une ou deux cases par coup. Garde ta vitesse pour la grande montée vers le damier." }, b3: { z: [11.4, 7.4, 17.6, 12.6], c: 10, t: "Le lacet descend puis remonte : freine avant d'entrer dans le U, tourne en bas tout doucement, puis remonte tout droit." }, c2: { z: [10.4, 5.4, 18.6, 8.6], c: 7, t: "Passe au-dessus du gros bloc du milieu, pas en dessous : c'est plus court. Sors du départ tout droit, sans tourner trop tôt." }, nB3: { z: [12.4, 6.4, 14.6, 13.6], c: 11, t: "Les barrières du péage t'obligent à faire un S : monte d'abord, puis redescends le long de la barrière, presque à l'arrêt en bas." }, nC4: { z: [2.4, 6.4, 5.6, 11.6], c: 10, t: "Le chemin direct est fermé : fais le grand tour par la gauche. Freine avant le bout du couloir pour remonter sans toucher le mur." }, nE3: { z: [6.4, 7.4, 13.6, 11.6], c: 7, t: "Dans la ville, suis une rue en diagonale vers le bas, entre les immeubles, puis remonte vers le damier. Pas trop vite entre les blocs." }, b5: { z: [8.4, 6.4, 13.6, 8.6], c: 10, t: "Chaque épingle est un demi-tour serré : ralentis à une case par coup avant le haut et le bas de chaque épingle." }, c4: { z: [8.4, 7.4, 13.6, 12.6], c: 9, t: "Les travaux bloquent la route : passe au-dessus de la première barrière, puis plonge sous la suivante. Reste lent dans les passages étroits." }, nA4: { z: [2.4, 9.4, 8.6, 13.6], c: 13, t: "Quatre virages en épingle à la suite : dans chaque virage, ralentis à une case par coup, tourne, puis réaccélère dans la ligne droite." }, nB4: { z: [24.6, 3.6, 27.4, 5.4], c: 14, t: "Le passage vers le damier est très étroit : il faut y arriver en ligne droite, bien à plat. Monte tout en haut, reviens vers la gauche, puis élance-toi." }, nE1: { z: [15.4, 9.4, 19.6, 13.6], c: 10, t: "Trois longs couloirs : tu peux aller vite dans les lignes droites, mais freine bien avant chaque bout pour faire demi-tour." }, nE2: { z: [8.4, 6.4, 13.6, 10.6], c: 12, t: "Le dédale monte et descend entre les murs : vise le milieu de chaque passage et ralentis avant chaque demi-tour." } };
+  const BULB_SVG = '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/></svg>';
+  const tip = { T: null, n: 0, lvl: -1, key: null }, tipRoutes = {};
+  const tipOn = () => mode === 'solo' && !vs.adv && cur && TIPS[cur.id] && settings.tips[cur.id] && G && G.P && G.P.length && !G.over;
+  const tipRoute = T => { if (!tipRoutes[T.id]) { const S = makeSolver(T, 40, 3e6).run(5000); tipRoutes[T.id] = S.found ? [{ x: T.start.x, y: T.start.y }].concat(S.path.map(n => ({ x: n.x, y: n.y }))) : []; } return tipRoutes[T.id]; };
+  function tipClose() { tip.lvl = -1; tip.n = 0; refresh(); }
+  // appelé à chaque rafraîchissement : compte les « Coincé ! » et propose l'indice au 3e
+  function tipWatch(stuck) {
+    if (tip.T !== cur) { tip.T = cur; tip.n = 0; tip.lvl = -1; tip.key = null; }
+    if (!tipOn()) { if (G && G.over) tip.lvl = -1; return; }
+    const k = stuck ? me().pts.map(q => q.x + ',' + q.y).join(';') : null;
+    if (stuck && k !== tip.key && tip.lvl < 0) { tip.n++; if (tip.n >= 3) { tip.lvl = 0; tip.n = 0; } }
+    tip.key = k;
+  }
+  function tipUI() {
+    const el = $('h-tip'), show = tipOn() && tip.lvl >= 0 && V === 'play'; el.hidden = !show; $('h-stack').style.top = '72px'; if (!show) return;
+    const T = cur, L = tip.lvl, a = $('h-tip-a'), b = $('h-tip-b');
+    $('h-tip-t').innerHTML = L === 0 ? '<b>Tu bloques sur ' + T.name + ' ?</b>'
+      : '<b>Indice ' + L + ' sur 3 :</b> ' + (L === 1 ? TIPS[T.id].t : L === 2 ? 'le passage difficile est surligné en jaune.' : 'en pointillés, le début du trajet du Stratège. À toi de finir !');
+    a.hidden = L === 3; a.textContent = L === 0 ? '💡 Un indice' : 'Indice suivant';
+    b.textContent = L === 0 ? 'Non merci' : 'Fermer';
+    // si l'encadré cache ta voiture, il descend en bas de l'écran
+    const st = $('h-stack'), cv = $('cv').getBoundingClientRect(), q = me().pts[me().pts.length - 1], r = el.getBoundingClientRect(), m = 24 * cv.width / 844;
+    const px = cv.left + q.x / NX * cv.width, py = cv.top + q.y / NY * cv.height;
+    if (px > r.left - m && px < r.right + m && py > r.top - m && py < r.bottom + m) st.style.top = Math.max(72, 390 - st.offsetHeight - 10) + 'px';
   }
   function trace() {
     if (!canPlay()) return;
@@ -1701,6 +1743,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
         : 'Coup par coup contre ' + adv.name + ' : coup ' + (lv ? lv.s : 0) + ' chacun.'; }
     // pastille du haut
     const pill = $('h-pill'), can = canPlay(), stuck = can && !gOptions().some(o => !o.crash);
+    tipWatch(stuck); tipUI(); if (!$('h-tip').hidden) $('h-hint').hidden = true;
     const sp = o => { const st = Object.assign({ background: 'rgba(249,251,255,.95)', borderColor: '#2b323d', color: '', borderWidth: '1.5px', height: '36px', fontSize: '22px' }, o || {}); st.top = (21 - parseInt(st.height) / 2) + 'px'; Object.assign(pill.style, st); };
     if (stuck) { pill.textContent = 'Coincé ! Annule un coup.'; sp({ background: '#fdecea', borderColor: '#cf3328', color: '#a02a20', fontSize: '18px' }); }
     else if (duo) {
@@ -4153,6 +4196,15 @@ function effortOf(T) {
       if (revTour && revTour.T === cur && revTour.up >= 1) drawTrail(revList[revTour.i].slice(0, revTour.up + 1), REV_COL(revTour.i), 3.6, 4, k, kc);
       // pendant un défi, on n'affiche pas les parcours gagnants déjà trouvés : seule la course de l'adversaire compte
       if (!vs.adv) { hunt.found.forEach((f, i) => drawTrail(f.pts, HUNT_COL[i % HUNT_COL.length], 2.6, 3, k, kc)); if (hunt.strat && hunt.showS) drawTrail(hunt.strat.pts, STRAT_COL, 2.6, 3, k, kc); }
+      if (tipOn() && tip.lvl >= 2 && tip.T === cur) {
+        const z = TIPS[cur.id].z; ctx.setTransform(k, 0, 0, k, 0, 0); ctx.globalAlpha = 1;
+        ctx.fillStyle = 'rgba(255,196,0,.30)'; ctx.strokeStyle = '#d68a00'; ctx.lineWidth = lw(2.4); ctx.setLineDash([lw(7), lw(4.5)]);
+        ctx.beginPath(); ctx.roundRect(z[0], z[1], z[2] - z[0], z[3] - z[1], 0.35); ctx.fill(); ctx.stroke(); ctx.setLineDash([]);
+        if (tip.lvl >= 3) { const pts = tipRoute(cur).slice(0, TIPS[cur.id].c + 1), col = '#7a3fb5';
+          ctx.strokeStyle = col; ctx.lineWidth = lw(2.6); ctx.setLineDash([lw(6), lw(4)]); ctx.beginPath(); pts.forEach((q, i) => i ? ctx.lineTo(q.x, q.y) : ctx.moveTo(q.x, q.y)); ctx.stroke(); ctx.setLineDash([]);
+          ctx.fillStyle = col; pts.forEach((q, i) => { if (i) { ctx.beginPath(); ctx.arc(q.x, q.y, lw(2.6), 0, 6.2832); ctx.fill(); } }); }
+        ctx.globalAlpha = 0.9;
+      }
       { const lv = vsLiveNow(); if (lv && lv.pts.length > 1) { ctx.globalAlpha = 0.95; drawTrail(lv.pts, lv.col, 3, 3.4, k, kc); } }
       ctx.globalAlpha = 1;
     }
@@ -4681,6 +4733,8 @@ function effortOf(T) {
     if (!confirm('Effacer les parcours gagnants déjà trouvés sur cette piste ? Tes étoiles et ton record sont gardés.')) return;
     h.found = []; h.strat = null; h.showS = false; h.msg = ''; huntSave(h); refresh();
   });
+  on('h-tip-a', () => { tip.lvl = Math.min(3, tip.lvl + 1); refresh(); });
+  on('h-tip-b', tipClose);
   on('h-again', () => { if (mode === 'solo') { beginGame(cur, 1); refresh(); } });
   on('h-next2', () => { const nx = nextTrack(cur); if (nx) startSolo(nx); else go('map'); });
   on('t-end', () => { trial.first = Date.now() - 31 * DAY; trial.bought = false; saveTrial(); });
