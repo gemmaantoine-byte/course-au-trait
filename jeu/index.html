@@ -3717,7 +3717,7 @@ function effortOf(T) {
   }
 
   // ----- écran 4 : le banc d'essai, chaque concurrent sur chaque piste du jeu -----
-  const lbBenchTracks = () => tracks.filter(t => t.world);
+  const lbBenchTracks = () => tracks.filter(t => t.world), LB_BENCH_MS = 3000;
   function lbBenchStart() {
     lbStop(); lbBenchHalt();
     const TS = lbBenchTracks(), ids = lbOn().map(c => c.id), P = Object.assign({}, lab.pr), B = LB_BUD[lab.bud];
@@ -3736,8 +3736,10 @@ function effortOf(T) {
     const t0 = performance.now();
     while (performance.now() - t0 < 14 && b.qi < b.q.length) {
       const job = b.q[b.qi], T = b.TS[job.ti];
-      if (!b.cur) b.cur = lbMake(job.id, T, b.opt[job.ti].S, b.P);
+      if (!b.cur) { b.cur = lbMake(job.id, T, b.opt[job.ti].S, b.P); b.cur.t0 = performance.now(); }
       lbAdvance(b.cur, T, b.B, 14 - (performance.now() - t0));
+      // au plus 3 s par IA et par piste (comme dans Défier) : on garde ce qu'elle sait faire à ce moment-là
+      if (b.cur.status === 'run' && performance.now() - b.cur.t0 > LB_BENCH_MS) lbFinish(b.cur);
       if (b.cur.status !== 'run') { b.cells[job.id][job.ti] = b.cur; b.cur = null; b.qi++; lbBenchCell(job.id, job.ti); }
     }
     if (b.qi >= b.q.length) { b.run = false; b.done = true; b.ms = performance.now() - b.t0; labUI(); lbBenchUpd(); return; }
@@ -3776,7 +3778,7 @@ function effortOf(T) {
     }
     const j = b.q[b.qi];
     if (j && !b.run) { const e0 = $('lbc-' + j.id + '-' + j.ti); if (e0) e0.innerHTML = lbBenchCellHtml(j.id, j.ti); }
-    $('lb-bbs').textContent = b.done ? 'limite : ' + fmtInt(b.B) + ' essais par concurrent et par piste' : b.run && j ? lbOf(j.id).name + ' · ' + trackLabel(b.TS[j.ti]) + (b.cur && b.cur.prog ? ' · ' + Math.round(100 * b.cur.prog) + ' %' : '') : 'arrêté';
+    $('lb-bbs').textContent = b.done ? 'limite : ' + fmtInt(b.B) + ' essais ou 3 s par concurrent et par piste' : b.run && j ? lbOf(j.id).name + ' · ' + trackLabel(b.TS[j.ti]) + (b.cur ? ' · ' + Math.min(99, Math.round(100 * Math.max(b.cur.prog || 0, (performance.now() - b.cur.t0) / LB_BENCH_MS))) + ' %' : '') : 'arrêté';
     $('lb-bgo').textContent = b.run ? 'Arrêter' : 'Relancer le banc';
     $('lb-bsum').textContent = b.done ? 'Terminé en ' + (b.ms >= 60000 ? Math.floor(b.ms / 60000) + ' min ' : '') + Math.round(b.ms / 1000) % 60 + ' s.' : b.run ? (b.ids.includes('net') ? 'L\'Apprenti passe en dernier : c\'est le plus lent.' : 'Calcul en cours…') : 'Le banc a été arrêté avant la fin.';
     lbBenchNote();
@@ -3789,6 +3791,7 @@ function effortOf(T) {
     const r = st.find(x => x.c.id === 'rech'); if (r) t += 'le Stratège arrive ' + (r.s.ok === N ? 'partout' : 'sur ' + r.s.ok + ' pistes') + ', mais on lui donne la carte. ';
     if (ia.length) t += 'Parmi ceux qui procèdent par essais : ' + ia.map(x => x.c.name.toLowerCase() + ' ' + x.s.ok + '/' + N).join(', ') + '. ';
     if (st.some(x => x.c.id !== 'rech' && x.s.ok < N)) t += r ? 'Sans la carte, chaque méthode a ses limites.' : 'Chaque méthode a ses limites.';
+    const nt = st.find(x => x.c.id === 'net'); if (nt && nt.s.ok < N / 2) t += ' ' + "L'Apprenti a besoin de beaucoup plus d'essais : regarde-le apprendre dans Comprendre.";
     $('lb-bnote').textContent = t;
   }
 
@@ -3917,7 +3920,7 @@ function effortOf(T) {
     $('lb-s2').disabled = !R; $('lb-s3').disabled = !(R && R.done); $('lb-s4').disabled = !lbOn().length; $('lb-track').disabled = m === 'bench';
     if (m === 'choose') lbSum(); else if (m === 'race') { lbRaceBar(); lbDraw(); } else if (m === 'bilan') lbBil();
     else if (lab.bench) lbBenchBuild();
-    else { $('lb-bm').innerHTML = ''; $('lb-bbs').textContent = ''; $('lb-bgo').textContent = "Lancer le banc d'essai"; $('lb-bsum').textContent = plural(lbOn().length, 'concurrent') + ' × ' + lbBenchTracks().length + ' pistes, limite ' + fmtInt(LB_BUD[lab.bud]) + ' essais.' + (lab.on.net ? ' L\'Apprenti prend plusieurs minutes.' : '');
+    else { $('lb-bm').innerHTML = ''; $('lb-bbs').textContent = ''; $('lb-bgo').textContent = "Lancer le banc d'essai"; $('lb-bsum').textContent = plural(lbOn().length, 'concurrent') + ' × ' + lbBenchTracks().length + ' pistes, limite ' + fmtInt(LB_BUD[lab.bud]) + ' essais ou 3 s par piste.' + (lab.on.net ? ' Environ 1 minute.' : '');
       $('lb-bnote').textContent = 'Chaque concurrent coché court sur les ' + lbBenchTracks().length + " pistes du jeu, avec tes réglages. On voit alors qui réussit partout, et qui seulement par endroits."; }
   }
   function lbMode(m) { if (m !== 'race') { clearTimeout(lab.animTimer); lab.anim = -1; } lab.mode = m; labUI(); if (m === 'race') lbList(); }
