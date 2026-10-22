@@ -87,6 +87,14 @@ nav{display:flex;align-items:center}
 #regles .rl li b{color:var(--fg)}
 #regles .rl li::before{content:counter(r);position:absolute;left:0;top:-2px;width:32px;height:32px;border-radius:50%;background:var(--ink);color:#fff;font:700 18px/32px var(--body);text-align:center}
 @media (max-width:760px){#regles .rules{grid-template-columns:1fr}}
+#regles .figs{display:flex;flex-direction:column;gap:16px}
+#regles .more{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:26px;counter-reset:r 5}
+#regles .more div{counter-increment:r;position:relative;background:var(--card);border:2px solid var(--line);border-radius:16px;padding:16px 16px 16px 60px;color:var(--muted);font-size:16px;line-height:1.45}
+#regles .more div::before{content:counter(r);position:absolute;left:16px;top:14px;width:32px;height:32px;border-radius:50%;background:var(--ink);color:#fff;font:700 18px/32px var(--body);text-align:center}
+#regles .more b{display:block;color:var(--fg);font-size:17px;margin-bottom:2px}
+#regles .more .st{color:#d9961a;letter-spacing:1px;white-space:nowrap}
+#regles .more .k{display:inline-block;padding:0 7px;border:1.5px solid var(--line);border-radius:7px;background:var(--paper);color:var(--fg);font-weight:700;font-size:14px;line-height:22px;white-space:nowrap}
+@media (max-width:880px){#regles .more{grid-template-columns:1fr}}
 </style>
 <style>
 #tarif .pc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:center;background:var(--card);border:2px solid var(--night);border-radius:20px;padding:28px 32px;box-shadow:0 5px 0 rgba(43,50,61,.22)}
@@ -129,6 +137,7 @@ nav{display:flex;align-items:center}
   <h2>Comment ça marche</h2>
   <p class="sub">Une feuille quadrillée, un crayon, et une seule idée : l'élan. Ta voiture garde sa vitesse d'un coup à l'autre.</p>
   <div class="rules">
+    <div class="figs">
     <figure class="rfig">
       <svg viewBox="0 70 420 222" role="img" aria-label="Une trajectoire sur le quadrillage : la vitesse mène au centre d'un carré de neuf points ; un point touche le mur et il est refusé.">
         <defs><pattern id="rg" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="var(--grid)" stroke-width="1.5"/></pattern></defs>
@@ -153,12 +162,38 @@ nav{display:flex;align-items:center}
         <text x="36" y="270" font-family="var(--display)" font-size="24" font-weight="700" fill="var(--fg)">Départ</text>
       </svg>
     </figure>
+    <figure class="rfig">
+      <svg viewBox="0 0 420 150" role="img" aria-label="Au départ : trois points vers l'avant sont possibles, les points qui reculent ou restent sur place sont marqués d'une croix grise.">
+        <defs><pattern id="rg2" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="var(--grid)" stroke-width="1.5"/></pattern></defs>
+        <rect width="420" height="150" fill="url(#rg2)"/>
+        <path d="M8 15H206V135H8Z" fill="var(--paper2)" stroke="none"/>
+        <rect x="75" y="45" width="60" height="60" rx="6" fill="none" stroke="var(--muted)" stroke-width="2" stroke-dasharray="5 5"/>
+        <g stroke="#8a94a6" stroke-width="3.2" stroke-linecap="round"><path d="M69 39l12 12M81 39l-12 12"/><path d="M69 69l12 12M81 69l-12 12"/><path d="M69 99l12 12M81 99l-12 12"/><path d="M99 99l12 12M111 99l-12 12"/><path d="M129 99l12 12M141 99l-12 12"/></g>
+        <g fill="var(--card)" stroke="var(--ink)" stroke-width="3"><circle cx="105" cy="45" r="8"/><circle cx="135" cy="45" r="8"/><circle cx="135" cy="75" r="8"/></g>
+        <g transform="translate(105 75) rotate(-45)"><rect x="-15" y="-8" width="30" height="16" rx="7" fill="var(--ink)" stroke="#fff" stroke-width="2"/><rect x="2" y="-5" width="8" height="10" rx="2" fill="#fff"/></g>
+        <path d="M150 60l30 -24" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-dasharray="5 6"/><path d="M172 32l10 2-2 10" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="236" cy="44" r="8" fill="var(--card)" stroke="var(--ink)" stroke-width="3"/>
+        <text x="252" y="49" font-family="var(--body)" font-size="14" font-weight="700" fill="var(--fg)">possible : vers l'avant</text>
+        <path d="M230 69l12 12M242 69l-12 12" stroke="#8a94a6" stroke-width="3.2" stroke-linecap="round"/>
+        <text x="252" y="80" font-family="var(--body)" font-size="14" font-weight="700" fill="var(--fg)">interdit : reculer</text>
+        <text x="252" y="97" font-family="var(--body)" font-size="14" font-weight="700" fill="var(--fg)">ou s'arrêter</text>
+        <path d="M226 126l18 -14" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 4"/><path d="M237 111l8 1-1 8" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="252" y="125" font-family="var(--body)" font-size="14" font-weight="700" fill="var(--ink)">sens de la piste</text>
+      </svg>
+    </figure>
+    </div>
     <ol class="rl">
       <li><b>Garde ton élan.</b> Sans rien changer, tu avances de la même vitesse : tu arrives au centre du carré.</li>
       <li><b>Ajuste d'un cran.</b> Un pas de plus, de moins ou de côté : neuf points possibles à chaque coup.</li>
       <li><b>Ne touche jamais un mur,</b> même en l'effleurant. Le point est refusé.</li>
       <li><b>Arrive sur le damier en le moins de coups.</b> Pour prendre un virage, freine avant !</li>
+      <li><b>Toujours vers l'avant.</b> Interdit de s'arrêter ou de repartir en arrière. Au départ, tu pars dans le sens de la piste : ces points sont marqués d'une croix grise.</li>
     </ol>
+  </div>
+  <div class="more">
+    <div><b>Le score</b>Ton score, c'est le nombre de coups. <span class="st">★★★</span> pour le meilleur trajet, <span class="st">★★</span> à deux coups près, <span class="st">★</span> si tu arrives.</div>
+    <div><b>Sur l'écran</b>Touche un point près de ta voiture, puis <span class="k">Avancer</span>. La flèche <span class="k">↺</span> annule ton dernier coup.</div>
+    <div><b>Coincé ?</b>Si plus aucun point n'est possible, annule un coup et essaie autre chose. Sur les pistes Difficile et Expert, allume l'ampoule 💡 pour recevoir des indices.</div>
   </div>
 </section>
 </div>
