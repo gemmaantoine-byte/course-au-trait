@@ -36,6 +36,7 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
 .brand i b{background:var(--night)} .brand i b:nth-child(2),.brand i b:nth-child(3){background:#fff}
 nav a{color:var(--fg);text-decoration:none;font-weight:700;font-size:15px;margin-left:18px}
 nav a:hover{color:var(--ink)}
+nav a.buy{min-height:40px;padding:0 14px;font-size:15px;margin-left:18px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 24px;border-radius:14px;font:700 17px var(--body);text-decoration:none;border:2px solid var(--night);cursor:pointer}
 .btn.pri{background:var(--ink);color:#fff;box-shadow:0 4px 0 var(--ink-d)} .btn.pri:hover{transform:translateY(1px);box-shadow:0 3px 0 var(--ink-d)}
 .btn.sec{background:var(--card);color:var(--fg)}
@@ -84,6 +85,8 @@ footer a{color:#b6c4ff}
 @media (max-width:520px){ .fam{grid-template-columns:1fr} .btn{width:100%} }
 nav{display:flex;align-items:center}
 @media (max-width:520px){ nav a.keep.btn{width:auto} nav a{margin-left:12px} .brand{font-size:26px} header.top{gap:8px} }
+@media (max-width:520px){ nav a[href="#tarif"]{display:none} nav a.keep.btn{padding:0 12px!important;font-size:14px!important} nav a.buy{margin-left:0} .brand{font-size:24px;white-space:nowrap} .brand i{width:22px;height:22px} }
+@media (max-width:350px){ .brand i{display:none} .brand{font-size:22px} }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
 
 #regles .rules{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center;margin-top:18px}
@@ -123,7 +126,7 @@ nav{display:flex;align-items:center}
 <div class="wrap">
   <header class="top">
     <a class="brand" href="#haut"><i aria-hidden="true"><b></b><b></b><b></b><b></b></i>Course au trait</a>
-    <nav><a href="#portes">Les trois portes</a><a href="#ia">Qu'est-ce qu'une IA ?</a><a class="keep" href="#tarif">Tarif</a><a class="keep btn pri" style="min-height:40px;padding:0 16px;font-size:15px;margin-left:18px;color:#fff" href="jeu/">Jouer</a></nav>
+    <nav><a href="#portes">Les trois portes</a><a href="#ia">Qu'est-ce qu'une IA ?</a><a class="keep" href="#tarif">Tarif</a><a class="keep btn sec buy" href="https://buy.stripe.com/9B65kDbqA3xV3ide4h8so00" rel="noopener">Acheter</a><a class="keep btn pri" style="min-height:40px;padding:0 16px;font-size:15px;margin-left:10px;color:#fff" href="jeu/">Jouer</a></nav>
   </header>
 
   <div class="hero" id="haut">
@@ -269,8 +272,8 @@ nav{display:flex;align-items:center}
           <li><span><b>Remboursé pendant 14 jours</b> si ça ne te plaît pas.</span></li>
           <li><span>Paiement sécurisé par Stripe.</span></li>
         </ul>
-        <div class="cta"><a class="btn pri" href="jeu/">Essayer gratuitement</a></div>
-        <p class="fine">La clé t'est envoyée par e-mail juste après l'achat, depuis le jeu.</p>
+        <div class="cta"><a class="btn pri" href="https://buy.stripe.com/9B65kDbqA3xV3ide4h8so00" rel="noopener">Acheter · 4,99 €</a><a class="btn sec" href="jeu/">Essayer gratuitement</a></div>
+        <p class="fine">Après l'achat, ta clé arrive par e-mail. Dans le jeu, touche « Débloquer » et colle-la.</p>
       </div>
     </div>
   </section>
