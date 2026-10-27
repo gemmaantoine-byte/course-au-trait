@@ -81,6 +81,16 @@ button{cursor:pointer;border:0;background:none;padding:0}
 .btn:disabled{opacity:.45;cursor:default}
 .round{display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--paper);border:1.5px solid var(--graphite);width:44px;height:44px}
 .round.w{background:#fff;border-color:var(--gridm)}
+#a-guide{position:absolute;inset:0;z-index:60;background:rgba(20,28,44,.55);pointer-events:auto}
+#a-guide .gh{position:absolute;border:3px solid #ffd84d;border-radius:14px;box-sizing:border-box;pointer-events:none}
+#a-guide .gb{position:absolute;box-sizing:border-box;padding:8px 12px 9px 44px;background:#fff;border:2px solid #ffd84d;border-radius:14px;font:600 13.5px/1.3 var(--font-body);color:#1b2331;box-shadow:0 4px 0 rgba(0,0,0,.2)}
+#a-guide .gb b{font-weight:800}
+#a-guide .gb i{position:absolute;left:10px;top:8px;width:26px;height:26px;border-radius:50%;background:#1c3db5;color:#fff;font:700 15px/26px var(--font-body);font-style:normal;text-align:center}
+#a-guide .ga{position:absolute;width:22px;height:22px;color:#ffd84d;font:700 22px/22px var(--font-body);text-align:center;pointer-events:none}
+#ag-btns{position:absolute;left:24px;bottom:16px;display:flex;gap:10px}
+#ag-ok{height:44px;padding:0 26px;border-radius:14px;border:0;background:#ffd84d;color:#3a2a00;font:700 17px var(--font-body);box-shadow:0 4px 0 rgba(0,0,0,.25);cursor:pointer}
+#ag-more{height:44px;padding:0 16px;border-radius:14px;border:2px solid #fff;background:transparent;color:#fff;font:700 15px var(--font-body);cursor:pointer}
+.vs-cap{position:absolute;top:51px;transform:translateX(-50%);font:700 11px/12px var(--font-body);color:#1c3db5;white-space:nowrap;pointer-events:none}
 #hm-site{right:118px;top:12px;height:44px;box-sizing:border-box;display:flex;align-items:center;gap:6px;padding:0 14px;border:1.5px solid var(--gridm);border-radius:22px;background:#fff;color:#1c3db5;font:700 14px var(--font-body);text-decoration:none;white-space:nowrap}
 #hm-site[hidden]{display:none}
 .card{background:rgba(249,251,255,.95);border:1.5px solid var(--graphite);border-radius:16px}
@@ -538,6 +548,13 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
         <div class="mono" id="b-stats" style="font-size:11px;line-height:1.3;color:var(--soft)"></div>
       </div>
     </div>
+    <div id="a-guide" hidden><div class="gh" id="ag-h1"></div><div class="gh" id="ag-h2"></div><div class="gh" id="ag-h3"></div>
+      <div class="gb" id="ag-b1" style="left:318px;width:250px"><i>1</i><b>Choisis qui regarder.</b> 3 algorithmes, 3 IA qui apprennent. <b>VS</b> en compare deux.</div>
+      <div class="gb" id="ag-b2" style="left:318px;width:250px"><i>2</i><b>Touche « Lancer »</b> : il cherche sa route sous tes yeux.</div>
+      <div class="gb" id="ag-b3" style="left:24px;width:286px"><i>3</i><b>Lis ici</b> ce qu'il pense et ce qu'il fait, coup après coup.</div>
+      <div class="ga" id="ag-a1">➜</div><div class="ga" id="ag-a2">➜</div><div class="ga" id="ag-a3" style="transform:rotate(-90deg)">➜</div>
+      <div id="ag-btns"><button type="button" id="ag-ok">C'est parti !</button><button type="button" id="ag-more">Plus d'aide</button></div>
+    </div>
     <button class="round w hudbtn" id="a-back" aria-label="Accueil" style="left:802px;top:6px;width:34px;height:34px"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></button>
     <button class="abs" id="a-pill" aria-label="Choisir une autre piste" style="left:446px;top:6px;height:34px;display:flex;align-items:center;gap:8px;padding:0 12px;background:rgba(249,251,255,.95);border:1.5px solid var(--graphite);border-radius:12px;font:700 18px/1 var(--font-display);color:inherit;white-space:nowrap;cursor:pointer;box-shadow:0 3px 0 rgba(43,50,61,.25);box-sizing:border-box"><i style="width:11px;height:11px;border-radius:50%;flex:none;background:#2f8f5b"></i><span style="flex:1;overflow:hidden;text-overflow:ellipsis;text-align:left"></span><svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M1.5 1.5L6 6.5l4.5-5"/></svg></button>
     <button class="round w hudbtn" id="a-prev" aria-label="Piste précédente" style="left:726px;top:6px;width:34px;height:34px;background:var(--paper);border-color:var(--graphite)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2b323d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -835,7 +852,8 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
     <button class="round w abs" id="vs-home" aria-label="Accueil" style="right:14px;top:8px;width:40px;height:40px"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></button>
     <div class="abs" id="vs-mode" role="group" aria-label="Façon de jouer le défi" style="right:256px;top:8px;height:40px;display:flex;border:2px solid var(--graphite);border-radius:12px;overflow:hidden;background:#fff"><button id="vs-m-tour" type="button" aria-pressed="true" style="border:0;padding:0 12px;font:700 13.5px var(--font-body);cursor:pointer;white-space:nowrap">Coup par coup</button><button id="vs-m-trait" type="button" aria-pressed="false" style="border:0;border-left:2px solid var(--graphite);padding:0 12px;font:700 13.5px var(--font-body);cursor:pointer;white-space:nowrap">D'un trait</button></div>
     <button class="btn sec abs" id="vs-all" style="right:100px;top:8px;height:40px;padding:0 16px;font-size:14px;white-space:nowrap"></button>
-    <div class="abs" id="vs-grid" style="left:14px;right:14px;top:58px;bottom:10px;display:flex;flex-direction:column;gap:6px"></div>
+    <span class="vs-cap" id="vs-c-tour">chacun son tour</span><span class="vs-cap" id="vs-c-trait">on compare à la fin</span><span class="vs-cap" id="vs-c-all">les 6 entre eux, sans toi</span>
+    <div class="abs" id="vs-grid" style="left:14px;right:14px;top:64px;bottom:10px;display:flex;flex-direction:column;gap:6px"></div>
   </div>
 
   <!-- ===== Défier l'IA : résultat du duel ===== -->
@@ -1320,7 +1338,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     ALLV.forEach(id => { $(id).hidden = !VIEWS[v].includes(id); });
     hpPlace(v);
     board.hidden = !BOARDV.has(v); board.classList.toggle('ed', v === 'edit');
-    if (v === 'cmp') cmpEnter(); else if (v === 'lab') lbEnter(); else if (v === 'ai') aiEnter(); else if (v === 'edit') editEnter(); else if (v === 'duo') duoEnter();
+    if (v === 'cmp') cmpEnter(); else if (v === 'lab') lbEnter(); else if (v === 'ai') aiEnter(); else if (v === 'edit') editEnter(); else if (v === 'duo') duoEnter(); else if (v === 'vs') vsCapUI();
     refresh();
   }
   function modal(id) { ['v-set', 'v-rules', 'v-adv', 'v-inst'].forEach(m => { $(m).hidden = m !== id; }); if (id === 'v-set') setUI(); }
@@ -2198,8 +2216,27 @@ function effortOf(T) {
     const all = allTracks(); if (ai.ti >= all.length) ai.ti = 2;
     mode = 'solo'; cur = all[ai.ti]; beginGame(cur, 1);
     setChar(ai.ch);
+    if (!seen.guide) { seen.guide = true; saveSeen(); setTimeout(guideOpen, 200); }
   }
-  function aiLeave() { $('l-help').hidden = true; ai.running = false; cancelAnimationFrame(ai.raf); tourClose(); altStop(); allStop(); learnStop(); obStop(); $('o-help').hidden = true; }
+  // Guide d'arrivée de « Comprendre » : 3 bulles numérotées (choisir, lancer, lire). À la première visite, puis avec « ? ».
+  function guideOpen() {
+    if (V !== 'ai') return;
+    ai.running = false; cancelAnimationFrame(ai.raf); altStop(); allStop(); learnStop(); obStop(); aiUI();
+    const g = $('a-guide'); g.hidden = false;
+    const S = $('v-ai').getBoundingClientRect(), k = S.width / 844 || 1;
+    const box = id => { const r = $(id).getBoundingClientRect(); return { x: (r.left - S.left) / k, y: (r.top - S.top) / k, w: r.width / k, h: r.height / k }; };
+    const hl = (el, b, p) => Object.assign($(el).style, { left: (b.x - p) + 'px', top: (b.y - p) + 'px', width: (b.w + 2 * p) + 'px', height: (b.h + 2 * p) + 'px' });
+    const c = box('a-chars'), m = box('a-main'), t = box('b-box');
+    hl('ag-h1', c, 4); hl('ag-h2', m, 4); hl('ag-h3', t, 3);
+    const b1 = $('ag-b1'), b2 = $('ag-b2'), b3 = $('ag-b3');
+    const y3 = t.y + t.h + 22; b3.style.top = y3 + 'px';
+    const y1 = Math.max(t.y + t.h + 8, c.y + c.h / 2 - b1.offsetHeight / 2); b1.style.top = y1 + 'px';
+    const y2 = Math.max(y1 + b1.offsetHeight + 8, Math.min(390 - b2.offsetHeight - 6, m.y + m.h / 2 - b2.offsetHeight / 2)); b2.style.top = y2 + 'px';
+    const ar = (id, x, y) => Object.assign($(id).style, { left: x + 'px', top: y + 'px' });
+    ar('ag-a1', 570, c.y + c.h / 2 - 11); ar('ag-a2', 570, m.y + m.h / 2 - 11); ar('ag-a3', 50, y3 - 24);
+  }
+  function guideClose() { $('a-guide').hidden = true; }
+  function aiLeave() { guideClose(); $('l-help').hidden = true; ai.running = false; cancelAnimationFrame(ai.raf); tourClose(); altStop(); allStop(); learnStop(); obStop(); $('o-help').hidden = true; }
   // Choisir une piste depuis n'importe quel écran : l'écran « Choisis ta piste » (un seul choix), puis retour à l'écran d'origine.
   function pickOpen(from, apply, label) { vs.pick = { from, apply, label: label || '' }; go('map'); }
   function pickTrack(T) { const P = vs.pick; vs.pick = false; if (P) P.apply(T); }
@@ -4368,7 +4405,12 @@ function effortOf(T) {
   }
   const startVs = () => { vs.adv = null; vs.all = false; vsBuild(); vsEl('vs-all').textContent = VS_TXT.all.btn; go('vs'); };
   // ---------- Défi coup par coup : l'adversaire calcule sa course au départ, puis avance d'un coup après chacun des tiens ----------
-  function vsModeUI() { for (const [id, on] of [['vs-m-tour', settings.vsTour], ['vs-m-trait', !settings.vsTour]]) { const b = vsEl(id); b.setAttribute('aria-pressed', String(on)); b.style.background = on ? 'var(--ink)' : '#fff'; b.style.color = on ? '#fff' : 'var(--graphite)'; } }
+  function vsModeUI() { for (const [id, on] of [['vs-m-tour', settings.vsTour], ['vs-m-trait', !settings.vsTour]]) { const b = vsEl(id); b.setAttribute('aria-pressed', String(on)); b.style.background = on ? 'var(--ink)' : '#fff'; b.style.color = on ? '#fff' : 'var(--graphite)'; } vsCapUI(); }
+  // une petite phrase sous chacun des 3 boutons, centrée sur son bouton
+  function vsCapUI() {
+    const scr = $('v-vs'); if (!scr || scr.hidden) return; const S = scr.getBoundingClientRect(), k = S.width / 844 || 1;
+    for (const [c, b] of [['vs-c-tour', 'vs-m-tour'], ['vs-c-trait', 'vs-m-trait'], ['vs-c-all', 'vs-all']]) { const r = $(b).getBoundingClientRect(), el = $(c); el.hidden = !r.width; el.style.left = ((r.left - S.left + r.width / 2) / k) + 'px'; }
+  }
   // La course d'un adversaire est calculée une seule fois par piste : en rejouant, il refait exactement le même trajet.
   const advMem = store.get(KEY.adv) || {};
   const advKey = (a, T) => { const e = encodeTrack(T), t = e.c + '|' + e.sx + ',' + e.sy; let h = 0; for (let i = 0; i < t.length; i++) h = (h * 31 + t.charCodeAt(i)) | 0; return a.id + '|' + (a.depth || 0) + '|' + T.id + '|' + (h >>> 0).toString(36); };
@@ -4565,7 +4607,7 @@ function effortOf(T) {
     $('hp-tuto').textContent = HELP_TXT.tuto + ' ▸'; $('hp-dim').hidden = false;
   }
   const hpClose = () => { $('hp-dim').hidden = true; };
-  on('hp-btn', hpOpen); on('hp-x', hpClose); on('hp-tuto', () => { hpClose(); tutoOpen(); });
+  on('hp-btn', () => { if (V === 'ai') guideOpen(); else hpOpen(); }); on('ag-ok', guideClose); on('ag-more', () => { guideClose(); hpOpen(); }); on('hp-x', hpClose); on('hp-tuto', () => { hpClose(); tutoOpen(); });
   $('hp-dim').addEventListener('click', e => { if (e.target.id === 'hp-dim') hpClose(); });
   // ---------- Diaporama « Comment on joue ? » ----------
   const TUTO = [{"t": "Une piste, une feuille", "h": ["C'est le jeu du papier quadrillé : une piste, une voiture.", "Ta voiture avance <b>de point en point</b>. Chaque trait est un <b>coup</b>."]}, {"t": "La règle de l'élan", "h": ["Ton prochain coup <b>reprend ton dernier élan</b>.", "Tu peux le corriger d'<b>un seul cran</b> dans chaque sens : <b>9 points</b> possibles.", "<span style='color:#586780;font-size:15px'>Vite, c'est bien… mais il faut freiner avant les virages !</span>"]}, {"t": "Mur ou arrivée", "h": ["Toucher le bord, c'est <b>sortir de la piste</b>.", "Le but : franchir la <b>bande à damier</b> en <b>le moins de coups</b> possible."]}, {"t": "Trois portes", "h": ["<b>Jouer</b> pour apprendre les règles.", "<b>Comprendre</b> pour voir comment pensent les algorithmes et les IA.", "<b>Défier</b> pour te mesurer à eux."]}, {"t": "Algorithmes ou IA ?", "h": ["Les <b>algorithmes</b> suivent une recette écrite par un humain.", "Les <b>IA qui apprennent</b> la trouvent seules, à force d'essais… et peuvent se tromper."]}], TUTO_TXT = {"head": "COMMENT ON JOUE", "skip": "Passer", "prev": "Retour", "next": "Suivant", "go": "À toi !", "algo": "ALGORITHMES PROGRAMMÉS", "algo_s": "la recette est écrite d'avance : ils ne progressent pas", "ia": "IA QUI APPRENNENT", "ia_s": "elles trouvent la recette en essayant, essai après essai"};
