@@ -128,4 +128,10 @@ nav{display:flex;align-items:center}
 </div>
 
 <div class="kerb"></div>
+<script>(function(){try{var U='https://course-au-trait-stats.gemma-antoine-a3b.workers.dev/hit',P='liens';
+var b=function(o){try{navigator.sendBeacon(U,new Blob([JSON.stringify(o)],{type:'text/plain'}))}catch(e){}};
+var r=document.referrer,q=location.search,s='direct',h='';try{h=r?new URL(r).hostname:''}catch(e){}
+if(/fbclid=/.test(q)||/facebook\.|fb\.|messenger/.test(h))s='facebook';else if(/igshid=|utm_source=ig/.test(q)||/instagram/.test(h))s='instagram';else if(/google\./.test(h))s='google';else if(/courseautrait\.fr$/.test(h))s='';else if(h)s='autre';
+var o={t:'site',p:P};if(s)o.s=s;b(o);
+document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function(a){a.addEventListener('click',function(){b({t:'achat',w:'site'})})});}catch(e){}})();</script>
 </body></html>

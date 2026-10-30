@@ -293,4 +293,10 @@ nav{display:flex;align-items:center}
 
 <a id="top-btn" href="#haut" aria-label="Revenir en haut de la page"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15l7-7 7 7"/></svg>Accueil</a>
 <script>(function(){var b=document.getElementById('top-btn');function f(){b.classList.toggle('on',window.scrollY>window.innerHeight*0.6)}window.addEventListener('scroll',f,{passive:true});f();b.addEventListener('click',function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});try{history.replaceState(null,'',location.pathname)}catch(x){}})})();</script>
+<script>(function(){try{var U='https://course-au-trait-stats.gemma-antoine-a3b.workers.dev/hit',P='accueil';
+var b=function(o){try{navigator.sendBeacon(U,new Blob([JSON.stringify(o)],{type:'text/plain'}))}catch(e){}};
+var r=document.referrer,q=location.search,s='direct',h='';try{h=r?new URL(r).hostname:''}catch(e){}
+if(/fbclid=/.test(q)||/facebook\.|fb\.|messenger/.test(h))s='facebook';else if(/igshid=|utm_source=ig/.test(q)||/instagram/.test(h))s='instagram';else if(/google\./.test(h))s='google';else if(/courseautrait\.fr$/.test(h))s='';else if(h)s='autre';
+var o={t:'site',p:P};if(s)o.s=s;b(o);
+document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function(a){a.addEventListener('click',function(){b({t:'achat',w:'site'})})});}catch(e){}})();</script>
 </body></html>
