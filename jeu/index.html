@@ -851,7 +851,7 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
   <!-- ===== Défier l'IA : choix de l'adversaire ===== -->
   <div class="scr paper" id="v-vs" hidden>
     <button class="round w abs" id="vs-back" aria-label="Retour" style="left:14px;top:6px"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5l-7 7 7 7"/></svg></button>
-    <div class="disp abs" id="vs-title" style="left:70px;top:8px;font-size:36px;line-height:42px"></div>
+    <div class="disp abs" id="vs-title" style="left:70px;top:10px;font-size:28px;line-height:40px;white-space:nowrap"></div>
     <button class="round w abs" id="vs-home" aria-label="Accueil" style="right:14px;top:8px;width:40px;height:40px"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></button>
     <div class="abs" id="vs-mode" role="group" aria-label="Façon de jouer le défi" style="right:256px;top:8px;height:40px;display:flex;border:2px solid var(--graphite);border-radius:12px;overflow:hidden;background:#fff"><button id="vs-m-tour" type="button" aria-pressed="true" style="border:0;padding:0 12px;font:700 13.5px var(--font-body);cursor:pointer;white-space:nowrap">Coup par coup</button><button id="vs-m-trait" type="button" aria-pressed="false" style="border:0;border-left:2px solid var(--graphite);padding:0 12px;font:700 13.5px var(--font-body);cursor:pointer;white-space:nowrap">D'un trait</button></div>
     <button class="btn sec abs" id="vs-all" style="right:100px;top:8px;height:40px;padding:0 16px;font-size:14px;white-space:nowrap"></button>
@@ -1801,8 +1801,9 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
       if (ok) { const W = hudPillW(pill) + 44; pill.style.left = Math.max(250, 700 - W) + 'px'; pill.style.boxSizing = 'border-box'; pill.style.minWidth = W + 'px'; pill.style.justifyContent = 'center'; }
       const hb = $('h-back'); hb.hidden = !(V === 'play'); if (!hb.hidden) hb.style.left = (pill.offsetLeft - 44) + 'px'; }
     const hint = solo && !G.hint && p.lens.length === 0 && (store.get(KEY.hint) || 0) < 3 && can;
-    { const oc = can && gSel(), bad = !!(oc && oc.crash) && gOptions().some(x => !x.crash), hh = $('h-hint');
-      hh.textContent = bad ? 'Point dans le mur : touche un point bleu.' : 'Touche un point près du tien, puis « Avancer ».';
+    { const oc = can && gSel(), alt = gOptions().some(x => !x.crash), hh = $('h-hint'),
+        wall = !!(oc && oc.crash && !oc.back) && alt, rev = !!(oc && oc.back && (G.sel.dx || G.sel.dy || me().lens.length > 0)) && alt, bad = wall || rev;
+      hh.textContent = wall ? 'Point dans le mur : touche un point bleu.' : rev ? 'Marche arrière interdite : touche un point bleu.' : 'Touche un point près du tien, puis « Avancer ».';
       hh.hidden = !(hint || bad); }
     const o = gSel(), go_ = $('h-go'), gt = $('h-go-t');
     go_.disabled = !can || !o || o.crash;
