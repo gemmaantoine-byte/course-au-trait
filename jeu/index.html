@@ -57,7 +57,7 @@ button{cursor:pointer;border:0;background:none;padding:0}
 #rot.on{display:block}
 
 /* piste */
-#board{position:absolute;left:6px;top:0;width:832px;height:390px;transform-origin:0 0}
+#board{position:absolute;left:6px;top:0;width:832px;height:390px;transform-origin:0 0;transform:translateX(-41.83px) scaleX(1.06694)}   /* le circuit (bords des bordures) va de la marge gauche 12 px au bord droit de l'icône maison, 832 px */
 #board.ed{transform:scale(.8702)}
 #cv{display:block;width:100%;height:100%;touch-action:none;cursor:crosshair}
 .loupe{position:absolute;width:116px;height:116px;border-radius:50%;border:3px solid var(--ink);background:var(--paper);overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.3);pointer-events:none;z-index:2}
@@ -236,13 +236,13 @@ svg{display:block}
 #mp-bar .btn.pri{height:42px;padding:0 26px;font-size:17px;border-radius:14px}
 
 /* jeu */
-#h-run{left:596px;top:222px;width:244px;display:flex;flex-direction:column;gap:6px}
-.rrow{display:grid;gap:8px}.r1{grid-template-columns:92px 1fr 34px}.r2{grid-template-columns:92px 1fr}
-.rbtn{height:33px;padding:0 8px;border-radius:11px;border:2px solid var(--graphite);background:#fff;font:700 13.5px var(--font-body);color:var(--graphite);cursor:pointer;white-space:nowrap;min-width:0}
+#h-run{left:594px;top:233px;width:238px;display:flex;flex-direction:column;gap:5px}
+.rrow{display:grid;gap:8px}.r1{grid-template-columns:84px 1fr 34px}.r2{grid-template-columns:84px 1fr}
+.rbtn{height:31px;display:flex;align-items:center;justify-content:center;line-height:1;padding:0 8px 2px;border-radius:11px;border:2px solid var(--graphite);background:#fff;font:700 13.5px var(--font-body);color:var(--graphite);cursor:pointer;white-space:nowrap;min-width:0}
 #h-clr{display:flex;align-items:center;justify-content:center;padding:0}
-.rbtn.pri{background:var(--ink);color:#fff;border-color:var(--ink)}.rbtn:disabled{opacity:.4;cursor:default}
+.rbtn.pri{padding-bottom:4px;background:var(--ink);color:#fff;border-color:var(--ink)}.rbtn:disabled{opacity:.4;cursor:default}
 .rbtn.on{background:#efeafa;border-color:#7a3fb5;color:#4a2480}
-.rchip{appearance:none;cursor:pointer;height:33px;display:flex;align-items:center;justify-content:center;border-radius:11px;background:rgba(249,251,255,.95);border:1.5px solid #5b6b86;font:700 12.5px var(--font-body);color:#33405a;white-space:nowrap;min-width:0;padding:0 4px;letter-spacing:-.01em}
+.rchip{appearance:none;cursor:pointer;height:31px;line-height:1;padding-bottom:2px!important;box-sizing:border-box;display:flex;align-items:center;justify-content:center;border-radius:11px;background:rgba(249,251,255,.95);border:1.5px solid #5b6b86;font:700 12.5px var(--font-body);color:#33405a;white-space:nowrap;min-width:0;padding:0 4px;letter-spacing:-.01em}
 .rchip.all{border-color:#1f9e5a;color:#12804f}
 .rchip:disabled{opacity:.45;cursor:default}
 #rev-box{position:absolute;left:14px;top:48px;width:816px;height:330px;box-sizing:border-box;padding:10px 12px;background:rgba(249,251,255,.98);border:2px solid var(--graphite);border-radius:14px;z-index:6;display:flex;flex-direction:column;gap:8px}
@@ -258,7 +258,7 @@ svg{display:block}
 #h-msg{box-sizing:border-box;padding:4px 12px;background:rgba(249,251,255,.95);border:1.5px solid var(--ink);border-radius:10px;font-size:12.5px;line-height:1.3;font-weight:600;color:#1d2a44;white-space:pre-line}
 #h-moves{font:700 50px/.9 var(--font-display);color:var(--ink);min-width:20px;text-align:center}
 .hudbtn{position:absolute}
-#h-go{position:absolute;left:728px;top:297px;width:80px;height:80px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--ink);color:#fff;border:3px solid var(--paper);box-shadow:0 5px 0 var(--inkd),0 0 0 2px var(--ink);font-weight:700;font-size:15px;line-height:1.05;text-align:center}
+#h-go{position:absolute;left:730px;top:308px;width:76px;height:76px;padding:0;gap:1px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--ink);color:#fff;border:3px solid var(--paper);box-shadow:0 5px 0 var(--inkd),0 0 0 2px var(--ink);font-weight:700;font-size:12px;letter-spacing:-.02em;line-height:1.05;text-align:center;white-space:nowrap}
 #h-go.p2{background:var(--rivald);box-shadow:0 5px 0 #7a3504,0 0 0 2px var(--rivald)}
 #h-go:disabled{background:#c7d2e6;color:#6f7d96;box-shadow:0 5px 0 #aebad0,0 0 0 2px #c7d2e6;cursor:default}
 #h-go.bad:disabled{background:#f6d5d1;color:#a02a20;box-shadow:0 5px 0 #e2aaa4,0 0 0 2px #f6d5d1}
@@ -276,7 +276,7 @@ svg{display:block}
 
 /* IA */
 #a-chars .chbtn{flex:1 1 0;min-width:0;padding:0}#a-chars .chsep{width:2px;height:24px;border-radius:1px;background:var(--gridm);flex:none}
-#v-ai .chbtn{height:36px;border-radius:10px;background:#fff;border:1.5px solid var(--gridm);display:flex;align-items:center;justify-content:center;color:var(--ink)}
+#v-ai .chbtn{height:32px;border-radius:10px;background:#fff;border:1.5px solid var(--gridm);display:flex;align-items:center;justify-content:center;color:var(--ink)}
 #v-ai .chbtn[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
 #b-text{font-size:13px;line-height:1.28;overflow-y:auto;max-height:68px}
 #b-legend .chip{min-width:18px;height:18px;border-radius:9px;font-size:10px;line-height:18px;padding-inline:4px}
@@ -289,6 +289,9 @@ input[type=range]{width:100%;accent-color:var(--ink);margin:0;height:24px}
 #b-box.lrn #b-body{gap:2px!important}
 #b-box.lrn #b-stats{display:none}
 #b-box.lrn #b-ico{width:24px;height:24px}
+#stamp{position:absolute;left:50%;top:40%;z-index:60;pointer-events:none;padding:2px 26px;border:6px solid;border-radius:16px;background:rgba(255,255,255,.93);font-size:72px;line-height:1.05;white-space:nowrap;transform:translate(-50%,-50%) rotate(-7deg);animation:stampIn 1.3s ease both}
+@keyframes stampIn{0%{transform:translate(-50%,-50%) rotate(-7deg) scale(2.3);opacity:0}16%{transform:translate(-50%,-50%) rotate(-7deg) scale(.92);opacity:1}28%{transform:translate(-50%,-50%) rotate(-7deg) scale(1.05)}38%{transform:translate(-50%,-50%) rotate(-7deg) scale(1)}85%{opacity:1}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){#stamp{animation:none}}
 #b-box.lrn #b-fold,#b-box.lrn #b-help{width:24px;height:24px}
 #b-box.lrn #b-name{font-size:20px;white-space:nowrap}
 #b-box.lrn #b-desc{font-size:11px}
@@ -306,7 +309,7 @@ input[type=range]{width:100%;accent-color:var(--ink);margin:0;height:24px}
 #l-out i.ch{outline:2px solid #e08a1e}
 #a-panel.lrn{gap:3px!important;padding:4px 5px!important}
 #a-panel.lrn .chbtn{height:32px}
-#a-panel.lrn #a-main{height:38px!important;font-size:16px!important}
+#a-panel.lrn #a-main{height:32px!important;font-size:16px!important}
 #a-panel.tous{gap:4px!important}#a-panel.tous #a-scrub{height:18px}
 #l-speed{display:flex;gap:4px}
 #l-speed button{flex:1;height:24px;border-radius:8px;font-size:12px;font-weight:700;border:1.5px solid var(--ink);background:#fff;color:var(--ink)}
@@ -334,7 +337,7 @@ input[type=range]{width:100%;accent-color:var(--ink);margin:0;height:24px}
 #sh-def{flex:1;border:1.5px solid #bccde8;background:#fff;color:var(--ink);font-size:15px}
 #sh-cancel{flex:1;border:1.5px solid #bccde8;background:#fff;color:var(--ink);font-size:15px}
 #sh-go{flex:1.6;border:0;background:#1c3db5;box-shadow:0 4px 0 #14298a;color:#fff;font-size:20px}
-.lsl{display:flex;align-items:center;gap:6px;height:16px;font-size:11px}
+.lsl{display:flex;align-items:center;gap:6px;height:14px;font-size:11px}
 .lsl span{width:84px;flex-shrink:0;white-space:nowrap}
 .lsl input{height:16px;flex:1;min-width:0}
 .lsl b{width:34px;text-align:right;font-size:11px}
@@ -351,7 +354,7 @@ input[type=range]{width:100%;accent-color:var(--ink);margin:0;height:24px}
 /* à deux */
 select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--gridm);background:#fff;padding:0 10px;font-weight:700;-webkit-user-select:text;user-select:text}
 #d-code{text-transform:uppercase;letter-spacing:.2em;font-family:var(--font-mono);font-size:18px;text-align:center;width:110px}
-#a-row .tiny{flex:1 1 0;min-width:0;height:40px;white-space:normal;line-height:1.1}
+#a-row .tiny{flex:1 1 0;min-width:0;height:34px;font-size:10px;letter-spacing:-.01em;white-space:normal;line-height:1.1}
 </style>
 
 <div id="rot">↻ Tourne ton téléphone : la piste se joue en paysage.</div>
@@ -425,11 +428,11 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
 
   <!-- ===== Interface de jeu ===== -->
   <div class="scr hud" id="v-hud" hidden>
-    <div class="card abs" id="h-score" style="left:14px;top:3px;width:220px;box-sizing:border-box;white-space:nowrap;display:flex;align-items:center;gap:12px;padding:8px 16px 8px 14px;box-shadow:0 3px 0 rgba(43,50,61,.25)">
+    <div class="card abs" id="h-score" style="left:12px;top:3px;width:220px;box-sizing:border-box;white-space:nowrap;display:flex;align-items:center;gap:12px;padding:8px 16px 8px 14px;box-shadow:0 3px 0 rgba(43,50,61,.25)">
       <div id="h-moves">0</div>
       <div style="display:flex;flex-direction:column;gap:2px"><span class="lbl" id="h-k" style="font-size:11px;letter-spacing:.08em">coups</span><span class="mono" id="h-v" style="font-size:13px">vitesse (0, 0)</span></div>
     </div>
-    <div class="abs" id="h-duo" style="left:14px;top:3px;width:220px" hidden>
+    <div class="abs" id="h-duo" style="left:12px;top:3px;width:220px" hidden>
       <div class="pillp p1" id="h-p1"><i style="background:var(--ink)"></i><span style="flex:1;font-weight:700;font-size:15px">Joueur 1</span><span class="mono" style="font-size:13px" id="h-c1">0 coup</span></div>
       <div class="pillp" id="h-p2" style="margin-top:8px"><i style="background:var(--rival)"></i><span style="flex:1;font-weight:700;font-size:15px">Joueur 2</span><span class="mono" style="font-size:13px" id="h-c2">0 coup</span></div>
     </div>
@@ -437,7 +440,7 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
       <div class="rrow r1"><button class="rbtn" id="h-st" disabled>Stratège</button><button class="rchip" id="h-win" type="button"></button><button class="rbtn" id="h-clr" type="button" aria-label="Effacer les parcours trouvés sur cette piste" title="Effacer les parcours trouvés"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></button></div>
       <div class="rrow r2"><button class="rbtn" id="h-again">↻ Rejouer</button><button class="rbtn pri" id="h-next2">Suite du parcours →</button></div>
     </div>
-    <div class="abs" id="h-stack" style="left:14px;top:72px;width:420px;display:flex;flex-direction:column;gap:5px">
+    <div class="abs" id="h-stack" style="left:12px;top:72px;width:404px;display:flex;flex-direction:column;gap:5px">
     <div id="h-rival" style="align-self:flex-start;max-width:420px;box-sizing:border-box;padding:5px 12px;background:#fff4e8;border:1.5px solid var(--rival);border-radius:10px;font-size:13px;font-weight:700;color:#7a3504" hidden></div>
     <div id="h-tip" hidden><div id="h-tip-t"></div><div class="tb"><button type="button" class="pri" id="h-tip-a"></button><button type="button" id="h-tip-b"></button></div></div>
     <div id="h-hint" style="box-sizing:border-box;padding:4px 12px;background:rgba(255,255,255,.95);border:1.5px solid var(--ink);border-radius:10px;font-size:12.5px;line-height:1.25;color:var(--fg)" hidden>Touche un point près du tien, puis « Avancer ».</div>
@@ -454,7 +457,7 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
     <button class="round w hudbtn" id="h-home" aria-label="Accueil" style="right:12px;top:3px;width:36px;height:36px"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></button>
     <button class="round hudbtn" id="h-pause" aria-label="Pause" style="right:56px;top:3px;width:36px;height:36px"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="#2b323d"/><rect x="14" y="5" width="4" height="14" rx="1" fill="#2b323d"/></svg></button>
     <button class="round hudbtn" id="h-undo" aria-label="Annuler le dernier coup" style="left:616px;top:311px;width:52px;height:52px"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7L4 12l5 5"/><path d="M4 12h10a6 6 0 0 1 0 12" transform="translate(0 -3)"/></svg></button>
-    <button id="h-go" aria-label="Avancer au point choisi"><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="M13 6l6 6-6 6"/></svg><span id="h-go-t">Avancer</span></button>
+    <button id="h-go" aria-label="Avancer au point choisi"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="M13 6l6 6-6 6"/></svg><span id="h-go-t">Avancer</span></button>
   </div>
 
   <div class="abs" id="rev-ctl" hidden>
@@ -485,8 +488,8 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
       <span class="lbl" id="e-kick"></span>
       <div class="disp" id="e-title" style="font-size:44px;line-height:1;color:var(--ok);text-align:center"></div>
       <div id="e-stars" style="line-height:0"></div>
-      <div id="e-line" style="font-size:15px;color:#3a475d;text-align:center"></div>
-      <div id="e-note" style="font-size:12.5px;line-height:1.35;color:#5b6b86;text-align:center;max-width:520px"></div>
+      <div id="e-line" style="font-size:17px;color:#2f3b52;text-align:center"></div>
+      <div id="e-note" style="font-size:14px;line-height:1.35;color:#3d4b66;text-align:center;max-width:520px"></div>
       <div id="e-pill" style="display:flex;align-items:center;gap:8px;padding:4px 12px;border-radius:999px;background:#fff4e8;border:1.5px solid var(--rival);font-weight:700;font-size:14px;color:#9a4505"></div>
       <div style="display:flex;gap:12px;margin-top:6px">
         <button class="btn line" id="e-a" style="min-width:150px;height:52px;font-size:17px;padding:0 14px"></button>
@@ -518,11 +521,11 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
 
   <!-- ===== Regarde l'IA ===== -->
   <div class="scr hud" id="v-ai" hidden>
-    <div class="abs" id="b-box" style="left:10px;top:6px;width:428px;padding:8px 14px 9px;display:flex;flex-direction:column;gap:4px;background:rgba(255,255,255,.97);border:2px solid var(--ink);border-radius:16px;box-shadow:0 4px 0 rgba(28,61,181,.2)">
+    <div class="abs" id="b-box" style="left:12px;top:6px;width:410px;padding:8px 14px 9px;display:flex;flex-direction:column;gap:4px;background:rgba(255,255,255,.97);border:2px solid var(--ink);border-radius:16px;box-shadow:0 4px 0 rgba(28,61,181,.2)">
       <div style="display:flex;align-items:center;gap:10px">
         <svg id="b-ico" width="30" height="30" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="#1c3db5" stroke-width="2.6" stroke-linecap="round" style="flex-shrink:0"></svg>
         <span class="disp" id="b-name" style="font-size:26px;line-height:1"></span>
-        <span id="b-desc" style="font-size:12px;color:var(--muted);flex:1;min-width:0"></span>
+        <span id="b-desc" style="font-size:14px;color:#3d4b66;flex:1;min-width:0"></span>
         <canvas id="l-spark" width="160" height="44" style="width:70px;height:22px;flex-shrink:0" hidden aria-label="Courbe de réussite"></canvas>
         <button id="b-def" type="button" class="tiny" style="height:26px;padding:0 10px;font-size:12px;border-radius:13px;white-space:nowrap;flex-shrink:0;border-color:var(--ink);color:var(--ink)">Qu'est-ce qu'une IA ?</button>
         <button id="b-help" aria-label="Comment ça marche ?" hidden style="width:28px;height:28px;border-radius:50%;border:1.5px solid var(--gridm);color:var(--muted);font:700 15px/1 var(--font-body)">?</button>
@@ -545,7 +548,7 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
           <div class="lb" style="border-color:#e08a1e;background:#fff6e6"><h4 style="color:#b86a00">SORTIE · 9 COUPS</h4><div id="l-out"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="m" id="l-why" style="margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div></div>
         </div>
         <div id="b-text"></div>
-        <div class="mono" id="b-stats" style="font-size:11px;line-height:1.3;color:var(--soft)"></div>
+        <div class="mono" id="b-stats" style="font-size:13px;line-height:1.3;color:#3d4b66"></div>
       </div>
     </div>
     <div id="a-guide" hidden><div class="gh" id="ag-h1"></div><div class="gh" id="ag-h2"></div><div class="gh" id="ag-h3"></div>
@@ -555,11 +558,11 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
       <div class="ga" id="ag-a1">➜</div><div class="ga" id="ag-a2">➜</div><div class="ga" id="ag-a3" style="transform:rotate(-90deg)">➜</div>
       <div id="ag-btns"><button type="button" id="ag-ok">C'est parti !</button><button type="button" id="ag-more">Plus d'aide</button></div>
     </div>
-    <button class="round w hudbtn" id="a-back" aria-label="Accueil" style="left:802px;top:6px;width:34px;height:34px"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></button>
+    <button class="round w hudbtn" id="a-back" aria-label="Accueil" style="left:798px;top:6px;width:34px;height:34px"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></button>
     <button class="abs" id="a-pill" aria-label="Choisir une autre piste" style="left:446px;top:6px;height:34px;display:flex;align-items:center;gap:8px;padding:0 12px;background:rgba(249,251,255,.95);border:1.5px solid var(--graphite);border-radius:12px;font:700 18px/1 var(--font-display);color:inherit;white-space:nowrap;cursor:pointer;box-shadow:0 3px 0 rgba(43,50,61,.25);box-sizing:border-box"><i style="width:11px;height:11px;border-radius:50%;flex:none;background:#2f8f5b"></i><span style="flex:1;overflow:hidden;text-overflow:ellipsis;text-align:left"></span><svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M1.5 1.5L6 6.5l4.5-5"/></svg></button>
-    <button class="round w hudbtn" id="a-prev" aria-label="Piste précédente" style="left:726px;top:6px;width:34px;height:34px;background:var(--paper);border-color:var(--graphite)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2b323d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
-    <button class="round w hudbtn" id="a-next" aria-label="Piste suivante" style="left:764px;top:6px;width:34px;height:34px;background:var(--paper);border-color:var(--graphite)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2b323d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
-    <div class="abs" id="a-panel" style="left:588px;bottom:2px;width:250px;padding:6px;display:flex;flex-direction:column;gap:6px;background:var(--paper);border:1.5px solid var(--graphite);border-radius:16px;box-shadow:0 4px 0 rgba(43,50,61,.22)">
+    <button class="round w hudbtn" id="a-prev" aria-label="Piste précédente" style="left:722px;top:6px;width:34px;height:34px;background:var(--paper);border-color:var(--graphite)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2b323d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="round w hudbtn" id="a-next" aria-label="Piste suivante" style="left:760px;top:6px;width:34px;height:34px;background:var(--paper);border-color:var(--graphite)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2b323d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+    <div class="abs" id="a-panel" style="left:590px;bottom:2px;width:242px;padding:5px 6px;display:flex;flex-direction:column;gap:4px;background:var(--paper);border:1.5px solid var(--graphite);border-radius:16px;box-shadow:0 4px 0 rgba(43,50,61,.22)">
       <div id="a-chars" style="display:flex;align-items:center;gap:3px"><button class="chbtn" id="a-cmp" aria-label="Comparer Le Stratège et L'Apprenti" title="Comparer" style="font-weight:800;font-size:12px">VS</button></div>
       <div id="a-row" style="display:flex;gap:6px">
         <button class="tiny" id="a-s1"></button>
@@ -576,7 +579,7 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
         <label class="lsl"><span>Audace</span><input type="range" id="l-aud" min="0" max="100" step="5" value="15"><b id="l-aud-v"></b></label>
       </div>
       <input type="range" id="a-scrub" min="0" max="10" value="0" aria-label="Coup" hidden>
-      <div id="l-mainrow"><button class="tiny" id="l-set" hidden aria-label="Régler le Carnet" title="Régler" style="width:46px;height:38px;font-size:20px">⚙</button><button class="tiny" id="l-reset" hidden style="width:92px;height:38px;flex:none;padding:0 4px">Recommencer</button><button class="btn pri" id="a-main" style="height:38px;font-size:16px;border-radius:12px;flex:1"></button></div>
+      <div id="l-mainrow"><button class="tiny" id="l-set" hidden aria-label="Régler le Carnet" title="Régler" style="width:46px;height:32px;font-size:20px">⚙</button><button class="tiny" id="l-reset" hidden style="width:92px;height:32px;flex:none;padding:0 4px">Recommencer</button><button class="btn pri" id="a-main" style="height:32px;font-size:16px;border-radius:12px;flex:1"></button></div>
     </div>
     <div id="l-sheet" hidden role="dialog" aria-label="Régler le Carnet"><div class="sh">
       <div class="shh"><span class="disp" id="sh-title"></span><div class="shs">Vitesse <button data-sp="1">×1</button><button data-sp="10">×10</button><button data-sp="100">×100</button><button data-sp="1000">×1000</button></div></div>
@@ -1409,10 +1412,10 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   function drawThumb(T, cv, route, col) {
     const K = 6, g = cv.getContext('2d'); cv.width = NX * K; cv.height = NY * K;
     const on = (x, y) => x >= 0 && y >= 0 && x < NX && y < NY && T.cells[y * NX + x];
-    g.fillStyle = '#e4ebfa'; g.fillRect(0, 0, cv.width, cv.height);
-    g.strokeStyle = '#c3d0ee'; g.lineWidth = 0.7; g.beginPath(); for (let x = 0; x <= NX; x++) { g.moveTo(x * K, 0); g.lineTo(x * K, NY * K); } for (let y = 0; y <= NY; y++) { g.moveTo(0, y * K); g.lineTo(NX * K, y * K); } g.stroke();
-    g.fillStyle = '#c6cedb'; for (let y = 0; y < NY; y++) for (let x = 0; x < NX; x++) if (on(x, y)) g.fillRect(x * K, y * K, K, K);
-    g.strokeStyle = 'rgba(255,255,255,.75)'; g.lineWidth = 0.7; g.beginPath(); for (let y = 0; y < NY; y++) for (let x = 0; x < NX; x++) if (on(x, y)) { g.moveTo(x * K, y * K); g.lineTo(x * K + K, y * K); g.moveTo(x * K, y * K); g.lineTo(x * K, y * K + K); } g.stroke();
+    g.fillStyle = '#FBF1D2'; g.fillRect(0, 0, cv.width, cv.height);
+    g.strokeStyle = 'rgba(214,160,40,.28)'; g.lineWidth = 0.7; g.beginPath(); for (let x = 0; x <= NX; x++) { g.moveTo(x * K, 0); g.lineTo(x * K, NY * K); } for (let y = 0; y <= NY; y++) { g.moveTo(0, y * K); g.lineTo(NX * K, y * K); } g.stroke();
+    g.fillStyle = '#E7EEFA'; for (let y = 0; y < NY; y++) for (let x = 0; x < NX; x++) if (on(x, y)) g.fillRect(x * K, y * K, K, K);
+    g.strokeStyle = 'rgba(40,95,220,.35)'; g.lineWidth = 0.7; g.beginPath(); for (let y = 0; y < NY; y++) for (let x = 0; x < NX; x++) if (on(x, y)) { g.moveTo(x * K, y * K); g.lineTo(x * K + K, y * K); g.moveTo(x * K, y * K); g.lineTo(x * K, y * K + K); } g.stroke();
     for (const f of T.finish) for (let y = f[1]; y < f[3]; y++) for (let x = f[0]; x < f[2]; x++) if (on(x, y)) for (let a = 0; a < 2; a++) for (let b = 0; b < 2; b++) { g.fillStyle = (a + b) % 2 ? '#fff' : '#2b323d'; g.fillRect(x * K + a * K / 2, y * K + b * K / 2, K / 2, K / 2); }
     const kerb = () => { g.beginPath();
       for (let y = 0; y < NY; y++) for (let x = 0; x < NX; x++) if (on(x, y)) {
@@ -1421,7 +1424,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
         if (!on(x - 1, y)) { g.moveTo(x * K, y * K); g.lineTo(x * K, y * K + K); }
         if (!on(x + 1, y)) { g.moveTo(x * K + K, y * K); g.lineTo(x * K + K, y * K + K); }
       } g.stroke(); };
-    g.strokeStyle = '#d83a48'; g.lineWidth = 3; g.setLineDash([]); kerb(); g.strokeStyle = '#fff'; g.lineWidth = 3; g.setLineDash([3, 3]); kerb(); g.setLineDash([]);
+    g.strokeStyle = '#E5383B'; g.lineWidth = 3; g.setLineDash([]); kerb(); g.strokeStyle = '#fff'; g.lineWidth = 3; g.setLineDash([3, 3]); kerb(); g.setLineDash([]);
     if (route) { g.strokeStyle = col; g.fillStyle = col; g.lineWidth = 2.4; g.lineJoin = 'round'; g.beginPath(); route.forEach((q, i) => i ? g.lineTo(q.x * K, q.y * K) : g.moveTo(q.x * K, q.y * K)); g.stroke(); route.forEach(q => { g.beginPath(); g.arc(q.x * K, q.y * K, 2.6, 0, 6.3); g.fill(); }); }
     g.save(); g.translate(T.start.x * K, T.start.y * K); g.fillStyle = '#1c3db5'; g.strokeStyle = '#fff'; g.lineWidth = 1.4; g.beginPath(); g.roundRect(-7, -3.6, 14, 7.2, 3.6); g.fill(); g.stroke(); g.fillStyle = '#fff'; g.fillRect(1, -2, 3.6, 4); g.restore();
   }
@@ -1555,7 +1558,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     G.log.push(G.cur); G.sel = { dx: 0, dy: 0 };
     if (!G.hint) { G.hint = true; const h = (store.get(KEY.hint) || 0) + 1; store.set(KEY.hint, h); }
     sfx('move', Math.hypot(o.vx, o.vy));
-    if (o.finish) { p.won = true; fxConfetti(o.F.x, o.F.y); }
+    if (o.finish) { p.won = true; fxConfetti(o.F.x, o.F.y); stamp('ARRIVÉ !', '#1f9d55'); }
     if (mode === 'solo') { if (o.finish) { G.over = true; soloWin(); } }
     else if (mode === 'duo') duoAfter();
     else { pushState(); duelCheck(); }
@@ -1798,7 +1801,9 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
       if (ok) { const W = hudPillW(pill) + 44; pill.style.left = Math.max(250, 700 - W) + 'px'; pill.style.boxSizing = 'border-box'; pill.style.minWidth = W + 'px'; pill.style.justifyContent = 'center'; }
       const hb = $('h-back'); hb.hidden = !(V === 'play'); if (!hb.hidden) hb.style.left = (pill.offsetLeft - 44) + 'px'; }
     const hint = solo && !G.hint && p.lens.length === 0 && (store.get(KEY.hint) || 0) < 3 && can;
-    $('h-hint').hidden = !hint;
+    { const oc = can && gSel(), bad = !!(oc && oc.crash) && gOptions().some(x => !x.crash), hh = $('h-hint');
+      hh.textContent = bad ? 'Point dans le mur : touche un point bleu.' : 'Touche un point près du tien, puis « Avancer ».';
+      hh.hidden = !(hint || bad); }
     const o = gSel(), go_ = $('h-go'), gt = $('h-go-t');
     go_.disabled = !can || !o || o.crash;
     go_.classList.toggle('bad', !!(can && o && o.crash));
@@ -2600,7 +2605,7 @@ function effortOf(T) {
   function preLoop() {
     if (!alt.run) return;
     preStep(); altUI(); draw();
-    if (alt.status === 'run') alt.timer = setTimeout(preLoop, PRE_MS[learn.sp]); else { alt.run = false; altUI(); }
+    if (alt.status === 'run') alt.timer = setTimeout(preLoop, PRE_MS[learn.sp]); else { alt.run = false; altUI(); stamp(alt.status === 'arrived' ? 'ARRIVÉ !' : alt.status === 'loop' ? 'EN ROND !' : 'COINCÉ !', alt.status === 'arrived' ? '#1f9d55' : '#e5383b'); }
     panelUI();
   }
   function altRun() {
@@ -4009,7 +4014,9 @@ function effortOf(T) {
     if (board.hidden) return;
     const r = cv.getBoundingClientRect(); if (!r.width) return;
     const dpr = Math.min(window.devicePixelRatio || 1, 3);
-    const pw = Math.round(r.width * dpr), ph = Math.round(r.height * dpr);
+    // le plateau est étiré en largeur par CSS (alignement des marges) : la bitmap reste à cellules carrées, c'est le CSS qui l'étire
+    const vs = r.height / (cv.offsetHeight || r.height);
+    const pw = Math.round((cv.offsetWidth || r.width) * vs * dpr), ph = Math.round(r.height * dpr);
     if (cv.width !== pw || cv.height !== ph) { cv.width = pw; cv.height = ph; }
     const k = pw / NX, kc = CELL, c = TOK;
     view = { k, kc, dpr, c };
@@ -4031,7 +4038,7 @@ function effortOf(T) {
   // « Départ » s'écrit à un endroit libre, loin des neuf points possibles du premier coup.
   function startLabelPos(T) {
     const sx = T.start.x, sy = T.start.y;
-    for (const [dx, dy] of [[0, 1.9], [0, -1.9], [-0.4, 2.8], [-0.4, -2.8], [2.8, 0]]) {
+    for (const [dx, dy] of [[0, 2.5], [0, -2.5], [-0.4, 2.8], [-0.4, -2.8], [2.8, 0], [0, 1.9], [0, -1.9]]) {
       const x = sx + dx, y = sy + dy;
       if ([-1.2, 0, 1.2].every(o => cellAt(T, x + o, y) !== 0)) return { x, y };
     }
@@ -4082,18 +4089,18 @@ function effortOf(T) {
     return P;
   }
   function circuitBase(T, c, lw, gridLines) {
-    ctx.fillStyle = '#c8d0db'; ctx.fillRect(0, 0, NX, NY);            // hors piste
-    ctx.strokeStyle = 'rgba(90,104,128,.30)'; ctx.lineWidth = lw(1.2); ctx.beginPath();
+    ctx.fillStyle = '#FBF1D2'; ctx.fillRect(0, 0, NX, NY);            // hors piste : papier crème
+    ctx.strokeStyle = 'rgba(214,160,40,.30)'; ctx.lineWidth = lw(1.2); ctx.beginPath();
     for (let d = -NY; d <= NX; d += 9 / CELL) { ctx.moveTo(d, NY); ctx.lineTo(d + NY, 0); }
     ctx.stroke();
     const P = trackPath(T, 0.8);
     ctx.lineJoin = 'round';
     ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 0.56; ctx.stroke(P);   // bordure : bande blanche…
-    ctx.strokeStyle = '#d83a48'; ctx.lineWidth = 0.56; ctx.setLineDash([0.45, 0.45]); ctx.stroke(P); ctx.setLineDash([]); // …et rouge
+    ctx.strokeStyle = '#E5383B'; ctx.lineWidth = 0.56; ctx.setLineDash([0.45, 0.45]); ctx.stroke(P); ctx.setLineDash([]); // …et rouge
     ctx.strokeStyle = c.graphite; ctx.lineWidth = lw(2); ctx.stroke(P);
-    ctx.fillStyle = '#aab3c2'; ctx.fill(P);                           // bitume
+    ctx.fillStyle = '#E7EEFA'; ctx.fill(P);                           // bitume clair
     ctx.save(); ctx.clip(P);
-    gridLines('rgba(255,255,255,.55)', 'rgba(255,255,255,.95)');
+    gridLines('rgba(40,95,220,.26)', 'rgba(40,95,220,.55)');
     ctx.restore();
     ctx.lineWidth = lw(2); ctx.strokeStyle = c.graphite; ctx.stroke(P);
   }
@@ -4171,6 +4178,12 @@ function effortOf(T) {
     if (V === 'play' || V === 'end' || V === 'pause') draw();
     if (fx.anim || fx.parts.length) fx.raf = requestAnimationFrame(fxTick);
   }
+  // tampon « ARRIVÉ ! » / « COINCÉ ! » : un mot, 1,3 s, puis il s'efface
+  function stamp(txt, col) {
+    const old = $('stamp'); if (old) old.remove();
+    const el = document.createElement('div'); el.id = 'stamp'; el.className = 'disp'; el.textContent = txt; el.style.color = col; el.style.borderColor = col;
+    $('stage').appendChild(el); setTimeout(() => { if (el.parentNode) el.remove(); }, 1400);
+  }
   const fxKick = () => { if (!fx.raf) fx.raf = requestAnimationFrame(fxTick); };
   function fxMove(pi, from, to) {
     const now = performance.now(), len = Math.hypot(to.x - from.x, to.y - from.y);
@@ -4199,6 +4212,8 @@ function effortOf(T) {
     const rr = (x0, y0, w, h, r) => { g.beginPath(); g.moveTo(x0 + r, y0); g.arcTo(x0 + w, y0, x0 + w, y0 + h, r); g.arcTo(x0 + w, y0 + h, x0, y0 + h, r); g.arcTo(x0, y0 + h, x0, y0, r); g.arcTo(x0, y0, x0 + w, y0, r); g.closePath(); };
     g.fillStyle = col; g.strokeStyle = '#fff'; g.lineWidth = 0.05; rr(-0.44, -0.2, 0.88, 0.4, 0.14); g.fill(); g.stroke();
     g.fillStyle = 'rgba(15,25,40,.8)'; rr(-0.12, -0.13, 0.26, 0.26, 0.07); g.fill();
+    g.fillStyle = (c && col === c.rival) ? '#ffc83d' : '#e5383b'; g.strokeStyle = '#fff'; g.lineWidth = 0.035; g.beginPath(); g.arc(0.0, 0, 0.125, 0, 6.2832); g.fill(); g.stroke();
+    g.fillStyle = 'rgba(15,25,40,.85)'; g.fillRect(0.03, -0.07, 0.07, 0.14);
     g.fillStyle = 'rgba(255,255,255,.55)'; g.fillRect(-0.4, -0.04, 0.2, 0.08);
     g.fillStyle = '#ffe66b'; g.fillRect(0.38, -0.16, 0.07, 0.08); g.fillRect(0.38, 0.08, 0.07, 0.08);
     g.restore();
@@ -4749,6 +4764,22 @@ function effortOf(T) {
   $('sh-rows').addEventListener('focusin', e => { const k = e.target.dataset.k; if (k) { SH.key = k; shUI(); } });
   on('a-main', aiMain); on('a-s1', aiS1); on('a-s2', aiS2); on('a-s3', aiS3);
   on('b-fold', () => { ai.folded = !ai.folded; bubbleHead(); });
+  /* la carte du haut ne doit jamais mordre sur la piste : sous ~138 px de haut, on resserre (stats sur une ligne, puis masquées, puis texte réduit) */
+  (function () {
+    const box = $('b-box'), st = $('b-stats'), tx = $('b-text'); let busy = false;
+    function fit() {
+      busy = false; if (box.classList.contains('lrn') || box.offsetParent === null) return;
+      const MAX = 138;
+      st.style.cssText = ''; tx.style.cssText = '';
+      if (box.offsetHeight <= MAX) return;
+      st.style.whiteSpace = 'nowrap'; st.style.overflow = 'hidden'; st.style.textOverflow = 'ellipsis'; st.title = st.textContent;
+      if (box.offsetHeight <= MAX) return;
+      st.style.display = 'none';
+      if (box.offsetHeight <= MAX) return;
+      tx.style.fontSize = '12.5px'; tx.style.lineHeight = '1.25';
+    }
+    new MutationObserver(() => { if (!busy) { busy = true; requestAnimationFrame(fit); } }).observe(box, { childList: true, subtree: true, characterData: true });
+  })();
   on('b-help', () => OBS(ai.ch) ? obHelp(true) : learnHelp(true)); on('o-help-x', () => obHelp(false)); on('l-help-x', () => learnHelp(false)); on('l-reset', () => { if (OBS(ai.ch)) { ob.note = ''; obReset(); refresh(); return; } learn.note = ''; learnReset(); refresh(); });
   $('o-sl').addEventListener('input', e => { const k = e.target.dataset.k; if (!k) return; SHC[ob.kind].val[k] = +e.target.value; obSliders(); });
   $('o-sl').addEventListener('change', e => { if (!e.target.dataset.k) return; obReset(); ob.note = 'Nouveau réglage : il repart de zéro.'; refresh(); });
