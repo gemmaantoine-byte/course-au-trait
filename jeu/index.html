@@ -2662,6 +2662,10 @@ function effortOf(T) {
       drawTrail(alt.pts, c.paper, 8, 0, k, kc); drawTrail(alt.pts, c.ink, 3.2, 3.6, k, kc, 5);
     }
     ctx.setTransform(k, 0, 0, k, 0, 0); ctx.fillStyle = c.ink; ctx.beginPath(); ctx.arc(cur.start.x, cur.start.y, 5 / kc, 0, 6.2832); ctx.fill();
+    // la voiture de l'IA, au bout de son tracé (ou au départ)
+    { const pp = ai.ch === 'hasard' ? (alt.cur ? alt.cur.r.pts.slice(0, alt.cur.i + 1) : null) : (alt.pts.length ? alt.pts : null);
+      if (pp && pp.length) { const e = pp[pp.length - 1], p0 = pp[pp.length - 2];
+        drawCar(e.x, e.y, p0 ? Math.atan2(e.y - p0.y, e.x - p0.x) : startHeading(), ai.ch === 'hasard' ? c.rival : c.ink, c); } }
   }
 
   // ---------- L'IA qui apprend ----------
