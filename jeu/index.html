@@ -1495,7 +1495,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
       P.push({ pts: [{ x: s.x, y: s.y }], hist: [{ x: s.x, y: s.y, vx: 0, vy: 0 }], lens: [], won: false });
     }
     G = { P, cur: 0, sel: { dx: 0, dy: 0 }, log: [], over: false, hint: false }; fx.anim = null; fx.parts = [];
-    if (hunt) hunt.msg = '';
+    if (hunt) { hunt.msg = ''; hunt.showF = false; }
     const r = mode === 'solo' && rec[T.id];
     ghost = null;   // pas de tracé mémorisé à l'écran : on joue, on ne suit pas son ancien record
     duelStop(); if (mode === 'solo' && learnedAI[T.id]) duelStart(T);
@@ -1670,7 +1670,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     const D = huntD(h0), M = Math.min(D.length, 15), g = $('rev-g'); g.innerHTML = ''; revList = [];
     for (let i = 0; i < M; i++) { const pts = D[Math.floor(i * D.length / M)]; revList.push(pts); const cv = document.createElement('canvas'); drawThumb(cur, cv, pts, REV_COL(i)); g.appendChild(cv); }
     $('rev-t').textContent = (D.length > 1 ? fmtInt(D.length) + ' parcours gagnants différents' : 'Un seul parcours gagnant') + ' de ' + plural(R.len, 'coup') + (M < D.length ? ' · en voici ' + M + ', répartis sur l\'ensemble' : (D.length > 1 ? ' · les voici tous' : ''));
-    box.hidden = false;
+    box.hidden = false; h0.showF = true; draw();
   }
   function huntStrat() {
     if (mode !== 'solo' || !hunt || hunt.T !== cur || !hunt.done) return;
@@ -4274,7 +4274,7 @@ function effortOf(T) {
       if (revTour && revTour.T === cur) { ctx.globalAlpha = 0.22; for (let j = 0; j < revTour.i; j++) drawTrail(revList[j], REV_COL(j), 2, 0, k, kc); ctx.globalAlpha = 0.9; }
       if (revTour && revTour.T === cur && revTour.up >= 1) drawTrail(revList[revTour.i].slice(0, revTour.up + 1), REV_COL(revTour.i), 3.6, 4, k, kc);
       // pendant un défi, on n'affiche pas les parcours gagnants déjà trouvés : seule la course de l'adversaire compte
-      if (!vs.adv) { hunt.found.forEach((f, i) => drawTrail(f.pts, HUNT_COL[i % HUNT_COL.length], 2.6, 3, k, kc)); if (hunt.strat && hunt.showS) drawTrail(hunt.strat.pts, STRAT_COL, 2.6, 3, k, kc); }
+      if (!vs.adv) { if (hunt.showF || (G && G.P.some(p => p.pts.length > 1))) hunt.found.forEach((f, i) => drawTrail(f.pts, HUNT_COL[i % HUNT_COL.length], 2.6, 3, k, kc)); if (hunt.strat && hunt.showS) drawTrail(hunt.strat.pts, STRAT_COL, 2.6, 3, k, kc); }
       if (tipOn() && tip.lvl >= 2 && tip.T === cur) {
         const z = TIPS[cur.id].z; ctx.setTransform(k, 0, 0, k, 0, 0); ctx.globalAlpha = 1;
         ctx.fillStyle = 'rgba(255,196,0,.30)'; ctx.strokeStyle = '#d68a00'; ctx.lineWidth = lw(2.4); ctx.setLineDash([lw(7), lw(4.5)]);
