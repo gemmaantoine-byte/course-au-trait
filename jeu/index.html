@@ -1413,7 +1413,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     const K = 6, g = cv.getContext('2d'); cv.width = NX * K; cv.height = NY * K;
     const on = (x, y) => x >= 0 && y >= 0 && x < NX && y < NY && T.cells[y * NX + x];
     g.fillStyle = '#FBF1D2'; g.fillRect(0, 0, cv.width, cv.height);
-    g.strokeStyle = 'rgba(214,160,40,.28)'; g.lineWidth = 0.7; g.beginPath(); for (let x = 0; x <= NX; x++) { g.moveTo(x * K, 0); g.lineTo(x * K, NY * K); } for (let y = 0; y <= NY; y++) { g.moveTo(0, y * K); g.lineTo(NX * K, y * K); } g.stroke();
+    g.strokeStyle = 'rgba(214,160,40,.42)'; g.lineWidth = 1.1; g.beginPath(); { const W = NX * K, H = NY * K, st = K * 1.6; for (let d = -H; d <= W; d += st) { g.moveTo(d, H); g.lineTo(d + H, 0); } } g.stroke();
     g.fillStyle = '#E7EEFA'; for (let y = 0; y < NY; y++) for (let x = 0; x < NX; x++) if (on(x, y)) g.fillRect(x * K, y * K, K, K);
     g.strokeStyle = 'rgba(40,95,220,.35)'; g.lineWidth = 0.7; g.beginPath(); for (let y = 0; y < NY; y++) for (let x = 0; x < NX; x++) if (on(x, y)) { g.moveTo(x * K, y * K); g.lineTo(x * K + K, y * K); g.moveTo(x * K, y * K); g.lineTo(x * K, y * K + K); } g.stroke();
     for (const f of T.finish) for (let y = f[1]; y < f[3]; y++) for (let x = f[0]; x < f[2]; x++) if (on(x, y)) for (let a = 0; a < 2; a++) for (let b = 0; b < 2; b++) { g.fillStyle = (a + b) % 2 ? '#fff' : '#2b323d'; g.fillRect(x * K + a * K / 2, y * K + b * K / 2, K / 2, K / 2); }
