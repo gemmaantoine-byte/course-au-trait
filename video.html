@@ -17,7 +17,7 @@
 <style>
 /* Mise en page : une feuille de papier quadrillé, des sections séparées par des vibreurs rouge et blanc comme sur la piste. */
 :root{
-  --paper:#f7f9fd; --paper2:#eef2fa; --grid:#dbe4f3; --ink:#1c3db5; --ink-d:#14298a; --rival:#c25a0a; --kerb:#d33a30;
+  --paper:#e7eefa; --paper2:#eef2fa; --grid:rgba(40,95,220,.17); --ink:#1c3db5; --ink-d:#14298a; --rival:#c25a0a; --kerb:#d33a30;
   --fg:#1b2331; --muted:#4f5f79; --card:#ffffff; --line:#c5d2ea; --night:#2b323d;
   --display:'Caveat','Segoe Print',cursive; --body:'Karla',system-ui,-apple-system,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
 }
@@ -74,7 +74,7 @@ h2{font:700 clamp(38px,6vw,56px)/1 var(--display);color:var(--ink);margin:0 0 10
 .levels{display:grid;gap:10px;margin:0;padding:0;list-style:none}
 .levels li{background:var(--card);border:2px solid var(--night);border-radius:12px;padding:12px 16px;display:flex;justify-content:space-between;gap:12px;align-items:baseline}
 .levels b{font:700 26px/1 var(--display);color:var(--ink)} .levels span{font:400 13px var(--mono);color:var(--muted);text-align:right}
-footer{background:var(--night);color:#e8edf8;padding-block:28px 40px;margin-top:40px}
+footer{background:var(--ink-d);color:#e8edf8;padding-block:28px 40px;margin-top:40px}
 footer .wrap{display:flex;gap:16px 40px;justify-content:space-between;flex-wrap:wrap;font-size:14.5px}
 footer a{color:#b6c4ff}
 @media (max-width:880px){
