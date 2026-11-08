@@ -4750,7 +4750,7 @@ function effortOf(T) {
   on('p-map', playBack);
   function playBack() { if (mode === 'net') { leaveDuel(); return; } if (mode !== 'solo') { go('duo'); return; } if (playFrom === 'ai') { vs.adv = null; vs.live = null; } go(playFrom === 'edit' ? 'edit' : playFrom === 'ai' ? 'ai' : 'map'); }
   on('h-back', playBack);
-  $('h-pill').addEventListener('click', () => { if ($('h-pill')._pick && V === 'play') pickOpen('play', T => { playFrom = 'map'; startSolo(T); }, vs.adv ? VS_TXT.duelVs + ' ' + VS_ROSTER.find(r => r.id === vs.adv).name : ''); });
+  $('h-pill').addEventListener('click', () => { if ($('h-pill')._pick && V === 'play' && mode === 'solo' && !vs.adv) { go('map'); return; } if ($('h-pill')._pick && V === 'play') pickOpen('play', T => { playFrom = 'map'; startSolo(T); }, vs.adv ? VS_TXT.duelVs + ' ' + VS_ROSTER.find(r => r.id === vs.adv).name : ''); });
   on('h-home', () => { if (mode === 'net') { leaveDuel(); } mode = 'solo'; go('home'); });
   on('p-home', () => { if (mode === 'net') { leaveDuel(); } mode = 'solo'; go('home'); });
   on('p-chal', () => toggleSetting('challenge'));
