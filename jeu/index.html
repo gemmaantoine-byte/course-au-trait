@@ -781,7 +781,7 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
       <button class="btn pri" id="b-buy" style="width:330px;height:62px;border-radius:16px;font-size:22px">Acheter le jeu</button>
       <div style="display:flex;align-items:center;gap:18px;font-size:14px;flex-wrap:wrap">
         <button class="link" id="b-restore" style="padding:8px 0">J'ai déjà une clé</button>
-        <span style="color:var(--muted)">Une clé fonctionne sur 3 appareils.</span>
+        <span style="color:var(--muted)">Une clé débloque le jeu sur 1 appareil.</span>
       </div>
       <div id="b-note" style="font-size:13px;color:#9a4505;font-weight:700"></div>
     </div>
@@ -911,12 +911,12 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
           <button class="btn pri" id="k-go" style="flex:1.2;height:48px;font-size:18px">Débloquer</button>
           <button class="btn sec" id="k-buy" style="flex:1;height:48px;font-size:16px;white-space:nowrap">Acheter le jeu</button>
         </div>
-        <div style="font-size:13px;color:var(--muted)">Une clé fonctionne sur <b>3 appareils</b> : toute la famille peut jouer.</div>
+        <div style="font-size:13px;color:var(--muted)">Une clé débloque le jeu sur <b>1 appareil</b>.</div>
         <button class="link" id="k-x" style="align-self:flex-start;padding:4px 0;font-size:14px">Fermer</button>
       </div>
       <div id="k-ok" style="display:none;flex-direction:column;gap:10px;align-items:flex-start">
         <div class="disp" style="font-size:40px;line-height:1.05;color:#12804f">C'est débloqué !</div>
-        <p style="margin:0;font-size:16px;line-height:22px;color:#33405a">Cet appareil est le <b id="k-n">1</b> sur 3.<br>Tes records et ton parcours sont gardés.</p>
+        <p style="margin:0;font-size:16px;line-height:22px;color:#33405a">Le jeu complet est débloqué sur cet appareil.<b id="k-n" hidden></b><br>Tes records et ton parcours sont gardés.</p>
         <button class="btn pri" id="k-play" style="height:48px;font-size:18px;width:100%">Jouer</button>
       </div>
     </div>
@@ -1323,7 +1323,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   const paid = () => { if (owned()) return true; lockShow('locked'); return false; };
   function lockShow(why) { buyWhy = why || 'locked'; if (V !== 'buy') buyFrom = V; go('buy'); }
   const trialText = () => daysLeft() === 0 ? 'Essai terminé' : 'Essai : ' + plural(daysLeft(), 'jour') + ' restant' + (daysLeft() > 1 ? 's' : '');
-  // ----- Clé de déblocage (3 appareils par clé) -----
+  // ----- Clé de déblocage (1 appareil par clé) -----
   const LIC_ON = false, LIC_BUY_URL = 'https://buy.stripe.com/9B65kDbqA3xV3ide4h8so00', LIC_API = 'https://course-au-trait-cles.gemma-antoine-a3b.workers.dev/api';
   let licTest = false;   // vrai seulement dans les essais automatiques
   const devId = (() => { let d = store.get(KEY.trial + 'dev'); if (!d) { d = Math.random().toString(36).slice(2) + Date.now().toString(36); store.set(KEY.trial + 'dev', d); } return d; })();
@@ -1437,7 +1437,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   }
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') statSend(); else st.t0 = Date.now(); });
   window.addEventListener('pagehide', statSend);
-  const LIC_ERR = { unknown: ['Clé inconnue.', "Cette clé n'est pas reconnue. Vérifie qu'il n'y a ni espace ni lettre en trop."], full: ['Déjà 3 appareils.', 'Cette clé est utilisée sur 3 appareils. Libère-en un depuis ses réglages, ou achète une clé de plus.'], offline: ['Pas de connexion.', "Connecte-toi à Internet pour débloquer. Une fois débloqué, le jeu n'en a plus besoin."] };
+  const LIC_ERR = { unknown: ['Clé inconnue.', "Cette clé n'est pas reconnue. Vérifie qu'il n'y a ni espace ni lettre en trop."], full: ['Clé déjà utilisée.', 'Cette clé débloque déjà un autre appareil. Libère-le depuis ses réglages, ou achète une autre clé.'], offline: ['Pas de connexion.', "Connecte-toi à Internet pour débloquer. Une fois débloqué, le jeu n'en a plus besoin."] };
   function keyOpen() { $('k-form').style.display = 'flex'; $('k-ok').style.display = 'none'; $('k-err').hidden = true; $('k-in').value = ''; $('v-key').hidden = false; setTimeout(() => { try { $('k-in').focus(); } catch (e) {} }, 50); }
   function keyClose() { $('v-key').hidden = true; refresh(); }
   async function keyGo() {
@@ -1448,7 +1448,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     $('k-n').textContent = trial.rank; $('k-form').style.display = 'none'; $('k-ok').style.display = 'flex';
   }
   async function keyFree() {
-    if (!confirm('Libérer cet appareil ? Le jeu sera à nouveau verrouillé ici après l\'essai. Tu pourras le débloquer sur un autre appareil.')) return;
+    if (!confirm('Libérer cet appareil ? Le jeu complet sera à nouveau verrouillé ici. Tu pourras débloquer un autre appareil avec ta clé.')) return;
     await licCall('free', trial.key); trial.bought = false; trial.key = ''; store.set(KEY.trial, trial); setUI(); refresh();
   }
   const buyOpen = () => { statAdd('achat'); if (LIC_BUY_URL) window.open(LIC_BUY_URL, '_blank', 'noopener'); else { $('k-et').textContent = 'Achat bientôt ouvert.'; $('k-ed').textContent = "La page de paiement n'est pas encore en ligne."; $('k-err').hidden = false; } };
