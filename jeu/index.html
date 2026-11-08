@@ -207,12 +207,16 @@ svg{display:block}
 #mp-tabs{position:absolute;left:24px;top:64px;bottom:54px;width:160px;display:flex;flex-direction:column;gap:6px}
 #v-map.nobar #mp-tabs,#v-map.nobar #mp-grid{bottom:14px}
 .lvtab{--c:#5b6b86;flex:1;min-height:0;border-radius:12px;border:2px solid var(--c);background:color-mix(in srgb,var(--c) 11%,#fff);display:flex;align-items:center;gap:8px;padding:0 12px;font:700 17px/1 var(--font-body);color:var(--c);cursor:pointer;text-align:left}
-#mp-tabs .lvtab:nth-child(1){--c:#2f8f5b}#mp-tabs .lvtab:nth-child(2){--c:#b88a12}#mp-tabs .lvtab:nth-child(3){--c:#d2641c}#mp-tabs .lvtab:nth-child(4){--c:#a1241b}
+#mp-tabs .lvtab:nth-child(1){--c:#2f8f5b}#mp-tabs .lvtab:nth-child(2){--c:#b88a12}#mp-tabs .lvtab:nth-child(3){--c:#d2641c}#mp-tabs .lvtab:nth-child(4){--c:#a1241b}#mp-tabs .lvtab:nth-child(5){--c:#3b3f58}#mp-tabs .lvtab:nth-child(6){--c:#7a4fd0}
 .lvtab span{flex:1}.lvtab small{font:700 13px/1 var(--font-mono);color:var(--c);opacity:.85}
 .lvtab i{display:none}
 .lvtab.on{background:var(--c);color:#fff;box-shadow:0 3px 0 color-mix(in srgb,var(--c) 70%,#000)}
 .lvtab.on small{color:#fff;opacity:1}
 #mp-grid{position:absolute;left:198px;right:24px;top:64px;bottom:54px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,minmax(0,1fr));gap:8px 10px;align-content:start}
+#mp-grid.g5{grid-template-columns:repeat(5,minmax(0,1fr))}#mp-grid.g5 .tile canvas{object-fit:contain;background:#fdf3d6}#mp-grid.g5 .tile .sc{font-size:11px;gap:3px;padding-right:28px;overflow:hidden}#mp-grid.g5 .tile b{padding-right:26px;font-size:13px}
+.tile.lk canvas{filter:grayscale(.75) opacity(.55)}.tile.lk .bx{opacity:.35}
+.lkd{position:relative}.lkd::after{content:'🔒';position:absolute;top:-6px;right:-6px;font-size:14px;line-height:1}
+#chal-ov{position:absolute;inset:0;z-index:60;background:rgba(20,28,40,.45);display:flex;align-items:center;justify-content:center}#chal-ov[hidden]{display:none}#chal-ov .cb{background:#fff;border-radius:18px;padding:16px 22px;width:min(560px,92%);box-shadow:0 10px 30px rgba(0,0,0,.25)}#chal-ov .ct{font-size:30px;color:#7a4fd0;line-height:1.1}#chal-ov p{margin:6px 0;font-size:14.5px;line-height:1.35;color:#3a475d}#chal-ov .ce{color:#c0392b;min-height:18px}#chal-ov input{width:100%;box-sizing:border-box;font:inherit;font-size:18px;padding:8px 12px;border:2px solid #c9d3e6;border-radius:10px}#chal-ov table{width:100%;border-collapse:collapse;font-size:14px;margin:4px 0}#chal-ov td{padding:3px 6px;border-bottom:1px solid #eef1f6}#chal-ov td:first-child{width:28px;font-weight:700;color:#7a4fd0}#chal-ov tr.me td{background:#f3edff;font-weight:700}#chal-ov .cr{display:flex;gap:10px;justify-content:flex-end;align-items:center;margin-top:10px}#chal-ov .cm{margin-right:auto;font-size:14px;color:#3a475d}#chal-ov .btn{height:40px;padding:0 20px;font-size:16px;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}
 .tile{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:2px;padding:6px;border-radius:10px;border:2px solid var(--gridm);background:#fff;cursor:pointer;text-align:left;font-family:var(--font-body);color:var(--graphite);min-width:0}
 .tile canvas{width:100%;flex:1 1 0;min-height:0;object-fit:cover;display:block;border-radius:6px}
 .tile b{font-size:14px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -371,7 +375,7 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
     <div class="hm-doors">
       <button class="hm-door" id="hm-play" style="--c:#1c3db5;--cd:#14298a;--t:#e6ebfa">
         <span class="hm-ill"><svg width="226" height="84" viewBox="0 0 224 88" aria-hidden="true"><defs><pattern id="jg" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M8 0H0V8" fill="none" stroke="#c7d2f3" stroke-width=".9"/></pattern><pattern id="jg2" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M8 0H0V8" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width=".9"/></pattern></defs><rect width="224" height="88" fill="url(#jg)"/><path d="M0 68H52V20H116V68H180V20H224" fill="none" stroke="#c8362e" stroke-width="31" stroke-linejoin="round"/><path d="M0 68H52V20H116V68H180V20H224" fill="none" stroke="#fff" stroke-width="31" stroke-linejoin="round" stroke-dasharray="5 5"/><path d="M0 68H52V20H116V68H180V20H224" fill="none" stroke="#c9d1de" stroke-width="24" stroke-linejoin="round"/><path d="M0 68H52V20H116V68H180V20H224" fill="none" stroke="url(#jg2)" stroke-width="24" stroke-linejoin="round"/><path d="M29 56V80" stroke="#fff" stroke-width="2" stroke-dasharray="3 3"/><g><rect x="216" y="8" width="4" height="4" fill="#1b2331"/><rect x="216" y="12" width="4" height="4" fill="#fff"/><rect x="216" y="16" width="4" height="4" fill="#1b2331"/><rect x="216" y="20" width="4" height="4" fill="#fff"/><rect x="216" y="24" width="4" height="4" fill="#1b2331"/><rect x="216" y="28" width="4" height="4" fill="#fff"/><rect x="220" y="8" width="4" height="4" fill="#fff"/><rect x="220" y="12" width="4" height="4" fill="#1b2331"/><rect x="220" y="16" width="4" height="4" fill="#fff"/><rect x="220" y="20" width="4" height="4" fill="#1b2331"/><rect x="220" y="24" width="4" height="4" fill="#fff"/><rect x="220" y="28" width="4" height="4" fill="#1b2331"/></g><path d="M40 64 L48 56 L48 40 L48 24 L64 24 L80 24 L96 24 L112 32 L112 56 L128 64 L152 64 L176 56 L176 32 L184 24 L200 24 L216 24" fill="none" stroke="#1c3db5" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="48" cy="56" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="48" cy="40" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="48" cy="24" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="64" cy="24" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="80" cy="24" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="96" cy="24" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="112" cy="32" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="112" cy="56" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="128" cy="64" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="152" cy="64" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="176" cy="56" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="176" cy="32" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="184" cy="24" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="200" cy="24" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><circle cx="216" cy="24" r="2.5" fill="#fff" stroke="#1c3db5" stroke-width="1.7"/><path d="M40 72 L56 64 L56 40 L56 24 L80 16 L112 16 L120 32 L120 56 L120 72 L144 72 L168 72 L184 56 L184 32 L184 16 L216 16" fill="none" stroke="#c25a0a" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="56" cy="64" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="56" cy="40" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="56" cy="24" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="80" cy="16" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="112" cy="16" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="120" cy="32" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="120" cy="56" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="120" cy="72" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="144" cy="72" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="168" cy="72" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="184" cy="56" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="184" cy="32" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="184" cy="16" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><circle cx="216" cy="16" r="2.5" fill="#fff" stroke="#c25a0a" stroke-width="1.7"/><g transform="translate(40 64)"><rect x="-8" y="-3.8" width="16" height="7.6" rx="3.8" fill="#1c3db5" stroke="#fff" stroke-width="1.6"/><rect x="1" y="-2.2" width="4" height="4.4" rx="1.4" fill="#fff" opacity=".85"/></g><g transform="translate(40 72)"><rect x="-8" y="-3.8" width="16" height="7.6" rx="3.8" fill="#c25a0a" stroke="#fff" stroke-width="1.6"/><rect x="1" y="-2.2" width="4" height="4.4" rx="1.4" fill="#fff" opacity=".85"/></g><g><rect x="1" y="58" width="25" height="10" rx="5" fill="#1c3db5"/><text x="13.5" y="65.6" text-anchor="middle" font-family="Karla,system-ui,sans-serif" font-size="8.6" font-weight="700" fill="#fff">Toi</text></g><g><rect x="1" y="70" width="20" height="10" rx="5" fill="#c25a0a"/><text x="11.0" y="77.6" text-anchor="middle" font-family="Karla,system-ui,sans-serif" font-size="8.6" font-weight="700" fill="#fff">IA</text></g></svg></span>
-        <span class="hm-txt"><b>Jouer</b><span>Quatre niveaux, du facile à l'expert. Compose ton parcours.</span><i>4 niveaux · 24 pistes</i></span>
+        <span class="hm-txt"><b>Jouer</b><span>Du facile à l'impossible. Compose ton parcours.</span><i>6 niveaux · 35 pistes</i></span>
         <span class="hm-cta">Choisir une piste<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5v15l12-7.5z" fill="currentColor"/></svg></span>
       </button>
       <button class="hm-door" id="hm-ai" style="--c:#12804f;--cd:#0d5a3a;--t:#def2e8">
@@ -408,7 +412,7 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
     </div>
     <div id="mp-tabs"></div>
     <div id="mp-grid"></div>
-    <div id="mp-bar"><button class="btn sec" id="mp-all">Tout cocher</button><button class="btn sec" id="mp-none">Tout décocher</button><div class="sum" id="mp-sum"></div><button class="btn pri" id="mp-play">Jouer le parcours</button></div>
+    <div id="mp-bar"><button class="btn sec" id="mp-all">Tout cocher</button><button class="btn sec" id="mp-none">Tout décocher</button><button class="btn sec" id="mp-board" hidden>🏆 Classement</button><div class="sum" id="mp-sum"></div><button class="btn pri" id="mp-play">Jouer le parcours</button></div>
   </div>
 
   <div class="scr paper" id="v-res" hidden>
@@ -771,9 +775,9 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
   <!-- ===== Fin de l'essai ===== -->
   <div class="scr paper" id="v-buy" hidden style="display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 90px 0 44px">
     <div style="display:flex;flex-direction:column;gap:14px;width:350px">
-      <div class="disp" style="font-size:38px;line-height:1">Ton essai de <span id="b-days"></span> jours est terminé</div>
+      <div class="disp" id="b-title" style="font-size:38px;line-height:1">Débloque tout le jeu</div>
       <svg width="220" height="14" viewBox="0 0 250 14" aria-hidden="true"><path d="M3 9 C 30 2, 50 13, 80 7 S 130 2, 160 8 S 215 12, 247 4" fill="none" stroke="#1c3db5" stroke-width="3.2" stroke-linecap="round"/></svg>
-      <p style="margin:0;font-size:17px;line-height:1.4;color:#3a475d">Débloque le jeu pour continuer. Tes records et ton parcours sont gardés.</p>
+      <p id="bu-text" style="margin:0;font-size:17px;line-height:1.4;color:#3a475d"></p>
       <button class="btn pri" id="b-buy" style="width:330px;height:62px;border-radius:16px;font-size:22px">Acheter le jeu</button>
       <div style="display:flex;align-items:center;gap:18px;font-size:14px;flex-wrap:wrap">
         <button class="link" id="b-restore" style="padding:8px 0">J'ai déjà une clé</button>
@@ -782,9 +786,10 @@ select#d-track,#d-code{height:40px;border-radius:10px;border:1.5px solid var(--g
       <div id="b-note" style="font-size:13px;color:#9a4505;font-weight:700"></div>
     </div>
     <div style="width:340px;padding:18px 20px;display:flex;flex-direction:column;gap:10px;background:#fff;border:2px solid var(--graphite);border-radius:18px;box-shadow:0 4px 0 rgba(43,50,61,.22);transform:rotate(1deg)">
-      <div class="disp" style="font-size:32px;line-height:1">Ce que tu gardes</div>
+      <div class="disp" style="font-size:32px;line-height:1">Dans le jeu complet</div>
       <div class="keep"></div>
     </div>
+    <button class="round w abs" id="b-back" aria-label="Retour" style="left:12px;top:3px;width:36px;height:36px"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
     <button class="round w abs" id="b-home" aria-label="Accueil" style="right:12px;top:3px;width:36px;height:36px"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></button>
   </div>
 
@@ -1179,43 +1184,60 @@ const WORLDS = [
   { id: 'w1', name: "Facile", need: 0, desc: "Pour apprendre",
     tracks: [
       { id: 'a1', name: "Premier tour", start: [4, 11], R: [[2, 8, 22, 14], [17, 2, 31, 8]], F: [[29, 2, 31, 8]] },
-      { id: 'c3', name: "Le parc", start: [4, 11], R: [[2, 6, 22, 14], [17, 2, 31, 8]], O: [[8, 6, 11, 9], [10, 11, 12, 14], [14, 8, 18, 11], [24, 2, 27, 4]], F: [[29, 2, 31, 8]] },
-      { id: 'nA1', name: "Le coude", start: [4, 11], R: [[2, 9, 21, 14], [17, 2, 21, 14], [21, 2, 31, 6]], F: [[28, 2, 31, 6]] },
       { id: 'nA3', name: "Le S", start: [4, 12], R: [[2, 6, 21, 14], [17, 2, 31, 6]], O: [[2, 6, 11, 11], [14, 9, 21, 14]], F: [[28, 2, 31, 6]] },
-      { id: 'nC1', name: "Le faux raccourci", start: [4, 12], R: [[2, 10, 22, 14], [12, 6, 16, 10], [18, 2, 22, 10], [22, 2, 31, 6]], F: [[28, 2, 31, 6]] },
-      { id: 'nD2', name: "La fourche", start: [4, 10], R: [[2, 6, 22, 14], [17, 2, 31, 8]], O: [[8, 7, 14, 12]], F: [[28, 2, 31, 8]] }
+      {"id":"v2f1","name":"La bosse","start":[3,12],"R":[[17,2,31,6],[9,6,31,7],[9,7,21,8],[25,7,31,8],[9,8,22,9],[9,9,14,10],[17,9,22,10],[2,6,8,11],[9,10,22,11],[2,11,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2f2","name":"La vallée","start":[3,7],"R":[[17,2,31,5],[2,6,15,7],[17,5,21,7],[22,5,31,8],[2,7,21,10],[2,10,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2f3","name":"Le coin","start":[4,9],"R":[[17,2,31,6],[10,6,20,8],[21,6,31,8],[10,8,22,9],[2,6,5,10],[10,9,15,10],[2,10,15,14],[17,9,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2f4","name":"Le demi-tour","start":[19,12],"R":[[17,2,31,6],[2,6,7,7],[8,6,31,7],[2,7,31,8],[2,8,17,9],[2,9,14,10],[2,10,17,11],[2,11,22,14]],"F":[[28,2,31,7]]}
     ] },
-  { id: 'w2', name: "Moyen", need: 0, desc: "Des virages et des détours",
+  { id: 'w2', name: "Moyen", need: 0, desc: "On accélère",
     tracks: [
-      { id: 'c1', name: "Les immeubles", start: [4, 11], R: [[2, 6, 22, 14], [17, 2, 31, 8]], O: [[7, 8, 10, 11], [13, 6, 16, 9], [12, 11, 15, 14], [24, 3, 27, 6]], F: [[29, 2, 31, 8]] },
-      { id: 'c5', name: "Le périph", start: [4, 11], R: [[2, 6, 22, 14], [17, 2, 31, 8]], O: [[8, 8, 18, 12], [18, 6, 20, 9], [24, 3, 29, 5]], F: [[29, 2, 31, 8]] },
-      { id: 'nA2', name: "L'épingle", start: [4, 12], R: [[2, 6, 22, 14]], O: [[2, 9, 18, 11]], F: [[2, 6, 4, 9]] },
-      { id: 'nC2', name: "Les poches", start: [4, 12], R: [[2, 10, 22, 14], [6, 6, 9, 10], [11, 6, 14, 10], [18, 2, 22, 10], [22, 2, 31, 6], [24, 6, 27, 8]], F: [[28, 2, 31, 6]] },
-      { id: 'nC3', name: "Le détour", start: [19, 12], R: [[2, 6, 22, 14], [17, 2, 31, 8]], O: [[4, 9, 22, 10]], F: [[28, 2, 31, 8]] },
-      { id: 'nD1', name: "La grande île", start: [4, 10], R: [[2, 6, 22, 14], [17, 2, 31, 8]], O: [[6, 7, 18, 11], [24, 2, 26, 5]], F: [[28, 2, 31, 8]] }
+      {"id":"v2m1","name":"La colline","start":[3,12],"R":[[17,2,31,6],[17,6,24,8],[25,6,31,8],[17,8,21,9],[2,6,16,10],[17,9,22,10],[2,10,22,11],[2,11,14,14],[16,11,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2m2","name":"Le grand U","start":[3,7],"R":[[17,2,31,6],[18,6,31,8],[2,6,17,10],[18,8,22,10],[2,10,7,11],[13,10,18,11],[19,10,22,11],[2,11,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2m3","name":"La cuvette","start":[4,9],"R":[[2,6,12,7],[17,2,31,7],[19,7,31,8],[14,7,18,10],[19,8,22,10],[2,7,13,11],[14,10,22,11],[2,11,15,14],[18,11,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2m4","name":"Le retour","start":[19,12],"R":[[17,2,31,5],[18,5,26,6],[2,6,8,8],[10,6,26,8],[27,5,31,8],[2,8,22,9],[2,9,11,11],[2,11,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2m5","name":"Le zigzag","start":[3,10],"R":[[17,2,31,6],[14,6,31,7],[19,7,31,8],[2,6,13,9],[14,7,17,9],[8,9,17,10],[19,8,22,10],[2,9,7,14],[8,10,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2m6","name":"La marche","start":[4,11],"R":[[17,2,31,5],[22,5,31,8],[2,6,16,9],[17,5,20,9],[2,9,20,10],[2,10,22,12],[2,12,17,14],[18,12,22,14]],"F":[[28,2,31,7]]}
     ] },
   { id: 'w3', name: "Difficile", need: 0, desc: "Il faut réfléchir",
     tracks: [
-      { id: 'a5', name: "Le slalom", start: [4, 11], R: [[17, 2, 31, 7], [17, 7, 22, 14], [2, 8, 22, 14]], O: [[7, 8, 9, 11], [11, 11, 13, 14], [15, 8, 17, 11], [23, 2, 25, 5], [27, 5, 29, 7]], F: [[29, 2, 31, 7]] },
-      { id: 'b3', name: "Le lacet", start: [4, 7], R: [[2, 6, 22, 14], [17, 2, 31, 8]], O: [[6, 9, 12, 14], [14, 6, 16, 11], [18, 9, 20, 14], [24, 4, 31, 5]], F: [[29, 5, 31, 8]] },
-      { id: 'c2', name: "Le carrefour", start: [4, 11], R: [[2, 6, 22, 14], [17, 2, 31, 8]], O: [[6, 6, 9, 9], [6, 11, 9, 14], [12, 8, 16, 12], [20, 6, 22, 9], [24, 2, 27, 5]], F: [[29, 2, 31, 8]] },
-      { id: 'nB3', name: "Le péage", start: [3, 12], R: [[2, 6, 22, 14], [17, 2, 31, 8]], O: [[7, 6, 8, 10], [7, 12, 8, 14], [11, 9, 12, 14], [11, 6, 12, 7], [15, 6, 16, 11], [15, 13, 16, 14], [25, 2, 27, 5]], F: [[28, 2, 31, 8]] },
-      { id: 'nC4', name: "Le grand détour", start: [19, 12], R: [[2, 6, 22, 14], [17, 2, 31, 8]], O: [[4, 9, 22, 10], [8, 12, 9, 14], [12, 10, 13, 12], [24, 2, 26, 5]], F: [[28, 2, 31, 8]] },
-      { id: 'nE3', name: "La ville", start: [3, 7], R: [[2, 6, 22, 14], [17, 2, 31, 8]], O: [[4, 8, 6, 10], [4, 12, 6, 14], [8, 6, 10, 8], [8, 10, 10, 12], [12, 8, 14, 10], [12, 12, 14, 14], [16, 6, 18, 8], [16, 10, 18, 12], [19, 3, 21, 5], [23, 5, 25, 7], [26, 2, 28, 3]], F: [[29, 2, 31, 8]] }
+      {"id":"v2d1","name":"Le rectangle","start":[3,12],"R":[[17,2,31,4],[17,4,19,6],[24,4,31,6],[2,6,23,7],[26,6,31,7],[2,7,31,8],[10,8,22,9],[10,9,16,10],[18,9,22,10],[2,8,4,13],[10,10,22,13],[2,13,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2d2","name":"Le grand virage","start":[3,7],"R":[[17,2,31,4],[17,4,20,5],[21,4,31,5],[17,5,31,7],[19,7,20,8],[22,7,31,8],[2,6,10,12],[17,8,22,12],[2,12,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2d3","name":"Le pont","start":[3,10],"R":[[17,2,31,4],[18,4,31,6],[18,6,22,7],[2,6,17,8],[18,7,19,8],[23,6,31,8],[2,8,9,10],[14,8,22,10],[5,10,9,11],[5,11,13,13],[17,10,22,13],[2,10,4,14],[5,13,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2d4","name":"Le boomerang","start":[19,12],"R":[[17,2,31,4],[17,5,19,6],[2,6,19,7],[21,4,31,7],[2,7,31,8],[2,8,10,9],[11,8,22,9],[11,9,15,10],[21,9,22,10],[3,9,10,11],[11,10,22,11],[3,11,15,12],[16,11,22,12],[2,12,16,13],[17,12,22,13],[2,13,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2d5","name":"La pince","start":[4,9],"R":[[17,2,31,4],[2,6,17,7],[8,7,17,8],[18,4,31,8],[2,7,5,12],[8,8,10,12],[13,8,22,12],[2,12,11,13],[12,12,22,13],[2,13,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2d6","name":"Le gué","start":[4,11],"R":[[17,2,31,5],[17,5,25,6],[27,5,31,6],[11,6,18,7],[19,6,20,7],[11,7,20,8],[23,6,31,8],[2,6,10,9],[11,8,13,9],[15,8,22,9],[2,9,13,10],[15,9,16,10],[2,10,16,11],[2,11,10,12],[12,11,16,12],[2,12,16,13],[2,13,7,14],[8,13,16,14],[17,9,22,14]],"F":[[28,2,31,7]]}
     ] },
   { id: 'w4', name: "Expert", need: 0, desc: "Pour les plus malins",
     tracks: [
-      { id: 'b5', name: "Les épingles", start: [4, 11], R: [[2, 6, 22, 14], [17, 2, 31, 8]], O: [[6, 6, 8, 12], [10, 8, 12, 14], [14, 6, 16, 12], [18, 8, 20, 14], [24, 2, 26, 6]], F: [[29, 2, 31, 8]] },
-      { id: 'c4', name: "Les travaux", start: [4, 11], R: [[2, 6, 22, 14], [17, 2, 31, 8]], O: [[6, 6, 7, 11], [10, 9, 11, 14], [14, 6, 15, 11], [18, 9, 19, 14], [23, 2, 24, 5], [27, 4, 28, 7]], F: [[29, 2, 31, 8]] },
-      { id: 'nA4', name: "Le zigzag", start: [3, 7], R: [[2, 6, 22, 14], [17, 2, 31, 8]], O: [[5, 6, 7, 12], [9, 8, 11, 14], [13, 6, 15, 12], [17, 8, 19, 14], [23, 2, 25, 6]], F: [[28, 2, 31, 8]] },
-      { id: 'nB4', name: "Le goulet", start: [4, 11], R: [[2, 6, 22, 14], [17, 2, 31, 8]], O: [[14, 6, 16, 10], [14, 11, 16, 14], [25, 2, 27, 4], [25, 5, 27, 8]], F: [[28, 2, 31, 8]] },
-      { id: 'nE1', name: "Les couloirs", start: [3, 13], R: [[2, 6, 22, 14], [17, 2, 31, 8]], O: [[2, 11, 18, 12], [5, 8, 22, 9]], F: [[28, 2, 31, 8]] },
-      { id: 'nE2', name: "Le dédale", start: [3, 10], R: [[2, 6, 22, 14], [17, 2, 31, 8]], O: [[6, 6, 7, 12], [10, 8, 11, 14], [14, 6, 15, 12], [18, 8, 19, 14], [23, 2, 25, 5], [26, 5, 28, 8]], F: [[28, 2, 31, 8]] }
+      {"id":"v2e1","name":"Les créneaux","start":[3,12],"R":[[17,2,31,4],[20,4,23,5],[26,4,31,5],[17,4,19,6],[20,5,31,6],[17,6,31,7],[2,6,15,8],[17,7,19,8],[22,7,31,8],[2,8,9,9],[10,8,15,9],[9,9,15,10],[2,9,7,11],[14,10,15,11],[17,8,22,11],[2,11,6,12],[9,10,12,12],[14,11,22,12],[2,12,7,13],[9,12,22,13],[2,13,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2e2","name":"La faille","start":[3,7],"R":[[17,2,31,4],[18,4,31,5],[18,5,23,6],[9,6,17,7],[14,7,17,8],[18,6,20,8],[24,5,31,8],[14,8,22,9],[2,6,7,11],[9,9,22,11],[2,11,10,13],[12,11,22,13],[2,13,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2e3","name":"Le récif","start":[4,9],"R":[[17,2,31,6],[6,6,18,7],[6,7,7,8],[27,6,31,8],[8,8,11,9],[13,7,18,9],[19,8,22,9],[2,6,5,10],[8,9,22,10],[2,10,6,11],[8,10,11,11],[2,11,11,14],[14,10,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2e4","name":"Le grand boomerang","start":[19,12],"R":[[17,2,31,3],[18,3,31,4],[18,4,20,5],[2,6,14,7],[17,5,20,7],[2,7,20,8],[22,4,31,8],[7,8,22,9],[16,9,17,10],[21,9,22,11],[2,8,4,12],[7,11,16,12],[17,11,22,12],[2,12,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2e5","name":"Les remparts","start":[3,10],"R":[[17,2,31,4],[18,4,31,5],[18,5,21,6],[26,5,31,6],[2,6,31,7],[2,7,9,8],[18,7,24,8],[26,7,31,8],[2,8,4,11],[5,8,9,11],[10,7,16,11],[18,8,22,11],[2,11,16,12],[19,11,22,12],[2,12,3,14],[5,12,22,14]],"F":[[28,2,31,7]]},
+      { id: 'nB4', name: "Le goulet", start: [4, 11], R: [[2, 6, 22, 14], [17, 2, 31, 8]], O: [[14, 6, 16, 10], [14, 11, 16, 14], [25, 2, 27, 4], [25, 5, 27, 8]], F: [[28, 2, 31, 8]] }
+    ] },
+  { id: 'w5', name: "Impossible", need: 0, desc: "Seul le Stratège",
+    tracks: [
+      {"id":"v2x1","name":"La chicane","start":[3,12],"R":[[17,2,31,3],[17,3,19,5],[22,3,24,5],[17,5,24,6],[25,3,31,6],[16,6,31,7],[22,7,26,8],[28,7,31,8],[2,6,15,10],[16,7,19,10],[10,10,15,11],[2,10,9,12],[10,11,12,12],[16,10,22,12],[2,12,7,13],[10,12,22,13],[2,13,15,14],[16,13,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2x2","name":"Le crochet","start":[3,7],"R":[[17,2,31,4],[17,4,21,6],[25,4,31,6],[2,6,19,7],[20,6,21,7],[27,6,31,7],[18,7,21,8],[16,7,17,9],[18,8,22,9],[13,9,22,10],[13,10,18,11],[19,10,22,11],[2,7,12,12],[13,11,15,12],[2,12,15,13],[20,11,22,13],[2,13,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2x3","name":"Les lacets","start":[3,12],"R":[[17,2,31,3],[20,3,26,4],[27,3,31,4],[24,4,31,5],[17,3,19,6],[11,6,19,7],[20,4,22,7],[24,5,26,8],[27,5,31,8],[15,7,22,9],[11,7,14,10],[15,9,17,10],[2,6,10,11],[11,10,17,11],[21,9,22,12],[2,11,12,13],[14,11,17,13],[2,13,17,14]],"F":[[28,2,31,7]]},
+      {"id":"v2x4","name":"Le tire-bouchon","start":[3,7],"R":[[17,2,31,3],[17,3,24,4],[26,3,31,4],[17,4,25,6],[27,4,31,6],[2,6,17,7],[18,6,31,7],[12,7,17,8],[18,7,25,8],[18,8,22,10],[2,7,11,11],[12,8,14,11],[15,8,17,11],[19,10,22,11],[2,11,14,14],[15,11,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2x5","name":"Le serpent","start":[3,12],"R":[[17,2,31,3],[17,3,20,4],[24,3,31,5],[17,4,19,6],[21,5,31,6],[9,6,19,7],[13,7,19,8],[20,6,31,8],[13,8,22,9],[2,6,8,10],[9,7,12,10],[13,9,16,10],[17,9,19,10],[2,10,12,11],[13,10,19,11],[20,9,22,11],[2,11,9,13],[11,11,17,13],[2,13,17,14],[18,11,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2x6","name":"La spirale","start":[3,7],"R":[[17,2,23,5],[24,2,31,5],[20,5,23,6],[25,5,31,6],[20,6,31,7],[24,7,28,8],[30,7,31,8],[5,6,17,9],[12,9,17,11],[20,7,22,11],[2,6,4,12],[5,9,10,12],[12,11,14,12],[18,11,22,12],[2,12,10,13],[12,12,22,13],[2,13,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2x7","name":"Le labyrinthe","start":[3,12],"R":[[17,2,31,3],[17,3,23,4],[24,3,31,4],[17,4,21,5],[22,4,23,5],[17,5,18,6],[19,5,23,6],[24,4,26,6],[2,6,14,7],[15,6,18,7],[19,6,26,7],[27,4,31,7],[2,7,12,8],[13,7,18,8],[19,7,20,8],[22,7,31,8],[13,8,22,9],[13,9,20,10],[13,10,22,11],[5,8,12,12],[13,11,16,12],[17,11,22,12],[5,12,16,13],[18,12,22,13],[2,8,4,14],[5,13,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2x8","name":"Le nœud","start":[3,7],"R":[[17,2,31,3],[17,3,23,5],[24,3,31,5],[17,5,21,6],[22,5,31,6],[6,6,21,7],[10,7,16,8],[22,6,25,8],[26,6,31,8],[10,8,21,9],[2,6,5,10],[6,7,9,10],[14,9,22,10],[2,10,7,14],[8,10,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2x9","name":"Le dédale noir","start":[3,12],"R":[[17,2,31,3],[17,3,23,4],[24,3,31,4],[17,4,20,6],[21,4,23,6],[24,4,26,6],[2,6,8,7],[9,6,15,7],[18,6,20,7],[2,7,6,8],[10,7,14,8],[19,7,20,8],[21,6,26,8],[27,4,31,8],[9,8,14,9],[18,8,20,9],[21,8,22,9],[2,8,8,10],[9,9,15,10],[6,10,8,11],[9,10,12,11],[13,10,15,11],[18,9,22,11],[2,10,5,14],[6,11,12,14],[13,11,22,14]],"F":[[28,2,31,7]]},
+      {"id":"v2x10","name":"L’impossible","start":[3,7],"R":[[17,2,21,3],[17,3,20,4],[23,2,31,4],[17,4,21,6],[23,4,25,6],[7,6,14,7],[18,6,25,7],[27,4,31,7],[21,7,26,8],[28,7,31,8],[2,6,6,9],[7,7,11,9],[13,7,19,9],[17,9,19,10],[21,8,22,10],[2,9,11,11],[13,9,16,11],[10,11,16,12],[17,10,22,12],[2,11,8,13],[10,12,14,13],[19,12,22,13],[2,13,22,14]],"F":[[28,2,31,7]]}
+    ] },
+  { id: 'w6', name: "La reine", need: 0, desc: "Le challenge",
+    tracks: [
+      {"id":"v2reine","name":"La reine","start":[3,12],"R":[[17,2,31,3],[17,3,23,4],[17,4,20,5],[21,4,23,5],[24,3,31,5],[19,5,20,6],[7,6,20,7],[21,5,25,8],[26,5,31,8],[2,6,6,9],[7,7,8,9],[10,7,20,9],[21,8,22,9],[4,9,8,11],[10,9,15,11],[2,11,5,13],[7,11,15,13],[2,13,15,14],[16,9,22,14]],"F":[[28,2,31,7]]}
     ] }
 ];
 const BUILTIN = []; WORLDS.forEach(w => w.tracks.forEach(t => { t.world = w.id; BUILTIN.push(t); }));
 // Repère (meilleur trajet) et cap de départ, calculés une fois pour toutes par le solveur.
-const PRE = {"a1":[7,1,-1],"c3":[8,1,-1],"nA1":[9,1,1],"nA3":[10,1,0],"nC1":[10,1,-1],"nD2":[8,1,1],"c1":[8,1,0],"c5":[11,1,0],"nA2":[13,1,0],"nC2":[10,1,-1],"nC3":[15,-1,-1],"nD1":[10,1,1],"a5":[14,1,1],"b3":[15,1,0],"c2":[12,1,-1],"nB3":[15,1,-1],"nC4":[16,-1,0],"nE3":[13,1,0],"b5":[21,1,1],"c4":[17,1,1],"nA4":[23,0,1],"nB4":[18,1,-1],"nE1":[23,1,0],"nE2":[22,0,1]};
+const PRE = {"a1":[7,1,-1],"c3":[8,1,-1],"nA1":[9,1,1],"nA3":[10,1,0],"nC1":[10,1,-1],"nD2":[8,1,1],"c1":[8,1,0],"c5":[11,1,0],"nA2":[13,1,0],"nC2":[10,1,-1],"nC3":[15,-1,-1],"nD1":[10,1,1],"a5":[14,1,1],"b3":[15,1,0],"c2":[12,1,-1],"nB3":[15,1,-1],"nC4":[16,-1,0],"nE3":[13,1,0],"b5":[21,1,1],"c4":[17,1,1],"nA4":[23,0,1],"nB4":[18,1,-1],"nE1":[23,1,0],"nE2":[22,0,1],"v2f1":[8,1,0],"v2f2":[9,1,0],"v2f3":[9,-1,1],"v2f4":[10,-1,0],"v2m1":[12,1,-1],"v2m2":[11,1,1],"v2m3":[12,1,1],"v2m4":[12,-1,0],"v2m5":[12,0,-1],"v2m6":[11,1,0],"v2d1":[15,0,-1],"v2d2":[15,1,1],"v2d3":[15,1,-1],"v2d4":[17,1,0],"v2d5":[16,-1,0],"v2d6":[15,1,0],"v2e1":[20,0,-1],"v2e2":[19,0,1],"v2e3":[20,-1,1],"v2e4":[21,-1,0],"v2e5":[19,0,-1],"v2x1":[21,1,-1],"v2x2":[22,1,1],"v2x3":[24,1,0],"v2x4":[26,0,1],"v2x5":[29,1,-1],"v2x6":[30,0,1],"v2x7":[32,0,-1],"v2x8":[34,0,1],"v2x9":[36,0,-1],"v2x10":[38,0,1],"v2reine":[43,0,1]};
 BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1], p[2]]; } });
 // TRACKS-END
 (function () {
@@ -1247,9 +1269,59 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   if (!trial || typeof trial.first !== 'number') { trial = { first: Date.now(), bought: false, days: 7 }; store.set(KEY.trial, trial); }
   // essai commencé avant le passage à 7 jours : on garde ses 30 jours
   if (!(trial.days > 0)) { trial.days = Math.max(30, 7); store.set(KEY.trial, trial); }
-  const DAY = 864e5, TRIAL_DAYS = 7, TRIAL_ON = true, TEST_TOOLS = false, DUO_ON = false, SITE_ON = true;
+  const DAY = 864e5, TRIAL_DAYS = 7, TRIAL_ON = false, TEST_TOOLS = false, DUO_ON = false, SITE_ON = true;
   const daysLeft = () => Math.max(0, trial.days - Math.floor((Date.now() - trial.first) / DAY));
   const expired = () => TRIAL_ON && !trial.bought && daysLeft() === 0;
+  // ----- Règles d'accès : Facile gratuit, Moyen jouable mais bloqué sur la ligne d'arrivée, le reste au jeu complet -----
+  const owned = () => !!trial.bought;
+  const IMP_KEY = 'pub/impossibles'; const impWon = store.get(IMP_KEY) || {};
+  const impTracks = () => { const w = WORLDS.find(w => w.id === 'w5'); return w ? w.tracks : []; };
+  const isImp = T => !!T && (T.world === 'w5' || T.world === 'w6');
+  const impMargin = T => T.world === 'w6' ? 0 : (impTracks().findIndex(d => d.id === T.id) < 5 ? 2 : 1);
+  const impCount = () => impTracks().filter(d => impWon[d.id]).length;
+  const lockOf = T => { if (!T) return ''; if (!T.world) return owned() ? '' : 'buy'; if (T.world === 'w1') return ''; if (!owned()) return T.world === 'w2' ? '' : 'buy'; if (T.world === 'w6' && impCount() < impTracks().length) return 'reine'; return ''; };
+  const aiLock = T => !owned() && T && T.world && T.world !== 'w1' ? 'buy' : lockOf(T);   // les IA : pistes gratuites seulement
+  const CHAL_API = 'https://course-au-trait-challenge.gemma-antoine-a3b.workers.dev/api';
+  const CHAL_KEY = 'pub/challenge'; const chal = store.get(CHAL_KEY) || {};
+  if (!chal.token) { chal.token = Array.from(crypto.getRandomValues(new Uint8Array(16)), b => b.toString(16).padStart(2, '0')).join(''); store.set(CHAL_KEY, chal); }
+  async function chalCall(path, body) {
+    try { const r = await fetch(CHAL_API + path, body ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) } : {}); return await r.json(); }
+    catch (e) { return { err: 'hors-ligne' }; }
+  }
+  const CHAL_ERR = { 'surnom-pris': 'Ce surnom est déjà pris.', 'surnom-invalide': 'Surnom refusé : 3 à 16 lettres ou chiffres, sans gros mot.', 'hors-ligne': "Pas de connexion au classement pour l'instant.", 'trajet-refuse': 'Trajet refusé par le serveur.', 'reine-fermee': "Il faut d'abord gagner les 10 pistes impossibles." };
+  const esc = t => String(t).replace(/[<&>"]/g, '');
+  function chalBox(html) { let o = $('chal-ov'); if (!o) { o = document.createElement('div'); o.id = 'chal-ov'; $('stage').appendChild(o); } o.innerHTML = '<div class="cb">' + html + '</div>'; o.hidden = false; return o; }
+  const chalClose = () => { const o = $('chal-ov'); if (o) o.hidden = true; };
+  function askNick(why) {
+    return new Promise(res => {
+      chalBox('<div class="disp ct">Ton surnom</div><p>' + (why || 'Il apparaîtra au classement du challenge de la reine.') + '</p><input id="cn-in" maxlength="16" autocomplete="off" spellcheck="false" placeholder="3 à 16 caractères"><p class="ce" id="cn-err"></p><div class="cr"><button class="btn sec" id="cn-no">Plus tard</button><button class="btn pri" id="cn-ok">Valider</button></div>');
+      const inp = $('cn-in'); inp.value = chal.nick || ''; setTimeout(() => inp.focus(), 50);
+      const go = async () => { const r = await chalCall('/nick', { nick: inp.value, token: chal.token }); if (r.ok) { chal.nick = r.nick; store.set(CHAL_KEY, chal); chalClose(); res(true); } else $('cn-err').textContent = CHAL_ERR[r.err] || 'Erreur : ' + r.err; };
+      $('cn-ok').onclick = go; inp.onkeydown = e => { if (e.key === 'Enter') go(); }; $('cn-no').onclick = () => { chalClose(); res(false); };
+    });
+  }
+  const movesOfP = p => p.hist.slice(1).map((h, i) => [h.vx - p.hist[i].vx, h.vy - p.hist[i].vy]);
+  async function chalSend(T, p) {
+    const moves = movesOfP(p);
+    if (!chal.nick && !(await askNick('Choisis ton surnom pour enregistrer ta victoire. Il apparaîtra au classement du challenge.'))) return null;
+    return chalCall('/win', { nick: chal.nick, token: chal.token, track: T.id, moves });
+  }
+  const fdate = t => new Date(t).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' });
+  async function boardOpen() {
+    const shell = b => { chalBox('<div class="disp ct">Challenge de la reine</div>' + b); const x = $('cb-x'); if (x) x.onclick = chalClose; };
+    shell('<p>Chargement du classement…</p><div class="cr"><button class="btn sec" id="cb-x">Fermer</button></div>');
+    const r = await chalCall('/board'); if (!$('chal-ov') || $('chal-ov').hidden) return;
+    if (r.err) { shell('<p>' + (CHAL_ERR[r.err] || 'Classement indisponible.') + '</p><div class="cr"><button class="btn sec" id="cb-x">Fermer</button></div>'); return; }
+    const c = r.challenge, rows = r.top.slice(0, 8).map((e, i) => '<tr' + (e.nick === chal.nick ? ' class="me"' : '') + '><td>' + (i + 1) + '</td><td>' + esc(e.nick) + '</td><td>' + e.n + ' coups</td><td>' + fdate(e.at) + '</td></tr>').join('');
+    const st = c.open ? 'Challenge n°' + c.id + ', ouvert depuis le ' + fdate(c.openedAt) + ". Il se termine quand quelqu'un égale le Stratège : " + c.par + ' coups.'
+      : 'Challenge n°' + c.id + ' terminé le ' + fdate(c.closedAt) + ' : ' + esc(c.winner) + ' a égalé le Stratège en ' + c.par + ' coups. Classement final :';
+    shell('<p>' + st + '</p>' + (rows ? '<table>' + rows + '</table>' : "<p><b>Personne n'a encore terminé la reine.</b></p>") +
+      '<div class="cr"><span class="cm">' + (chal.nick ? 'Ton surnom : <b>' + esc(chal.nick) + '</b>' : '') + '</span><button class="btn sec" id="cb-n">' + (chal.nick ? 'Changer' : 'Choisir mon surnom') + '</button><button class="btn pri" id="cb-x">Fermer</button></div>');
+    $('cb-n').onclick = async () => { await askNick(); boardOpen(); };
+  }
+  let buyWhy = 'locked', buyFrom = 'home';
+  const paid = () => { if (owned()) return true; lockShow('locked'); return false; };
+  function lockShow(why) { buyWhy = why || 'locked'; if (V !== 'buy') buyFrom = V; go('buy'); }
   const trialText = () => daysLeft() === 0 ? 'Essai terminé' : 'Essai : ' + plural(daysLeft(), 'jour') + ' restant' + (daysLeft() > 1 ? 's' : '');
   // ----- Clé de déblocage (3 appareils par clé) -----
   const LIC_ON = false, LIC_BUY_URL = 'https://buy.stripe.com/9B65kDbqA3xV3ide4h8so00', LIC_API = 'https://course-au-trait-cles.gemma-antoine-a3b.workers.dev/api';
@@ -1394,15 +1466,16 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     draw();
   }
   function homeUI() {
-    $('hm-trial').hidden = !TRIAL_ON || trial.bought; $('hm-trial-t').textContent = trialText();
-    $('hm-trial').classList.toggle('warn', !trial.bought && daysLeft() <= 3);
+    $('hm-edit').classList.toggle('lkd', !owned());
+    $('hm-trial').hidden = owned(); $('hm-trial-t').textContent = 'Jeu complet : 4,99 €';
+    $('hm-trial').classList.remove('warn');
   }
 
   // ---------- Mon parcours : on coche les pistes de chaque niveau ----------
-  const LVC = ['#2f8f5b', '#b88a12', '#d2641c', '#a1241b'];
+  const LVC = ['#2f8f5b', '#b88a12', '#d2641c', '#a1241b', '#3b3f58', '#7a4fd0'];
   let parc = (() => { const o = store.get(KEY.parc) || {}; return { ids: Array.isArray(o.ids) ? o.ids : null, lvl: o.lvl >= 0 && o.lvl <= 4 ? o.lvl : 0 }; })();
   const saveParc = () => store.set(KEY.parc, { ids: parc.ids, lvl: parc.lvl });
-  const parcList = () => BUILTIN.map(d => d.id).filter(id => parc.ids.includes(id));
+  const parcList = () => BUILTIN.map(d => d.id).filter(id => parc.ids.includes(id) && !lockOf(byId[id]));
   function starsSvg(n, w, h, label) {
     let s = '<svg width="' + w + '" height="' + h + '" viewBox="0 0 44 14" role="img" aria-label="' + label + '">';
     for (let i = 0; i < 3; i++) s += '<path transform="translate(' + (i * 15) + ' 0)" d="' + STAR + '" ' + (i < n ? 'fill="#d9961a"' : 'fill="none" stroke="#bccde8" stroke-width="1.2"') + '/>';
@@ -1430,16 +1503,20 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   }
   function tileHtml(T, vsm) {
     const st = starsOf(T), r = rec[T.id];
-    const sc = st ? starsSvg(st, 44, 14, st + ' étoiles sur 3') + '<span>' + plural(r.n, 'coup') + '</span>' : '<span>' + (T.par ? 'à battre : ' + T.par : 'à découvrir') + '</span>';
+    const lk = lockOf(T);
+    let sc = st ? starsSvg(st, 44, 14, st + ' étoiles sur 3') + '<span>' + plural(r.n, 'coup') + '</span>' : '<span>' + (T.par ? 'à battre : ' + T.par : 'à découvrir') + '</span>';
+    if (isImp(T) && T.par) sc = impWon[T.id] ? '<span style="color:var(--ok);font-weight:700">✓ gagnée · ' + impWon[T.id] + '</span>' : '<span>gagner en ' + (T.par + impMargin(T)) + '</span>';
+    if (lk) sc = '<span>🔒 ' + (lk === 'reine' ? 'gagne les 10' : 'jeu complet') + '</span>';
     const el = document.createElement(vsm ? 'button' : 'label'); el.className = 'tile';
     el.innerHTML = (vsm ? '' : '<input type="checkbox"><span class="bx" aria-hidden="true"></span>') + '<canvas></canvas><b></b><div class="sc">' + sc + '</div>';
     el.querySelector('b').textContent = T.name; drawThumb(T, el.querySelector('canvas'));
+    if (lk) { el.classList.add('lk'); el.addEventListener('click', e => { e.preventDefault(); e.stopImmediatePropagation(); lockShow(lk); }, true); }
     return el;
   }
   function updMap() {
     const vsm = !!(vs.adv || vs.all || vs.pick), n = parcList().length;
     WORLDS.forEach((w, i) => { const c = $('mp-tabs').children[i].querySelector('small'); c.textContent = vsm ? '' : w.tracks.filter(d => parc.ids.includes(d.id)).length + '/' + w.tracks.length; });
-    const by = WORLDS.map(w => w.tracks.filter(d => parc.ids.includes(d.id)).length), parts = WORLDS.map((w, i) => by[i] ? by[i] + ' ' + w.name.toLowerCase() : '').filter(Boolean);
+    const by = WORLDS.map(w => w.tracks.filter(d => parc.ids.includes(d.id) && !lockOf(byId[d.id])).length), parts = WORLDS.map((w, i) => by[i] ? by[i] + ' ' + w.name.toLowerCase() : '').filter(Boolean);
     $('mp-sum').textContent = n ? plural(n, 'piste') + ' dans ton parcours · ' + parts.join(' · ') : 'Coche au moins une piste.';
     if (!vsm && (parc.lvl === 2 || parc.lvl === 3)) { const t = document.createElement('span'); t.className = 'tipl'; t.textContent = '💡 allumé : un indice si tu bloques'; $('mp-sum').appendChild(t); }
     $('mp-play').disabled = !n; $('mp-play').style.opacity = n ? 1 : .4;
@@ -1456,7 +1533,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
       b.addEventListener('click', () => { parc.lvl = i; saveParc(); buildMap(); }); tb.appendChild(b);
     });
     const grid = $('mp-grid'); grid.innerHTML = '';
-    if (L < 4) WORLDS[L].tracks.forEach(d => {
+    grid.classList.toggle('g5', L < WORLDS.length && WORLDS[L].tracks.length > 6); if (L < WORLDS.length) WORLDS[L].tracks.forEach(d => {
       const T = byId[d.id], el = tileHtml(T, vsm);
       if (vsm) el.addEventListener('click', () => { if (vs.pick) pickTrack(T); else if (vs.all) vsAll(T); else { playFrom = 'map'; startSolo(T); } });
       else { const cb = el.querySelector('input'); cb.checked = parc.ids.includes(d.id); cb.setAttribute('aria-label', T.name);
@@ -1471,13 +1548,13 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
       if (custom) { const el = tileHtml(custom, true); el.querySelector('b').textContent = 'Ma piste'; el.addEventListener('click', () => { if (vs.pick) pickTrack(custom); else { playFrom = 'map'; startSolo(custom); } }); grid.appendChild(el); }
       const side = document.createElement('div'); side.style.cssText = 'display:flex;flex-direction:column;gap:10px;align-items:flex-start;padding:8px 4px;font-size:14px;color:var(--muted)';
       side.innerHTML = '<span>' + (custom ? 'Touche ta piste pour la jouer.' : 'Dessine ta propre piste, puis joue-la.') + '</span>';
-      const eb = document.createElement('button'); eb.className = 'btn sec'; eb.style.cssText = 'height:40px;padding:0 14px;font-size:14px'; eb.textContent = 'Dessiner une piste'; eb.addEventListener('click', () => { if (guard()) { editFrom = 'map'; go('edit'); } });
+      const eb = document.createElement('button'); eb.className = 'btn sec'; eb.style.cssText = 'height:40px;padding:0 14px;font-size:14px'; eb.textContent = 'Dessiner une piste'; eb.addEventListener('click', () => { if (paid()) { editFrom = 'map'; go('edit'); } });
       side.appendChild(eb); grid.appendChild(side);
     }
-    $('mp-bar').style.display = !vsm && L < 4 ? 'flex' : 'none'; $('v-map').classList.toggle('nobar', !(!vsm && L < 4));
+    $('mp-bar').style.display = !vsm && L < WORLDS.length ? 'flex' : 'none'; $('v-map').classList.toggle('nobar', !(!vsm && L < WORLDS.length));
     $('mp-stars').textContent = String(totalStars()); $('mp-max').textContent = String(tracks.length * 3);
-    $('mp-sc').hidden = vsm; $('mp-prev').hidden = !vsm; $('mp-title').style.left = vsm ? '60px' : '24px'; $('mp-vs').hidden = !(vs.adv || vs.all || vs.pick); if (vs.pick) { $('mp-vs-t').textContent = vs.pick.label || 'Changer de piste'; if (!vs.pick.label) $('mp-vs').hidden = true; } else if (vs.adv) $('mp-vs-t').textContent = VS_TXT.duelVs + ' ' + VS_ROSTER.find(r => r.id === vs.adv).name; else if (vs.all) $('mp-vs-t').textContent = VS_TXT.all.title; $('mp-trial').hidden = !TRIAL_ON || trial.bought; $('mp-trial-t').textContent = trialText().replace(/ restants?$/, ''); $('mp-go').textContent = TRIAL_ON && !trial.bought ? 'Mes résultats' : 'Voir mes résultats';
-    $('mp-trial').classList.toggle('warn', !trial.bought && daysLeft() <= 3);
+    $('mp-sc').hidden = vsm; $('mp-prev').hidden = !vsm; $('mp-title').style.left = vsm ? '60px' : '24px'; $('mp-vs').hidden = !(vs.adv || vs.all || vs.pick); if (vs.pick) { $('mp-vs-t').textContent = vs.pick.label || 'Changer de piste'; if (!vs.pick.label) $('mp-vs').hidden = true; } else if (vs.adv) $('mp-vs-t').textContent = VS_TXT.duelVs + ' ' + VS_ROSTER.find(r => r.id === vs.adv).name; else if (vs.all) $('mp-vs-t').textContent = VS_TXT.all.title; $('mp-trial').hidden = owned() || vsm; $('mp-board').hidden = !(WORLDS[parc.lvl] && WORLDS[parc.lvl].id === 'w6'); $('mp-trial-t').textContent = '🔓 Débloquer le jeu'; $('mp-go').textContent = TRIAL_ON && !trial.bought ? 'Mes résultats' : 'Voir mes résultats';
+    $('mp-trial').classList.remove('warn'); $('mp-trial').style.cursor = 'pointer';
     updMap();
   }
 
@@ -1517,6 +1594,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
   const canPlay = () => V === 'play' && !G.over && (mode !== 'net' || duelPlaying()) && !me().won;
   function startSolo(T) {
     if (!guard()) return;
+    const lk = lockOf(T); if (lk) { lockShow(lk); return; }
     mode = 'solo'; hunt = null; huntOf(T); beginGame(T, 1); vsLiveStart(T); go('play');
   }
   // ---------- Indices (pistes Difficile et Expert) ----------
@@ -1552,6 +1630,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     if (revTour) revStop('');
     if (revStep) revStepEnd();
     const o = gSel(); if (!o || o.crash) return;
+    if (o.finish && mode === 'solo' && !owned() && cur && cur.world === 'w2') { sfx('crash'); lockShow('finish'); return; }
     const p = me();
     const from = p.pts[p.pts.length - 1];
     p.pts.push({ x: o.F.x, y: o.F.y }); fxMove(G.cur, from, o.F); p.hist.push({ x: o.F.x, y: o.F.y, vx: o.vx, vy: o.vy }); p.lens.push(Math.hypot(o.vx, o.vy));
@@ -1704,6 +1783,21 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     if (settings.challenge) { const ss = ssOf(T), nm = ss.learned ? "le Carnet" : "le Fonceur", Nm = nm[0].toUpperCase() + nm.slice(1);
       note.push(ss.status === 'arrived' ? (n < ss.n ? 'Tu bats ' + nm + ', qui arrive en ' + plural(ss.n, 'coup') + '.' + (ss.learned ? ' Il a pourtant appris pendant ' + ss.ep.toLocaleString('fr-FR') + ' essais.' : '') : n === ss.n ? 'Égalité avec ' + nm + ' (' + plural(ss.n, 'coup') + ').' + (ss.learned ? ' Il a appris pendant ' + ss.ep.toLocaleString('fr-FR') + ' essais.' : '') : Nm + ' arrive en ' + plural(ss.n, 'coup') + ' : ' + 'il' + ' te bat cette fois.') : ss.learned ? Nm + " n'arrive pas." : "Le Fonceur n'arrive pas : il ne voit que " + settings.depth + ' coups devant lui.'); }
     const eff = effortOf(T); note.push("Le Stratège " + (T.par ? 'trouve le meilleur trajet en ' + plural(T.par, 'coup') + ', après avoir testé ' : 'a testé ') + eff.pos.toLocaleString('fr-FR') + ' positions' + (T.par ? '' : ' pour le trouver') + '. Toi : ' + plural(n, 'coup') + '.');
+    if (isImp(T) && !vs.adv) {
+      const lim = T.par + impMargin(T), ok = n <= lim, was = impCount();
+      if (ok && (!impWon[T.id] || n < impWon[T.id])) { impWon[T.id] = n; store.set(IMP_KEY, impWon); }
+      if (ok || T.world === 'w6') { const pp = p; setTimeout(async () => { const r = await chalSend(T, pp); const el = $('e-line'); if (!r || !el) return; el.textContent += r.err ? ' ' + (CHAL_ERR[r.err] || '') : T.world === 'w6' ? ' Enregistré au classement : ' + r.n + ' coups.' : ' Victoire enregistrée au nom de ' + chal.nick + '.'; }, 1500); }
+      const now = impCount(), all = impTracks().length;
+      sfx('win');
+      showEnd({ kick: trackLabel(T), title: ok ? 'Gagné en ' + n + ' coups !' : 'Arrivé en ' + n + ' coups', color: ok ? 'var(--ok)' : '#c25a0a', stars: st, pill,
+        line: T.world === 'w6' ? (ok ? 'Tu as égalé le Stratège sur la reine : ' + T.par + ' coups.' : 'Sur la reine, il faut égaler le Stratège : ' + T.par + ' coups. Encore ' + plural(n - lim, 'coup') + ' de trop.')
+          : ok ? 'Il fallait ' + lim + ' coups au plus. Pistes impossibles gagnées : ' + now + ' sur ' + all + '.' + (now === all && was < all ? ' La reine est débloquée !' : '')
+          : 'Pour gagner, il faut ' + lim + ' coups au plus (Stratège ' + T.par + ' + ' + impMargin(T) + '). Encore ' + plural(n - lim, 'coup') + ' de trop.',
+        a: { label: 'Rejouer', icon: 'redo', fn: () => { beginGame(T, 1); go('play'); } },
+        b: nx ? { label: 'Piste suivante', icon: 'arrow', fn: () => startSolo(nx) } : { label: 'Mon parcours', fn: playBack },
+        c: T.world === 'w6' ? { label: 'Classement', fn: boardOpen } : nx ? { label: 'Mon parcours', fn: playBack } : null });
+      return;
+    }
     if (vs.adv) { sfx('win'); vsDuel(T, p, n); return; }
     sfx('win');
     if (!settings.challenge) { huntArrive(T, p, n, st, prev, record); return; }
@@ -1839,7 +1933,14 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     $('s-lic').style.display = trial.bought && trial.key ? 'flex' : 'none';
     $('t-info').textContent = trial.bought ? 'Jeu acheté.' : daysLeft() === 0 ? 'Essai terminé.' : 'Essai : encore ' + plural(daysLeft(), 'jour') + '.';
   }
-  function buyUI() { $('b-note').textContent = ''; $('b-days').textContent = TRIAL_DAYS; }
+  function buyUI() {
+    $('b-note').textContent = ''; const R = buyWhy === 'reine';
+    $('b-title').textContent = buyWhy === 'finish' ? 'Si près du but !' : R ? 'La reine se mérite' : 'Débloque tout le jeu';
+    $('bu-text').textContent = buyWhy === 'finish' ? "La ligne d'arrivée des pistes Moyen est réservée au jeu complet, comme les niveaux Difficile, Expert et les 10 pistes impossibles. Tes records et ton parcours sont gardés."
+      : R ? 'Gagne les 10 pistes impossibles pour la débloquer. Tu en as gagné ' + impCount() + ' sur ' + impTracks().length + '.'
+      : 'Le niveau Facile est gratuit. Le reste est dans le jeu complet : les niveaux Moyen à Expert, les 10 pistes impossibles, les IA, les défis et le dessin de pistes. Tes records et ton parcours sont gardés.';
+    $('b-buy').hidden = R || owned(); $('b-restore').parentNode.style.display = R || owned() ? 'none' : 'flex';
+  }
 
   // ---------- Éditeur ----------
   let eCells = new Uint8Array(NX * NY), eStart = null, tool = 'road', brush = 2, lastCell = null, validated = null, eTr = null, eMsg = '';
@@ -2239,6 +2340,7 @@ function effortOf(T) {
   function bText(t, html) { const el = $('b-text'); if (html) el.innerHTML = t; else el.textContent = t; }
   function aiEnter() {
     const all = allTracks(); if (ai.ti >= all.length) ai.ti = 2;
+    if (aiLock(all[ai.ti])) ai.ti = Math.max(0, all.findIndex(t => !aiLock(t)));
     mode = 'solo'; cur = all[ai.ti]; beginGame(cur, 1);
     setChar(ai.ch);
     if (!seen.guide) { seen.guide = true; saveSeen(); setTimeout(guideOpen, 200); }
@@ -2266,12 +2368,12 @@ function effortOf(T) {
   function pickOpen(from, apply, label) { vs.pick = { from, apply, label: label || '' }; go('map'); }
   function pickTrack(T) { const P = vs.pick; vs.pick = false; if (P) P.apply(T); }
   function pickBack() { const P = vs.pick; vs.pick = false; go(P ? P.from : 'home'); }
-  function aiPickTrack(T) { const i = allTracks().indexOf(T); if (i >= 0) ai.ti = i; go('ai'); }
+  function aiPickTrack(T) { if (aiLock(T)) { lockShow(aiLock(T)); return; } const i = allTracks().indexOf(T); if (i >= 0) ai.ti = i; go('ai'); }
   function aiPickOpen() { pickOpen('ai', aiPickTrack, document.querySelector('#hm-ai b').textContent); }
   // pastille « ● Niveau · Piste ▾ »
   function pillFill(el, T) { const wi = WORLDS.findIndex(w => w.tracks.some(d => d.id === T.id)); el.innerHTML = '<i style="width:10px;height:10px;border-radius:50%;flex:none;background:' + (wi >= 0 ? LVC[wi] : '#5b6b86') + '"></i><span></span>' + '<svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true" fill="none" stroke="#2b323d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M1.5 1.5L6 6.5l4.5-5"/></svg>'; el.querySelector('span').textContent = trackLabel(T); }
   function aiTrack(d) {
-    const all = allTracks(); ai.ti = (ai.ti + d + all.length) % all.length;
+    const all = allTracks(); let g = 0; do { ai.ti = (ai.ti + (d || 1) + all.length) % all.length; } while (aiLock(all[ai.ti]) && ++g < all.length);
     cur = all[ai.ti]; beginGame(cur, 1); aiReset();
   }
   function aiReset() {
@@ -4417,7 +4519,7 @@ function effortOf(T) {
   const on = (id, fn) => $(id).addEventListener('click', fn);
   on('hm-play', () => { if (guard()) go('map'); });
   on('hm-duo', () => { if (guard()) go('duo'); });
-  on('hm-edit', () => { if (guard()) { editFrom = 'home'; go('edit'); } });
+  on('hm-edit', () => { if (paid()) { editFrom = 'home'; go('edit'); } });
   on('hm-ai', () => { if (guard()) { seen.ai = true; saveSeen(); go('ai'); } });
   const soon = msg => { const d = document.createElement('div'); d.textContent = msg; d.style.cssText = 'position:absolute;left:50%;bottom:70px;transform:translateX(-50%);z-index:30;background:#1b2331;color:#fff;padding:10px 18px;border-radius:12px;font-weight:700;font-size:15px'; $('stage').appendChild(d); setTimeout(() => d.remove(), 2400); };
   on('hm-vs', () => { if (!guard()) return; if (seen.ai || seen.skip) startVs(); else { $('adv-skip').checked = false; modal('v-adv'); } });
@@ -4718,7 +4820,7 @@ function effortOf(T) {
   });
   on('mp-back', () => go('home'));
   on('mp-prev', () => { if (vs.pick) pickBack(); else if (vs.adv || vs.all) go('vs'); else go('home'); });
-  on('mp-all', () => { if (!WORLDS[parc.lvl]) return; const ids = WORLDS[parc.lvl].tracks.map(d => d.id); parc.ids = parc.ids.concat(ids.filter(id => !parc.ids.includes(id))); saveParc(); buildMap(); });
+  on('mp-all', () => { if (!WORLDS[parc.lvl]) return; const ids = WORLDS[parc.lvl].tracks.map(d => d.id).filter(id => !lockOf(byId[id])); parc.ids = parc.ids.concat(ids.filter(id => !parc.ids.includes(id))); saveParc(); buildMap(); });
   on('mp-none', () => { if (!WORLDS[parc.lvl]) return; const ids = WORLDS[parc.lvl].tracks.map(d => d.id); parc.ids = parc.ids.filter(id => !ids.includes(id)); saveParc(); buildMap(); });
   // ---------- Mes résultats ----------
   function buildRes() {
@@ -4806,9 +4908,9 @@ function effortOf(T) {
   on('d-hot', () => { if (!guard()) return; mode = 'duo'; beginGame(duelTrack(), 2); go('play'); });
   on('d-create', createGame); on('d-join', joinGame); on('d-start', hostStart); on('d-leave', leaveDuel);
   $('d-code').addEventListener('keydown', e => { if (e.key === 'Enter') joinGame(); });
-  on('b-home', () => go('home'));
+  on('b-home', () => go('home')); on('b-back', () => go(buyFrom && buyFrom !== 'buy' ? buyFrom : 'home'));
   on('b-buy', () => { keyOpen(); buyOpen(); }); on('b-restore', keyOpen);
-  on('hm-trial', keyOpen); on('k-go', keyGo); on('k-buy', buyOpen); on('k-x', keyClose); on('k-play', () => { keyClose(); go('home'); }); on('s-free', keyFree);
+  on('hm-trial', () => lockShow('locked')); on('mp-board', () => boardOpen()); on('mp-trial', () => lockShow('locked')); on('k-go', keyGo); on('k-buy', buyOpen); on('k-x', keyClose); on('k-play', () => { keyClose(); go('home'); }); on('s-free', keyFree);
   $('k-in').addEventListener('keydown', e => { if (e.key === 'Enter') keyGo(); });
   if (/[?&]cle\b/.test(location.search)) setTimeout(keyOpen, 400);   // lien de test : jeu/?cle ouvre la saisie de la clé
   const saveTrial = () => { store.set(KEY.trial, trial); setUI(); refresh(); };
@@ -4843,7 +4945,7 @@ function effortOf(T) {
     if (totalStars() < tracks.length * 3) tracks.forEach(T => { rec[T.id] = { n: T.par, p: [] }; }); else rec = {};
     store.set(KEY.rec, rec); setUI(); refresh();
   });
-  $('stage').querySelector('.keep').innerHTML = ['Tous les mondes et toutes les pistes', 'Dessiner et jouer tes propres pistes', ...(DUO_ON ? ['Jouer à deux, sur un ou deux téléphones'] : []), "Quelques bases de l'IA, expliquées par le jeu", 'Aucune publicité, aucun abonnement']
+  $('stage').querySelector('.keep').innerHTML = ['Les niveaux Moyen, Difficile et Expert en entier', 'Les 10 pistes impossibles, puis de nouvelles pistes chaque mois', 'La reine et son challenge, avec ton surnom au classement', 'Les IA qui apprennent, les défis et le dessin de pistes', 'Aucune publicité, aucun abonnement']
     .map(t => '<div style="display:flex;align-items:center;gap:10px;font-size:15px;margin-bottom:10px"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#12804f" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M5 13l4 4L19 7"/></svg><span>' + t + '</span></div>').join('');
 
   window.addEventListener('keydown', e => {
