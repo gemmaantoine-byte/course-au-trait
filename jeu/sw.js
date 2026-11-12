@@ -1,7 +1,7 @@
 // Course au trait – le jeu marche sans Internet une fois ouvert une première fois.
 // Page du jeu : réseau d'abord (toujours la dernière version), sinon la copie gardée.
 // Polices et icônes : copie gardée d'abord, mise à jour en arrière-plan.
-const CACHE = 'cat-v11';
+const CACHE = 'cat-v12';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => Promise.all(CORE.map(u => c.add(u).catch(() => {})))).then(() => self.skipWaiting()));
