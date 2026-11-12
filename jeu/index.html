@@ -1828,6 +1828,7 @@ BUILTIN.forEach(t => { const p = PRE[t.id]; if (p) { t.par = p[0]; t.hd = [p[1],
     showEnd0(c);
   }
   function showEnd0(c) {
+    if (!seen.played) { seen.played = true; saveSeen(); }
     $('e-kick').textContent = c.kick || '';
     const t = $('e-title'); t.textContent = c.title; t.style.color = c.color || 'var(--ok)';
     const sd = $('e-stars');
@@ -4807,6 +4808,7 @@ function effortOf(T) {
   let instEvt = null;
   const isStandalone = () => { try { return matchMedia('(display-mode: standalone)').matches || matchMedia('(display-mode: fullscreen)').matches && !document.fullscreenElement || navigator.standalone === true; } catch (e) { return false; } };
   const isIOS = () => /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const inApp = () => /FBAN|FBAV|FB_IAB|FBIOS|FB4A|Instagram/i.test(navigator.userAgent);
   const isPhone = () => { try { return matchMedia('(pointer: coarse)').matches; } catch (e) { return false; } };
   window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); instEvt = e; });
   function instOpen() {
@@ -5015,7 +5017,7 @@ function effortOf(T) {
   buildTracks();
   if (!TEST_TOOLS) $('t-box').style.display = 'none';
   if (isStandalone()) $('s-inst').style.display = 'none';
-  setTimeout(() => { if (V === 'home' && !seen.inst && isPhone() && !isStandalone() && $('v-set').hidden && $('v-adv').hidden && $('v-rules').hidden) instOpen(); }, 1500);
+  setTimeout(() => { if (V === 'home' && !seen.inst && seen.played && !inApp() && isPhone() && !isStandalone() && $('v-set').hidden && $('v-adv').hidden && $('v-rules').hidden) instOpen(); }, 1500);
   if (!DUO_ON) $('hm-duo').remove();
   new ResizeObserver(draw).observe(cv);
   if (document.fonts && document.fonts.load) document.fonts.load('700 20px Caveat').then(() => draw(), () => {});
